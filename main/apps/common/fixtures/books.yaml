@@ -1,0 +1,245 @@
+# Book
+
+- model: "book.Book"
+  pk: 1
+  fields:
+    title: "Book One Fiction"
+    author: "Conan Doyl"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 1
+    language: "Russian"
+    hardcover: 473
+    short_description: "It is a book about algorithms"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-4s7a-923b-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 2
+  fields:
+    title: "Book Two Fiction"
+    author: "Conan Doyl"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 1
+    language: "Russian"
+    hardcover: 579
+    short_description: "It is a book about algorithms"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-4s7a-927x-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 3
+  fields:
+    title: "Book Three Fiction"
+    author: "Conan Doyl"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 1
+    language: "Russian"
+    hardcover: 987
+    short_description: "It is a book about algorithms"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-4s7a-013b-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Book"
+  pk: 4
+  fields:
+    title: "Book One History"
+    author: "Joe MCtominay"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 2
+    language: "English"
+    hardcover: 567
+    short_description: "It is a book about history"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-4s7a-013b-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 5
+  fields:
+    title: "Book Two History"
+    author: "Joe MCtominay"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 2
+    language: "English"
+    hardcover: 786
+    short_description: "It is a book about history"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-4s7a-094c-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 6
+  fields:
+    title: "Book Three History"
+    author: "Joe MCtominay"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 2
+    language: "English"
+    hardcover: 173
+    short_description: "It is a book about history"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-9c7h-013b-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 7
+  fields:
+    title: "Book Four History"
+    author: "Joe MCtominay"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 2
+    language: "English"
+    hardcover: 908
+    short_description: "It is a book about history"
+    published_date: "2019-01-01"
+    owner: 2
+    guid: "987x7dd9-5d45-9c7h-015g-fd032ca10eaz"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Book"
+  pk: 8
+  fields:
+    title: "Book One Romance"
+    author: "John Kennedy"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 3
+    language: "Greek"
+    hardcover: 913
+    short_description: "It is a book about Romance"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-5d45-9c7h-015g-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 9
+  fields:
+    title: "Book Two Romance"
+    author: "John Kennedy"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 3
+    language: "Greek"
+    hardcover: 921
+    short_description: "It is a book about Romance"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-5d45-9c7h-078u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 10
+  fields:
+    title: "Book One Business"
+    author: "James Clear"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 4
+    language: "English"
+    hardcover: 549
+    short_description: "It is a book about Business"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-7g6f-9c7h-078u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 11
+  fields:
+    title: "Book Two Business"
+    author: "Shanti Jee"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 4
+    language: "English"
+    hardcover: 549
+    short_description: "It is a book about Business"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-7g6f-7z0q-078u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 12
+  fields:
+    title: "Book Three Business"
+    author: "James Clear"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 4
+    language: "English"
+    hardcover: 781
+    short_description: "It is a book about Business"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-8uc7-9c7h-078u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Book"
+  pk: 13
+  fields:
+    title: "Book One Adventure"
+    author: "Sonny Xal"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 5
+    language: "Uzbek"
+    hardcover: 321
+    short_description: "It is a book about Adventure"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-7vh7-078u-0x8u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Book"
+  pk: 14
+  fields:
+    title: "Book Two Adventure"
+    author: "Sonny Xal"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 5
+    language: "Uzbek"
+    hardcover: 321
+    short_description: "It is a book about Adventure"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-8b7v-078u-0x8u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Book"
+  pk: 5
+  fields:
+    title: "Book Three Adventure"
+    author: "You Ju"
+    thumbnail: "https://m.media-amazon.com/images/I/41Y7p9wU2GL._SX260_.jpg"
+    category: 5
+    language: "Uzbek"
+    hardcover: 531
+    short_description: "It is a book about Adventure"
+    published_date: "2019-02-02"
+    owner: 2
+    guid: "987x7dd9-8b7v-078u-0x8u-fd032ca10pdi"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"

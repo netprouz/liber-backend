@@ -1,0 +1,164 @@
+#Users
+- model: "account.User"
+  pk: 1
+  fields:
+    phone_number: "998999999919"
+    first_name: "Superuser"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "Superuser"
+    email: "superuser@mail.ru"
+    gender: "male"
+    date_of_birth: "1999-01-01"
+    date_joined: "1999-01-01"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: True
+    is_active: True
+    is_moderator: True
+    is_superuser: True
+    is_deleted: False
+    guid: "132c7cd0-5d45-4e7d-923b-fd032ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "account.User"
+  pk: 2
+  fields:
+    phone_number: "998998888888"
+    first_name: "user one"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user one"
+    email: "user_one@mail.ru"
+    gender: "female"
+    date_of_birth: "1999-01-01"
+    date_joined: "1999-01-01"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: True
+    is_superuser: False
+    guid: "132c7cda-5d45-4e7d-923b-fd032ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "account.User"
+  pk: 3
+  fields:
+    phone_number: "998997777777"
+    first_name: "user two"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user two"
+    email: "user_two@mail.ru"
+    gender: "male"
+    date_of_birth: "1999-01-02"
+    date_joined: "1999-01-02"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: False
+    is_superuser: False
+    guid: "532c7cd0-5d45-4e7d-923b-fd032ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "account.User"
+  pk: 4
+  fields:
+    phone_number: "998996666666"
+    first_name: "user three"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user three"
+    email: "user_three@mail.ru"
+    gender: "male"
+    date_of_birth: "1999-01-01"
+    date_joined: "1999-01-01"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: False
+    is_superuser: False
+    guid: "132c7cd0-5d45-4e1d-923b-fd032ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "account.User"
+  pk: 5
+  fields:
+    phone_number: "998996666661"
+    first_name: "user four"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user four"
+    email: "user_four@mail.ru"
+    gender: "male"
+    date_of_birth: "1999-01-02"
+    date_joined: "1999-01-02"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: False
+    is_superuser: False
+    guid: "132c7cd0-5d45-4e7d-923b-fads32ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "account.User"
+  pk: 6
+  fields:
+    phone_number: "998995555555"
+    first_name: "user five"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user four"
+    email: "user_five@mail.ru"
+    gender: "male"
+    date_of_birth: "1999-01-02"
+    date_joined: "1999-01-02"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: False
+    is_superuser: False
+    guid: "132c7cd0-5d45-4e7d-923b-gr632ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "account.User"
+  pk: 7
+  fields:
+    phone_number: "998994444444"
+    first_name: "user six"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user six"
+    email: "user_six@mail.ru"
+    gender: "female"
+    date_of_birth: "1999-01-02"
+    date_joined: "1999-01-02"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: False
+    is_superuser: False
+    guid: "132c7cd0-5d45-9y7d-923b-fd032ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "account.User"
+  pk: 8
+  fields:
+    phone_number: "998993333333"
+    first_name: "user eight"
+    profile_picture: "https://i.pinimg.com/originals/ca/13/a3/ca13a3deb302d00a160325e34bac2170.jpg"
+    last_name: "user eight"
+    email: "user_eight@mail.ru"
+    gender: "female"
+    date_of_birth: "1999-01-02"
+    date_joined: "1999-01-02"
+    password: "pbkdf2_sha256$30000$rirjQwUOYtl8$EB8NuU4D9x005OMLkCZ9NsTX9TpZ3oQLjsg9gPqIc2Q="
+    is_staff: False
+    is_active: True
+    is_moderator: False
+    is_superuser: False
+    guid: "132c7cd0-5d98-4d7d-923b-fd032ca10eff"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
