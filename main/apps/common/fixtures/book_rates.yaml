@@ -1,0 +1,410 @@
+# Rate
+
+- model: "book.Rate"
+  pk: 1
+  fields:
+    point: 5
+    book: 1
+    owner: 2
+    guid: "e282b934-0e857h65-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 2
+  fields:
+    point: 3
+    book: 1
+    owner: 3
+    guid: "e282b934-0e857h64-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 3
+  fields:
+    point: 4
+    book: 1
+    owner: 4
+    guid: "e282b934-0e857h64-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 4
+  fields:
+    point: 5
+    book: 1
+    owner: 5
+    guid: "e282b934-0e857h64-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 5
+  fields:
+    point: 5
+    book: 15
+    owner: 2
+    guid: "e282b874-0e857h65-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 6
+  fields:
+    point: 5
+    book: 15
+    owner: 3
+    guid: "e282b934-0e857h64-a4e2-d5dde29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 7
+  fields:
+    point: 5
+    book: 15
+    owner: 5
+    guid: "e282b934-0e857h64-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 8
+  fields:
+    point: 5
+    book: 15
+    owner: 6
+    guid: "e272b934-0e857h64-a4e2-d5bbe29f35a3"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 9
+  fields:
+    point: 5
+    book: 14
+    owner: 2
+    guid: "a45bf6a4-874e-4b82-83f2-bf3b2290c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 10
+  fields:
+    point: 4
+    book: 14
+    owner: 3
+    guid: "a45bfd74-874e-4b82-83f2-bf3b2290c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 11
+  fields:
+    point: 3
+    book: 14
+    owner: 4
+    guid: "9d5bfd74-874e-4b82-83f2-bf3b2290c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 12
+  fields:
+    point: 5
+    book: 13
+    owner: 5
+    guid: "9d5bfd74-874e-4b82-83f2-bf3b2240c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 13
+  fields:
+    point: 5
+    book: 13
+    owner: 2
+    guid: "9d5bfd74-874e-8h5d-83f2-bf3b2240c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 14
+  fields:
+    point: 3
+    book: 13
+    owner: 3
+    guid: "9d9afd74-874e-8h5d-83f2-bf3b2240c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 15
+  fields:
+    point: 5
+    book: 12
+    owner: 2
+    guid: "019afd74-874e-8h5d-83f2-bf3b2240c4e7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 16
+  fields:
+    point: 5
+    book: 12
+    owner: 3
+    guid: "019afd74-874e-8h5d-83f2-bf3b22409k7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 17
+  fields:
+    point: 4
+    book: 12
+    owner: 4
+    guid: "019aaz74-874e-8h5d-83f2-bf3b22409k7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 18
+  fields:
+    point: 4
+    book: 12
+    owner: 5
+    guid: "019dzg74-874e-8h5d-83f2-bf3b22409k7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 19
+  fields:
+    point: 5
+    book: 12
+    owner: 6
+    guid: "019dzg74-874e-8h5d-83f2-zf3b22409k7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 20
+  fields:
+    point: 5
+    book: 12
+    owner: 7
+    guid: "019dzg74-9k8j-8h5d-83f2-zf3b22409k7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 21
+  fields:
+    point: 5
+    book: 12
+    owner: 8
+    guid: "019zzg74-9k8j-8h5d-83f2-zf3b22409k7"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 22
+  fields:
+    point: 5
+    book: 11
+    owner: 2
+    guid: "bc369bc2-e42d-4017-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 23
+  fields:
+    point: 1
+    book: 11
+    owner: 3
+    guid: "bc369bc2-8z2d-4017-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 24
+  fields:
+    point: 2
+    book: 11
+    owner: 4
+    guid: "bc369bc2-8z2d-4017-93e7-kzu078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 25
+  fields:
+    point: 5
+    book: 11
+    owner: 8
+    guid: "bc369bc2-8z2d-8jz7-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 26
+  fields:
+    point: 4
+    book: 10
+    owner: 5
+    guid: "bc369bc2-8z2d-4017-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 27
+  fields:
+    point: 5
+    book: 10
+    owner: 6
+    guid: "bc369bc2-zhfd-4017-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 28
+  fields:
+    point: 5
+    book: 10
+    owner: 7
+    guid: "bc8k7bc2-zhfd-4017-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 29
+  fields:
+    point: 5
+    book: 10
+    owner: 8
+    guid: "zndh9bc2-zhfd-4017-93e7-23e078f8ef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 30
+  fields:
+    point: 5
+    book: 9
+    owner: 2
+    guid: "zndh9bc2-zhfd-4017-93e7-23e078zkef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 31
+  fields:
+    point: 5
+    book: 9
+    owner: 3
+    guid: "zndh9bc2-z0o8-4017-93e7-23e078zkef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 32
+  fields:
+    point: 5
+    book: 9
+    owner: 4
+    guid: "zndh8zc2-zhfd-4017-93e7-23e078zkef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 33
+  fields:
+    point: 5
+    book: 8
+    owner: 8
+    guid: "zyhh8zc2-zhfd-4017-93e7-23e078zkef40"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 34
+  fields:
+    point: 5
+    book: 7
+    owner: 7
+    guid: "7a427233-14b4-46e9-83ac-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 35
+  fields:
+    point: 5
+    book: 6
+    owner: 6
+    guid: "7a8j7233-14b4-46e9-83ac-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 36
+  fields:
+    point: 5
+    book: 5
+    owner: 5
+    guid: "zdfj7233-14b4-46e9-83ac-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 37
+  fields:
+    point: 5
+    book: 4
+    owner: 4
+    guid: "7a8j7233-14b4-46e9-9k7g-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+
+- model: "book.Rate"
+  pk: 38
+  fields:
+    point: 5
+    book: 3
+    owner: 3
+    guid: "7a8j7233-asda-46e9-9k7g-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 39
+  fields:
+    point: 5
+    book: 2
+    owner: 2
+    guid: "7a8j7233-0o8y-46e9-9k7g-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "book.Rate"
+  pk: 40
+  fields:
+    point: 5
+    book: 1
+    owner: 8
+    guid: "7a8j72zm-0o8y-46e9-9k7g-a1aab6e631e9"
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"

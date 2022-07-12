@@ -1,0 +1,51 @@
+# Category
+
+- model: "category.Category"
+  pk: 1
+  fields:
+    title: "Category One Fiction"
+    thumbnail: "https://png.pngtree.com/png-clipart/20200709/original/pngtree-hexagon-category-png-image_2142025.jpg"
+    guid: "987x7dd9-5d45-4s7a-923b-fd032ca10eff"
+    owner: 2
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "category.Category"
+  pk: 2
+  fields:
+    title: "Category Two History"
+    thumbnail: "https://png.pngtree.com/png-clipart/20200709/original/pngtree-hexagon-category-png-image_2142025.jpg"
+    guid: "987x7dd0-5d45-4s7a-923b-xs032ca21eff"
+    owner: 2
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "category.Category"
+  pk: 3
+  fields:
+    title: "Category Three Romance"
+    thumbnail: "https://png.pngtree.com/png-clipart/20200709/original/pngtree-hexagon-category-png-image_2142025.jpg"
+    guid: "123x7dd0-5d45-4s7a-923b-fd032ca10eff"
+    owner: 2
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "category.Category"
+  pk: 4
+  fields:
+    title: "Category Four Business"
+    thumbnail: "https://png.pngtree.com/png-clipart/20200709/original/pngtree-hexagon-category-png-image_2142025.jpg"
+    guid: "987x7dd0-5d45-4s7a-765b-fd032ca10eff"
+    owner: 2
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
+
+- model: "category.Category"
+  pk: 5
+  fields:
+    title: "Category Five Adventure"
+    thumbnail: "https://png.pngtree.com/png-clipart/20200709/original/pngtree-hexagon-category-png-image_2142025.jpg"
+    guid: "987x7dd0-5d45-4s7a-543b-fd032ca10eff"
+    owner: 2
+    created_at: "2021-01-01 00:00:00+00:00"
+    updated_at: "2021-01-01 00:00:00+00:00"
