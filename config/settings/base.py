@@ -3,7 +3,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = 'znf0%dw+9+q8ey-*i)e9g7x+v77e#94&rn*v!%dx+1tshpxke6'
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -78,11 +78,11 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    #"DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.BasicAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
+    #    "rest_framework.authentication.BasicAuthentication",
+    #    "rest_framework.authentication.SessionAuthentication",
+    #    "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "main.apps.common.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
@@ -95,13 +95,15 @@ REST_FRAMEWORK = {
 }
 
 DATABASES = {
-    "default": {
+       "default": {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.environ["POSTGRES_HOST"],
-        "NAME": os.environ["POSTGRES_DB"],
-        "PORT": os.environ["POSTGRES_PORT"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+        "HOST": os.environ.get("POSTGRES_HOST"),
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "PORT": os.environ.get("POSTGRES_PORT"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
     }
 }
 
@@ -146,14 +148,14 @@ AUDIO = "audio"
 PERMANENT = "permanent"
 TEMPORARY = "temporary"
 
-SMS_TOKEN = os.environ["SMS_TOKEN"]
-SMS_DOMAIN = os.environ["SMS_DOMAIN"]
+SMS_TOKEN = os.environ.get("SMS_TOKEN")
+SMS_DOMAIN = os.environ.get("SMS_DOMAIN")
 
-AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
-AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
-AWS_S3_FILE_OVERWRITE = os.environ["AWS_S3_FILE_OVERWRITE"]
-DEFAULT_FILE_STORAGE = os.environ["DEFAULT_FILE_STORAGE"]
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_FILE_OVERWRITE = os.environ.get("AWS_S3_FILE_OVERWRITE")
+DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_S3_REGION_NAME = "us-east-1"
 CORS_ALLOW_HEADERS = [
@@ -177,18 +179,18 @@ CORS_ALLOW_METHODS = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 PAYCOM_SETTINGS = {
-    "KASSA_ID": os.environ["MERCHANT_ID"],  # token
+    "KASSA_ID": '6229ec614fed152a1068002a',  # token
     # TODO: TOKEN key was not declared in the docs, find out and remove if needed
-    "TOKEN": os.environ["MERCHANT_ID"],  # token
-    "SECRET_KEY": os.environ["MERCHANT_SECRET_KEY"],  # password
+    "TOKEN": os.environ.get("MERCHANT_ID"),  # token
+    "SECRET_KEY": os.environ.get("MERCHANT_SECRET_KEY"),  # password
     "ACCOUNTS": {"KEY": "order_id"},
 }
 
 PAYME_PRICE_HELPER = 100
 
 CLICK_SETTINGS = {
-    "service_id": os.environ["CLICK_SERVICE_ID"],
-    "merchant_id": os.environ["CLICK_MERCHANT_ID"],
-    "merchant_user_id": os.environ["CLICK_MERCHANT_USER_ID"],
-    "secret_key": os.environ["CLICK_SECRET_KEY"],
+    "service_id": os.environ.get("CLICK_SERVICE_ID"),
+    "merchant_id": os.environ.get("CLICK_MERCHANT_ID"),
+    "merchant_user_id": os.environ.get("CLICK_MERCHANT_USER_ID"),
+    "secret_key": os.environ.get("CLICK_SECRET_KEY"),
 }
