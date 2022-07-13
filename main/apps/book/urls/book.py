@@ -4,6 +4,11 @@ from ..views import book
 
 urlpatterns = [
     path("list/", view=book.book_list_api_view, name="book_list"),
+
+    path("new-books/", view=book.new_added_book_api_view, name="new_book_list"),
+
+    path("best-seller/", view=book.best_seller_books, name="best_seller_books"),
+
     path(
         "create/",
         view=book.book_create_api_view,

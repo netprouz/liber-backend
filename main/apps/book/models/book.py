@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from ...common.models import BaseMeta, BaseModel
 from ..managers.book import BookManager
+from autoslug import AutoSlugField
 
 
 def upload_book_cover(instance, filename):
@@ -25,6 +26,7 @@ AUDIO = settings.AUDIO
 
 class Book(BaseModel):
     title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title', null=True)
     author = models.CharField(max_length=255, blank=True)
     thumbnail = models.ImageField(blank=True, upload_to=upload_book_cover)
     category = models.ForeignKey(
@@ -42,6 +44,8 @@ class Book(BaseModel):
         related_name="books",
     )
     objects = BookManager()
+
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def update_with_types(self, data):
         book_types = data.pop("book_types")

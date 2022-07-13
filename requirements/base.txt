@@ -14,6 +14,9 @@ phonenumbers==8.12.38 # https://pypi.org/project/phonenumbers/
 django-rest-swagger==2.2.0 # https://django-rest-swagger.readthedocs.io/en/latest/
 django-storages==1.12.3 #https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#
 boto3== 1.20.46 # https://pypi.org/project/boto3/
+django-autoslug==1.9.8
+django-modeltranslation==0.18.2
+
 
 # Rest Framework
 djangorestframework==3.12.4 # https://www.django-rest-framework.org/

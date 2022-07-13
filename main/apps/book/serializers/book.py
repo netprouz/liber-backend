@@ -26,14 +26,18 @@ class BookCreateSerializer(serializers.ModelSerializer):
         fields = (
             "guid",
             "title",
+            'slug',
             "author",
             "thumbnail",
             "category",
             "language",
             "hardcover",
             "short_description",
+            'short_description_uz',
+            'short_description_ru',
             "published_date",
             "book_types",
+            
         )
 
     def validate(self, attrs):
@@ -61,11 +65,29 @@ class BookCreateSerializer(serializers.ModelSerializer):
 
 
 class BookListSerializer(serializers.Serializer):
-    guid = serializers.UUIDField()
-    title = serializers.CharField()
-    author = serializers.CharField()
-    thumbnail = serializers.ImageField()
-    rating = serializers.IntegerField(default=0)
+    category = serializers.ReadOnlyField(source='category.title')
+    created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
+    types = BookTypeSerializer(read_only=True, many=True)
+    class Meta:
+        model = Book
+        fields = (
+            'guid',
+            'title',
+            'slug',
+            'author',
+            'thumbnail',
+            'rating',
+            'category',
+            'language',
+            'short_description',
+            'short_description_uz',
+            'short_description_ru',
+            'published_date',
+            'created_at',
+            'types',
+            
+        )
+
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
@@ -84,6 +106,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "language",
             "hardcover",
             "short_description",
+            'short_description_uz',
+            'short_description_ru',
             "published_date",
             "reviews",
             "view",

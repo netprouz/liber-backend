@@ -24,7 +24,7 @@ class CategoryModelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ("guid", "thumbnail", "title", "types")
+        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "types")
 
     def create(self, validated_data):
         types = validated_data.pop("types")
@@ -39,7 +39,7 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ("guid", "thumbnail", "title", "types")
+        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "types")
 
     def get_types(self, obj):
         return obj.check_if_subscribed

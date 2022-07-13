@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Category, CategoryType
-
+# from modeltranslation.admin import TranslationAdmin, TranslationTabularInline
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("title", "guid", "owner")
@@ -18,3 +18,9 @@ class CategoryTypeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CategoryType, CategoryTypeAdmin)
+
+# class CategoryTranslationAdmin(TranslationAdmin):
+#     model = Category
+
+# admin.site.register(CategoryTranslationAdmin)
+# admin.site.register(Category, CategoryAdmin)

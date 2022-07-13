@@ -78,3 +78,21 @@ class BookDeleteAPIView(generics.DestroyAPIView):
 
 
 book_delete_api_view = BookDeleteAPIView.as_view()
+
+
+class NewAddedBook(generics.ListAPIView):
+    queryset = Book.objects.all().order_by('-created_at')
+    serializer_class = BookListSerializer
+    lookup_field = 'guid'
+
+new_added_book_api_view = NewAddedBook.as_view()
+
+from ...order.models import Order
+from django.db.models import Sum
+from main.apps.order.serializers import OrderListSerializer
+
+class BestSellerBooks(generics.ListAPIView):
+    queryset = Order.objects.annotate(quantity_sum=Sum('quantity')).order_by('-quantity_sum')[:3]
+    serializer_class = OrderListSerializer
+
+best_seller_books = BestSellerBooks.as_view()
