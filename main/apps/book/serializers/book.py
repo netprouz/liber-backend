@@ -69,7 +69,7 @@ class BookListSerializer(serializers.ModelSerializer):
     category = serializers.ReadOnlyField(source='category.title')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     types = BookTypeSerializer(read_only=True, many=True)
-    rate = serializers.IntegerField(default=0)
+    rating = serializers.IntegerField(default=0)
     class Meta:
         model = Book
         fields = (
