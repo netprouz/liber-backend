@@ -1,3 +1,4 @@
+from email.policy import default
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
@@ -68,6 +69,7 @@ class BookListSerializer(serializers.ModelSerializer):
     category = serializers.ReadOnlyField(source='category.title')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     types = BookTypeSerializer(read_only=True, many=True)
+    rate = serializers.IntegerField(default=0)
     class Meta:
         model = Book
         fields = (
