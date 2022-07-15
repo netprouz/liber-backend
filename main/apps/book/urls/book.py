@@ -7,7 +7,7 @@ urlpatterns = [
 
     path("new-books/", view=book.new_added_book_api_view, name="new_book_list"),
 
-    path("best-seller/", view=book.best_seller_books, name="best_seller_books"),
+    path("best-seller/", view=book.best_seller_books_api_view, name="best_seller_books"),
 
     path(
         "create/",

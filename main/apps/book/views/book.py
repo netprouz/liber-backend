@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
@@ -10,6 +11,9 @@ from ..serializers.book import (
     BookListSerializer,
 )
 from ..utils import count_book_view
+from ...order.models import Order
+from django.db.models import Sum
+from main.apps.order.serializers import OrderListSerializer
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -80,19 +84,44 @@ class BookDeleteAPIView(generics.DestroyAPIView):
 book_delete_api_view = BookDeleteAPIView.as_view()
 
 
-class NewAddedBook(generics.ListAPIView):
+class NewAddedBookAPIView(generics.ListAPIView):
     queryset = Book.objects.all().order_by('-created_at')
     serializer_class = BookListSerializer
     lookup_field = 'guid'
 
-new_added_book_api_view = NewAddedBook.as_view()
+new_added_book_api_view = NewAddedBookAPIView.as_view()
 
-from ...order.models import Order
-from django.db.models import Sum
-from main.apps.order.serializers import OrderListSerializer
 
-class BestSellerBooks(generics.ListAPIView):
+class BestSellerBookAPIView(generics.ListAPIView):
     queryset = Order.objects.annotate(quantity_sum=Sum('quantity')).order_by('-quantity_sum')[:3]
     serializer_class = OrderListSerializer
 
-best_seller_books = BestSellerBooks.as_view()
+best_seller_books_api_view = BestSellerBookAPIView.as_view()
+
+
+class BookCategoryFilterAPIView(generics.ListAPIView):
+    queryset = Book.objects.filter(category__id=id)
+    serializer_class = BookListSerializer
+
+book_filter_api_view = BookCategoryFilterAPIView.as_view()
+
+class AudioBooksAPIView(generics.ListAPIView):
+    queryset = Book.return_audio_books
+    serializer_class = BookListSerializer
+
+audio_book_api_view = AudioBooksAPIView.as_view()
+
+
+class OnlineBookAPIView(generics.ListAPIView):
+    queryset = Book.return_online_books
+    serializer_class = BookListSerializer
+
+online_book_api_view = OnlineBookAPIView.as_view()
+
+# class BookPublisedDateFilterAPIView(generics.ListAPIView):
+#     queryset = Book.objects.filter()
+
+
+
+
+
