@@ -50,8 +50,8 @@ class BookType(BaseModel):
         on_delete=models.CASCADE,
         related_name="types",
     )
-    electron_book = models.FileField(upload_to=upload_electron_book)
-    audio_book = models.FileField(upload_to=upload_audio_book)
+    # electron_book = models.FileField(upload_to=upload_electron_book)
+    # audio_book = models.FileField(upload_to=upload_audio_book)
     objects = BookTypeManager()
 
     class Meta(BaseMeta):
