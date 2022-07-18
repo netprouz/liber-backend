@@ -2,6 +2,9 @@ from unicodedata import category
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
+from main.apps.book.models.book_type import BookType
+from main.apps.book.serializers.book_type import BookTypeSerializer
+
 from ...common.permissions import CreatePermission  # noqa
 from ...common.permissions import UpdateDeletePermission  # noqa
 from ..models.book import Book
@@ -31,8 +34,8 @@ book_create_api_view = BookCreateAPIView.as_view()
 class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.filter_with_rates()
     serializer_class = BookListSerializer
-    filterset_fields = ["title", "author", "category__guid"]
-    search_fields = ["title", "author", "category__title"]
+    filterset_fields = ["title", "author", "category__id", "published_date"]
+    search_fields = ["title", "author", "category__title", "published_date"]
 
 
 book_list_api_view = BookListAPIView.as_view()
@@ -99,11 +102,12 @@ class BestSellerBookAPIView(generics.ListAPIView):
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
 
 
-class BookCategoryFilterAPIView(generics.ListAPIView):
-    queryset = Book.objects.filter(category__id=id)
-    serializer_class = BookListSerializer
+# class BookCategoryFilterAPIView(generics.ListAPIView):
+#     queryset = Book.objects.filter(category__id=id)
+#     serializer_class = BookListSerializer
 
-book_filter_api_view = BookCategoryFilterAPIView.as_view()
+# book_filter_api_view = BookCategoryFilterAPIView.as_view()
+
 
 class AudioBooksAPIView(generics.ListAPIView):
     queryset = Book.return_audio_books
@@ -118,10 +122,23 @@ class OnlineBookAPIView(generics.ListAPIView):
 
 online_book_api_view = OnlineBookAPIView.as_view()
 
-# class BookPublisedDateFilterAPIView(generics.ListAPIView):
-#     queryset = Book.objects.filter()
 
+class BookPulishedDateFilterAPIView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookListSerializer
+    search_fields = ["published_date"]
 
+book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
+from ...book.filters.filterprice import BookPriceRangeFilter
 
+class BookPriceRangeAPIView(generics.ListCreateAPIView):
+    queryset = BookType.objects.all()
+    serializer_class = BookTypeSerializer
+    # customized filter class
+    filter_class = BookPriceRangeFilter
+    ordering_fields = (
+        'price',
+    )
 
+book_filter_by_range_api_view = BookPriceRangeAPIView.as_view()

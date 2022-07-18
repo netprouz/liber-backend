@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from ...common.models import BaseMeta, BaseModel
 from ..managers.book_type import BookTypeManager
+from django.utils import timezone
+from django.utils.text import slugify
 
 online = settings.ONLINE
 paper = settings.PAPER
@@ -14,6 +16,18 @@ class TYPEChoices(models.TextChoices):
     ONLINE = online, _(online)
     PAPER = paper, _(paper)
     AUDIO = audio, _(audio)
+
+def upload_electron_book(instance, filename):
+    filename_without_extension, extension = os.path.splitext(filename.lower())
+    timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
+    filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
+    return f"electron_book/{filename}"
+
+def upload_audio_book(instance, filename):
+    filename_without_extension, extension = os.path.splitext(filename.lower())
+    timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
+    filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
+    return f"audio_book/{filename}"
 
 
 class BookType(BaseModel):
@@ -36,6 +50,8 @@ class BookType(BaseModel):
         on_delete=models.CASCADE,
         related_name="types",
     )
+    electron_book = models.FileField(upload_to=upload_electron_book)
+    audio_book = models.FileField(upload_to=upload_audio_book)
     objects = BookTypeManager()
 
     class Meta(BaseMeta):

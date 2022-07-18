@@ -17,7 +17,7 @@ def upload_book_cover(instance, filename):
     timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
     filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
     return f"book/{filename}"
-
+    
 
 User = get_user_model()
 ONLINE = settings.ONLINE
