@@ -17,6 +17,7 @@ from ..utils import count_book_view
 from ...order.models import Order
 from django.db.models import Sum
 from main.apps.order.serializers import OrderListSerializer
+from ...book.filters.filterprice import BookPriceRangeFilter
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -119,11 +120,11 @@ online_book_api_view = OnlineBookAPIView.as_view()
 class BookPulishedDateFilterAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookListSerializer
-    search_fields = ["published_date"]
+    search_fields = ["published_date", "category__id"]
+
 
 book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
-from ...book.filters.filterprice import BookPriceRangeFilter
 
 class BookPriceRangeAPIView(generics.ListCreateAPIView):
     queryset = BookType.objects.all()
