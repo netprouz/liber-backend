@@ -21,4 +21,10 @@ urlpatterns = [
         user.user_update_api_view,
         name="user_update",
     ),
+
+    path('register/', user.user_registration_api_view, name='register'),
+
+    path('user-login/', user.user_login_api_view, name='user-login'),
+
+    path('verify-phone/', user.user_otp_verify_api_view, name='verify-phhone'),
 ]

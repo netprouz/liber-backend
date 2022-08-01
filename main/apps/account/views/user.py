@@ -10,6 +10,8 @@ from ...common import permissions
 from ..serializers import user as user_serializer_
 from ..utils import generate_random_password, send_password_as_sms
 
+from ...account.sendotp import send_sms_code
+
 User = get_user_model()
 
 
@@ -103,3 +105,91 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 
 
 user_update_api_view = UserUpdateAPIView.as_view()
+
+
+class AuthUserRegistrationView(APIView):
+    serializer_class = user_serializer_.UserRegistrationSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        valid = serializer.is_valid(raise_exception=True)
+
+        if valid:
+            serializer.save()
+            send_sms_code(serializer.data['phone_number'])
+            status_code = status.HTTP_201_CREATED
+
+            response = {
+                'success': True,
+                'statusCode': status_code,
+                'message': 'User succesfully registered',
+                'user': serializer.data
+            }
+            return Response(response, status=status_code)
+
+user_registration_api_view = AuthUserRegistrationView.as_view()
+
+
+class AuthUserLoginView(APIView):
+    serializer_class = user_serializer_.UserLoginSerializer
+    permission_classes = (AllowAny, )
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        valid = serializer.is_valid(raise_exception=True)
+
+        if valid:
+            status_code = status.HTTP_200_OK
+
+            response = {
+                'success': True,
+                'statusCode': status_code,
+                'message': 'User logged in successfully',
+                'access': serializer.data['access'],
+                'refresh': serializer.data['refresh'],
+                'authenticatedUser': {
+                    'phone_number': serializer.data['phone_number'],
+                    # 'role': serializer.data['role']
+                }
+            }
+
+            return Response(response, status=status_code)
+
+user_login_api_view = AuthUserLoginView.as_view()
+
+
+class VerifyPhoneOTP(APIView):
+    def post(self, request):
+        data = request.data
+        serializer = user_serializer_.VerifySerializer(data=data)
+        if serializer.is_valid():
+            phone_number = serializer.data['phone_number']
+            otp = serializer.data['otp']
+            print(otp)
+            user = User.objects.get(phone_number=phone_number).phone_number
+            print(user)
+
+            user_otp = User.objects.get(phone_number=phone_number)
+            if user_otp.otp != otp:
+                return Response({
+                    'status': 400,
+                    'message': 'something went worng',
+                    'data': 'wrong otp'
+                })
+            
+            user_otp.is_virified = True
+            user_otp.save()
+
+            return Response({
+                    'status': 200,
+                    'message': 'account virified',
+                    'data': {}
+                })
+        return Response({
+                    'status': 400,
+                    'message': 'something went worng',
+                    'data': serializer.errors
+                })
+
+user_otp_verify_api_view = VerifyPhoneOTP.as_view()

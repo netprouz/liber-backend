@@ -47,6 +47,8 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         blank=True,
     )
     email = models.EmailField(_("email address"), blank=True)
+    otp = models.CharField(max_length=6, null=True)
+    is_virified = models.BooleanField(default=False, null=True)
     is_staff = models.BooleanField(
         _("staff status"),
         default=False,

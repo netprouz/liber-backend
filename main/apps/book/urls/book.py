@@ -15,8 +15,6 @@ urlpatterns = [
 
     path("audio-books/", view=book.audio_book_api_view, name="audio_books"),
 
-    # path("book-filter/<int:id>/", view=book.book_filter_api_view, name="book_filter"),
-
     path("price_filter/", view=book.book_filter_by_range_api_view, name="price_filter"),
 
     path(

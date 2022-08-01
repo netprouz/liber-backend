@@ -34,8 +34,8 @@ book_create_api_view = BookCreateAPIView.as_view()
 class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.filter_with_rates()
     serializer_class = BookListSerializer
-    filterset_fields = ["title", "author", "category__id", "published_date"]
-    search_fields = ["title", "author", "category__title", "published_date"]
+    filterset_fields = ["title", "author", "category__id"]
+    search_fields = ["title", "author", "category__title"]
 
 
 book_list_api_view = BookListAPIView.as_view()
@@ -100,13 +100,6 @@ class BestSellerBookAPIView(generics.ListAPIView):
     serializer_class = OrderListSerializer
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
-
-
-# class BookCategoryFilterAPIView(generics.ListAPIView):
-#     queryset = Book.objects.filter(category__id=id)
-#     serializer_class = BookListSerializer
-
-# book_filter_api_view = BookCategoryFilterAPIView.as_view()
 
 
 class AudioBooksAPIView(generics.ListAPIView):
