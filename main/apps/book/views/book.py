@@ -131,9 +131,6 @@ class BookPriceRangeAPIView(generics.ListCreateAPIView):
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["published_date",]
-    # ordering_fields = (
-    #     'price',
-    # )
 
 book_filter_by_range_api_view = BookPriceRangeAPIView.as_view()
 
