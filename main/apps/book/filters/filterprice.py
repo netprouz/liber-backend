@@ -32,7 +32,7 @@ class BookFilter(FilterSet):
             'min_price',
             'max_price',
             'category',
-            # 'book_type',
+            'book_type',
             # 'published_date'
             )
 
