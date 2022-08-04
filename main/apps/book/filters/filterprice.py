@@ -21,7 +21,7 @@ class BookPriceRangeFilter(FilterSet):
 class BookFilter(FilterSet):
     category = filters.CharFilter(field_name='category__id', lookup_expr='iexact', label='Category')
     published_date = filters.DateFilter(field_name='published_date', input_formats=[
-        "%Y", "%Y"], lookup_expr='gte', label='Published date')
+        "%Y", "%Y"], lookup_expr='iexact', label='Published date')
     min_price = NumberFilter(field_name='types__price', lookup_expr='gte')
     max_price = NumberFilter(field_name='types__price', lookup_expr='lte')
     # book_type = filters.ChoiceFilter(field_name='book_type', choices=TYPEChoices)
