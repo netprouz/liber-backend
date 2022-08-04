@@ -42,6 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     unique_identifier = models.PositiveIntegerField(unique=True, blank=True, null=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
+    activating_code = models.CharField(max_length=6, blank=True, null=True)
     profile_picture = models.ImageField(
         upload_to=upload_profile_images,
         blank=True,

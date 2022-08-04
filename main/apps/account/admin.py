@@ -42,7 +42,8 @@ class UserAdmin(BaseUserAdmin):
                     "date_of_birth",
                     "gender",
                     "otp",
-                    "is_virified"
+                    "is_virified",
+                    "activating_code"
                 )
             },
         ),

@@ -10,9 +10,19 @@ from ...common import permissions
 from ..serializers import user as user_serializer_
 from ..utils import generate_random_password, send_password_as_sms
 
-from ...account.sendotp import send_sms_code
+from ...account.sendotp import send_sms_code, password_reset_verification_code
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from rest_framework.generics import GenericAPIView
+from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
+
+
+class MyObtainTokenPairView(TokenObtainPairView):
+    permission_classes = (AllowAny,)
+    serializer_class = user_serializer_.MyTokenObtainPairSerializer
 
 
 class UserListAPIView(generics.ListAPIView):
@@ -76,6 +86,7 @@ user_login_view = UserObtainTokenAPIView.as_view()
 
 
 class LogoutAPIView(APIView):
+    # permission_classes = [IsAuthenticated]
     def get(self, request):
         request.user.auth_token.delete()
 
@@ -133,7 +144,6 @@ user_registration_api_view = AuthUserRegistrationView.as_view()
 
 class AuthUserLoginView(APIView):
     serializer_class = user_serializer_.UserLoginSerializer
-    permission_classes = (AllowAny, )
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -150,7 +160,6 @@ class AuthUserLoginView(APIView):
                 'refresh': serializer.data['refresh'],
                 'authenticatedUser': {
                     'phone_number': serializer.data['phone_number'],
-                    # 'role': serializer.data['role']
                 }
             }
 
@@ -160,26 +169,22 @@ user_login_api_view = AuthUserLoginView.as_view()
 
 
 class VerifyPhoneOTP(APIView):
+    serializer_class = user_serializer_.VerifySerializer
     def post(self, request):
-        data = request.data
-        serializer = user_serializer_.VerifySerializer(data=data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             phone_number = serializer.data['phone_number']
             otp = serializer.data['otp']
-            print(otp)
-            user = User.objects.get(phone_number=phone_number).phone_number
-            print(user)
-
-            user_otp = User.objects.get(phone_number=phone_number)
-            if user_otp.otp != otp:
+            user = User.objects.get(phone_number=phone_number)
+            if user.otp != otp:
                 return Response({
                     'status': 400,
                     'message': 'something went worng',
                     'data': 'wrong otp'
                 })
             
-            user_otp.is_virified = True
-            user_otp.save()
+            user.is_virified = True
+            user.save()
 
             return Response({
                     'status': 200,
@@ -193,3 +198,93 @@ class VerifyPhoneOTP(APIView):
                 })
 
 user_otp_verify_api_view = VerifyPhoneOTP.as_view()
+
+
+class PasswordResetAPIView(APIView):
+    serializer_class = user_serializer_.PasswordResetSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        valid = serializer.is_valid(raise_exception=True)
+        if valid:
+            password_reset_verification_code(serializer.data['phone_number'])
+            status_code = status.HTTP_201_CREATED
+
+            response = {
+                'success': True,
+                'statusCode': status_code,
+                'message': 'Code successfully sent to phone number',
+                'user': serializer.data
+            }
+            return Response(response, status=status_code)
+
+password_reset_api_view = PasswordResetAPIView.as_view()
+             
+
+class PasswordResetCodeCheckView(generics.GenericAPIView):
+    serializer_class = user_serializer_.PasswordResetCodeCheckSerializer
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)                                                     
+        valid = serializer.is_valid(raise_exception=False)
+        if valid:
+            user = User.objects.get(activating_code=serializer.data['confirm_code'])
+            return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+
+password_reset_check_view = PasswordResetCodeCheckView.as_view()
+        
+
+class PasswordResetConfirmView(generics.UpdateAPIView):
+    serializer_class = user_serializer_.ChangePasswordSerializer
+    model = User
+    permission_classes = (AllowAny,)
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            if serializer.data['new_password1'] != serializer.data['new_password2']:
+                return Response({'status': False, 'message':"These two fields should be the same"}, status=status.HTTP_400_BAD_REQUEST)
+            self.object.set_password(serializer.data.get("new_password1"))
+            self.object.save()
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': []
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+password_reset_confirm_view = PasswordResetConfirmView.as_view()
+
+
+class PasswordChangeView(GenericAPIView):
+    serializer_class = user_serializer_.PasswordChangeSerializer
+    # permission_classes = (IsAuthenticated,)
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid(raise_exception=False):
+            if serializer.data['new_password1'] != serializer.data['new_password2']:
+                return Response({'status': 'error', 'message': _("PThese two fields should be the same!")}, status=status.HTTP_400_BAD_REQUEST)
+            user = request.user
+            if user.check_password(serializer.data['old_password']):
+                user.set_password(serializer.data['new_password1'])
+                user.save()
+                return Response({"message": _("Password successfully updated")}, status=status.HTTP_200_OK)
+            else:
+                return Response({'status': 'error', 'message': _('Password is incorrect')}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'status': 'error', 'message': _('This phone number does not exist'), 'data': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+password_change_view = PasswordChangeView.as_view()

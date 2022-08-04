@@ -23,6 +23,7 @@ swagger_schema_view = get_swagger_view(title="Book E-commerce platform")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include("main.apps.v1"), name="main"),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path(r"", swagger_schema_view),
 ]
 

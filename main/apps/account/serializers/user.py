@@ -3,7 +3,11 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
 from ..models.user import User
+from rest_framework_simplejwt.tokens import RefreshToken,TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -154,8 +158,16 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return auth_user
 
 
-from rest_framework_simplejwt.tokens import RefreshToken
-from django.contrib.auth import authenticate
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    @classmethod
+    def get_token(cls, user):
+        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+
+        # Add custom claims
+        token['phone_number'] = user.phone_number
+        return token
+
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -195,6 +207,61 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class VerifySerializer(serializers.Serializer):
-    # email = serializers.EmailField()
     phone_number = serializers.CharField()
     otp = serializers.CharField()
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    phone_number = serializers.CharField()    
+
+    def validate(self, attrs):
+        self._errors = {}
+        phone_number = attrs.get("phone_number")
+        if len(phone_number) != 13:
+            self._errors[
+                "invalid_format"
+            ] = "Phone number should contain 12 digits. Format: 998xxxxxxxxx "
+        if self.errors:
+            raise serializers.ValidationError(self._errors)
+        return attrs
+
+class PasswordResetConfirmSerializer(serializers.Serializer):
+    new_password1 = serializers.CharField()
+    new_password2 = serializers.CharField()
+
+
+class PasswordResetCodeCheckSerializer(serializers.Serializer):
+    # phone_number = serializers.CharField()
+    confirm_code = serializers.CharField()
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    new_password1 = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+
+class PasswordChangeSerializer(serializers.Serializer):
+    old_password = serializers.CharField()
+    new_password1 = serializers.CharField()
+    new_password2 = serializers.CharField()
+
+
+
+class LogoutSerializer(serializers.Serializer):
+    refresh = serializers.CharField()
+
+    default_error_message = {
+        'bad_token': _('Token is expired or invalid')
+    }
+
+    def validate(self, attrs):
+        self.token = attrs['refresh']
+        return attrs
+
+    def save(self, **kwargs):
+
+        try:
+            RefreshToken(self.token).blacklist()
+
+        except TokenError:
+            self.fail(_('bad_token'))

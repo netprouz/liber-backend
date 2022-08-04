@@ -18,11 +18,25 @@ def send_sms_code(phone_number):
     user_otp = User.objects.get(phone_number=phone_number)
     user_otp.otp = otp
     user_otp.save()
-    print(otp)
-    print(user_phone_number)
     client.messages.create(
-                     body="Your verification code is " + str(otp),
+                     body="Your verification code for Liber is " + str(otp),
                      from_=twilio_phone,
                      to=user_phone_number
                  )
     return Response(status=200)
+
+
+def password_reset_verification_code(phone_number):
+    user_phone_number = User.objects.get(phone_number=phone_number).phone_number
+    verification_code = random.randint(100000, 999999)
+    user_code = User.objects.get(phone_number=phone_number)
+    user_code.activating_code = verification_code
+    user_code.save()
+    client.messages.create(
+                     body="Your verification code for Liber is " + str(verification_code),
+                     from_=twilio_phone,
+                     to=user_phone_number
+                 )
+    return Response(status=200)
+
+
