@@ -17,7 +17,7 @@ from ..utils import count_book_view
 from ...order.models import Order
 from django.db.models import Sum
 from main.apps.order.serializers import OrderListSerializer
-from ...book.filters.filterprice import BookPriceRangeFilter, BookFilter
+from ...book.filters.filterprice import BookFilter
 
 
 class BookCreateAPIView(generics.CreateAPIView):
