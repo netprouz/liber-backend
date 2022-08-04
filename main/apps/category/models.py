@@ -67,7 +67,7 @@ class CategoryType(BaseModel):
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name="types",
+        related_name="category_types",
     )
     price = models.DecimalField(max_digits=20, decimal_places=2)
     days = models.IntegerField(default=1)
