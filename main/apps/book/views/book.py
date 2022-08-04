@@ -129,8 +129,8 @@ book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 class BookPriceRangeAPIView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookListSerializer
-    # customized filter class
     filter_class = BookFilter
+    search_fields = ["published_date", "category__id"]
     # ordering_fields = (
     #     'price',
     # )
