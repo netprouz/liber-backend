@@ -25,7 +25,7 @@ class BookFilter(FilterSet):
     category = filters.CharFilter(field_name='category__title', lookup_expr='iexact', label='Category')
     min_price = NumberFilter(field_name='types__price', lookup_expr='gte')
     max_price = NumberFilter(field_name='types__price', lookup_expr='lte')
-    book_type = filters.ModelChoiceFilter(field_name='contents__book_type',  label="Book Type",
+    book_type = filters.ModelChoiceFilter(field_name='contents__book_type.choices',  label="Book Type",
     queryset=Content.objects.all())
 
     class Meta:
