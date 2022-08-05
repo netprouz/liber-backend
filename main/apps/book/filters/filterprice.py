@@ -1,6 +1,6 @@
+# from secrets import choice
 from ..models.book_type import BookType, TYPEChoices
 from ..models.book import Book
-from ..models.content import Content
 from django_filters import FilterSet
 from django_filters import NumberFilter
 from django_filters import filters
@@ -25,8 +25,8 @@ class BookFilter(FilterSet):
     category = filters.CharFilter(field_name='category__title', lookup_expr='iexact', label='Category')
     min_price = NumberFilter(field_name='types__price', lookup_expr='gte')
     max_price = NumberFilter(field_name='types__price', lookup_expr='lte')
-    book_type = filters.ModelChoiceFilter(field_name='contents__book_type.choices',  label="Book Type",
-    queryset=Content.objects.all())
+    book_type = filters.ModelChoiceFilter(field_name='types__book_type',  label="Book Type",
+    queryset=BookType.objects.all())
 
     class Meta:
         model = Book
