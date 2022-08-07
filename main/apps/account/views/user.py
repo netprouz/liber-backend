@@ -10,7 +10,12 @@ from ...common import permissions
 from ..serializers import user as user_serializer_
 from ..utils import generate_random_password, send_password_as_sms
 
-from ...account.sendotp import send_sms_code, password_reset_verification_code
+from ...account.sendotp import (
+    send_sms_code, 
+    password_reset_verification_code_by_phone_number, 
+    send_otp_to_email,
+    password_reset_verification_code_by_email
+) 
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 
@@ -128,7 +133,10 @@ class AuthUserRegistrationView(APIView):
 
         if valid:
             serializer.save()
-            send_sms_code(serializer.data['phone_number'])
+            if "+998" in serializer.data['username']:
+                send_sms_code(serializer.data['username'])
+            elif "@" in serializer.data['username']:
+                send_otp_to_email(serializer.data['username'])
             status_code = status.HTTP_201_CREATED
 
             response = {
@@ -173,9 +181,9 @@ class VerifyPhoneOTP(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            phone_number = serializer.data['phone_number']
+            username = serializer.data['username']
             otp = serializer.data['otp']
-            user = User.objects.get(phone_number=phone_number)
+            user = User.objects.get(username=username)
             if user.otp != otp:
                 return Response({
                     'status': 400,
@@ -200,6 +208,8 @@ class VerifyPhoneOTP(APIView):
 user_otp_verify_api_view = VerifyPhoneOTP.as_view()
 
 
+
+
 class PasswordResetAPIView(APIView):
     serializer_class = user_serializer_.PasswordResetSerializer
     permission_classes = (AllowAny,)
@@ -208,13 +218,17 @@ class PasswordResetAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         valid = serializer.is_valid(raise_exception=True)
         if valid:
-            password_reset_verification_code(serializer.data['phone_number'])
+            serializer.save()
+            if "+998" in serializer.data['username']:
+                password_reset_verification_code_by_phone_number(serializer.data['username'])
+            elif "@" in serializer.data['username']:
+                password_reset_verification_code_by_email(serializer.data['username'])
             status_code = status.HTTP_201_CREATED
 
             response = {
                 'success': True,
                 'statusCode': status_code,
-                'message': 'Code successfully sent to phone number',
+                'message': 'Code successfully sent',
                 'user': serializer.data
             }
             return Response(response, status=status_code)
@@ -237,13 +251,14 @@ password_reset_check_view = PasswordResetCodeCheckView.as_view()
         
 
 class PasswordResetConfirmView(generics.UpdateAPIView):
+    queryset = User.objects.all()
     serializer_class = user_serializer_.ChangePasswordSerializer
     model = User
     permission_classes = (AllowAny,)
 
-    def get_object(self, queryset=None):
-        obj = self.request.user
-        return obj
+    # def get_object(self, queryset=None):
+    #     obj = self.request.user
+    #     return obj
 
     def update(self, request, *args, **kwargs):
         self.object = self.get_object()

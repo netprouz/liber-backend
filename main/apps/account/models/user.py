@@ -48,6 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         blank=True,
     )
     email = models.EmailField(_("email address"), blank=True)
+    username = models.CharField(max_length=100, unique=True, null=True)
     otp = models.CharField(max_length=6, null=True)
     is_virified = models.BooleanField(default=False, null=True)
     is_staff = models.BooleanField(
@@ -76,8 +77,8 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     date_joined = models.DateTimeField(_("date joined"), auto_now_add=True)
     objects = UserManager()
 
-    EMAIL_FIELD = "email"
-    USERNAME_FIELD = "phone_number"
+    # EMAIL_FIELD = "email"
+    USERNAME_FIELD = "username"
 
     class Meta:
         ordering = ("-id",)

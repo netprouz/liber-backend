@@ -15,6 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = (
             "guid",
             "phone_number",
+            "email",
             "first_name",
             "last_name",
             "profile_picture",
@@ -148,10 +149,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = (
             'first_name',
             'last_name',
+            'username',
             'email',
             'phone_number',
             'password'
-        )
+        )    
 
     def create(self, validated_data):
         auth_user = User.objects.create_user(**validated_data)
@@ -165,7 +167,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
 
         # Add custom claims
-        token['phone_number'] = user.phone_number
+        # email = user.email
+        # if email:
+        #     token['email'] = user.email
+        #     return token
+        # phone_number = user.phone_number
+        # if phone_number:
+        token['username'] = user.username
         return token
 
 
@@ -207,31 +215,53 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class VerifySerializer(serializers.Serializer):
-    phone_number = serializers.CharField()
+    username = serializers.CharField()
     otp = serializers.CharField()
 
 
 class PasswordResetSerializer(serializers.Serializer):
-    phone_number = serializers.CharField()    
+    username = serializers.CharField()    
 
     def validate(self, attrs):
         self._errors = {}
-        phone_number = attrs.get("phone_number")
-        if len(phone_number) != 13:
+        username = attrs.get('username')
+        # user = User.objects.filter(username=username).exists()
+     
+        if not '@' in username:
             self._errors[
-                "invalid_format"
-            ] = "Phone number should contain 12 digits. Format: 998xxxxxxxxx "
+                'Invalid format'
+            ] = 'Enter correct format'
+        # if not '+998' in username:
+        #     self._errors[
+        #         'Invalid format'
+        #     ] = 'Enter correct format'
         if self.errors:
             raise serializers.ValidationError(self._errors)
         return attrs
 
+    def create(self, validated_date):
+        return validated_date
+    
+
+
+    # def validate(self, attrs):
+    #     self._errors = {}
+    #     phone_number = attrs.get("phone_number")
+    #     if len(phone_number) != 13:
+    #         self._errors[
+    #             "invalid_format"
+    #         ] = "Phone number should contain 12 digits. Format: 998xxxxxxxxx "
+    #     if self.errors:
+    #         raise serializers.ValidationError(self._errors)
+    #     return attrs
+
 class PasswordResetConfirmSerializer(serializers.Serializer):
+    username = serializers.CharField()
     new_password1 = serializers.CharField()
     new_password2 = serializers.CharField()
 
 
 class PasswordResetCodeCheckSerializer(serializers.Serializer):
-    # phone_number = serializers.CharField()
     confirm_code = serializers.CharField()
 
 

@@ -116,17 +116,16 @@ SIMPLE_JWT = {
 }
 
 
-
 DATABASES = {
        "default": {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.environ.get("POSTGRES_HOST"),
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # "ENGINE": "django.db.backends.postgresql_psycopg2",
+        # "HOST": os.environ.get("POSTGRES_HOST"),
+        # "NAME": os.environ.get("POSTGRES_DB"),
+        # "PORT": os.environ.get("POSTGRES_PORT"),
+        # "USER": os.environ.get("POSTGRES_USER"),
+        # "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
     }
 }
 
@@ -230,3 +229,11 @@ CLICK_SETTINGS = {
     "merchant_user_id": os.environ.get("CLICK_MERCHANT_USER_ID"),
     "secret_key": os.environ.get("CLICK_SECRET_KEY"),
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ahadjon.abdullaev1997@gmail.com'
+EMAIL_HOST_PASSWORD = 'sxynpywgupqwfudh'
+EMAIL_PORT = 587
