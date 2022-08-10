@@ -266,6 +266,7 @@ class PasswordResetCodeCheckSerializer(serializers.Serializer):
 
 
 class ChangePasswordSerializer(serializers.Serializer):
+    # username = serializers.CharField()
     new_password1 = serializers.CharField(required=True)
     new_password2 = serializers.CharField(required=True)
 

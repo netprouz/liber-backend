@@ -250,24 +250,24 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
 password_reset_check_view = PasswordResetCodeCheckView.as_view()
         
 
-class PasswordResetConfirmView(generics.UpdateAPIView):
-    queryset = User.objects.all()
+class PasswordResetConfirmView(generics.GenericAPIView):
+    # queryset = User.objects.all()
     serializer_class = user_serializer_.ChangePasswordSerializer
-    model = User
+    # model = User
     permission_classes = (AllowAny,)
 
-    # def get_object(self, queryset=None):
-    #     obj = self.request.user
-    #     return obj
+    def get_object(self):
+        obj = self.request.user
+        return obj
 
-    def update(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         serializer = self.get_serializer(data=request.data)
 
         if serializer.is_valid():
             if serializer.data['new_password1'] != serializer.data['new_password2']:
                 return Response({'status': False, 'message':"These two fields should be the same"}, status=status.HTTP_400_BAD_REQUEST)
-            self.object.set_password(serializer.data.get("new_password1"))
+            self.object.set_password(serializer.data["new_password1"])
             self.object.save()
             response = {
                 'status': 'success',

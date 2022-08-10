@@ -102,16 +102,21 @@ class BestSellerBookAPIView(generics.ListAPIView):
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
 
+from ...book.models import Content
+from django.conf import settings
+
+ONLINE = settings.ONLINE
+AUDIO = settings.AUDIO
 
 class AudioBooksAPIView(generics.ListAPIView):
-    queryset = Book.return_audio_books
+    queryset = Content.objects.filter(book_type=AUDIO)
     serializer_class = BookListSerializer
 
 audio_book_api_view = AudioBooksAPIView.as_view()
 
 
 class OnlineBookAPIView(generics.ListAPIView):
-    queryset = Book.return_online_books
+    queryset = Content.objects.filter(book_type=ONLINE)
     serializer_class = BookListSerializer
 
 online_book_api_view = OnlineBookAPIView.as_view()
