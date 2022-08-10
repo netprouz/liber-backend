@@ -2,6 +2,8 @@ from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
+from main.apps.account.views import user
+
 from ..models.user import User
 from rest_framework_simplejwt.tokens import RefreshToken,TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -225,24 +227,17 @@ class PasswordResetSerializer(serializers.Serializer):
     def validate(self, attrs):
         self._errors = {}
         username = attrs.get('username')
-        # user = User.objects.filter(username=username).exists()
      
-        if (not '+998' in username) or (not '@' in username):
+        if ("@" not in username) and ("+998" not in username):
             self._errors[
                 'Invalid format'
             ] = 'Enter correct format'
-        # elif not '@' in username:
-        #     self._errors[
-        #         'Invalid format'
-        #     ] = 'Enter correct format'
         if self.errors:
             raise serializers.ValidationError(self._errors)
         return attrs
 
     def create(self, validated_date):
         return validated_date
-    
-
 
     # def validate(self, attrs):
     #     self._errors = {}
