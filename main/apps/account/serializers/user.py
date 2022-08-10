@@ -231,10 +231,10 @@ class PasswordResetSerializer(serializers.Serializer):
             self._errors[
                 'Invalid format'
             ] = 'Enter correct format'
-        # if not '+998' in username:
-        #     self._errors[
-        #         'Invalid format'
-        #     ] = 'Enter correct format'
+        if not '+998' in username:
+            self._errors[
+                'Invalid format'
+            ] = 'Enter correct format'
         if self.errors:
             raise serializers.ValidationError(self._errors)
         return attrs
