@@ -104,14 +104,14 @@ best_seller_books_api_view = BestSellerBookAPIView.as_view()
 
 
 class AudioBooksAPIView(generics.ListAPIView):
-    queryset = Book.return_audio_books()
+    queryset = Book.return_audio_books
     serializer_class = BookListSerializer
 
 audio_book_api_view = AudioBooksAPIView.as_view()
 
 
 class OnlineBookAPIView(generics.ListAPIView):
-    queryset = Book.return_online_books()
+    queryset = Book.return_online_books
     serializer_class = BookListSerializer
 
 online_book_api_view = OnlineBookAPIView.as_view()
