@@ -22,7 +22,7 @@ class ContentListForBookTypeSerializer(serializers.ModelSerializer):
     book = BookListForBookTypeSerializer()
     class Meta:
         model = Content
-        fields = ('guid', 'book', 'title', 'book_type')
+        fields = ('book', 'guid', 'title', 'book_type')
 
 
 class ContentListSerializer(serializers.Serializer):

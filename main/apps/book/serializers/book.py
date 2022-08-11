@@ -85,7 +85,6 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
             'short_description_ru',
             'published_date',
             'created_at',
-            'types',
             
         )
 
