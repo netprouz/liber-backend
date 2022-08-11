@@ -16,10 +16,10 @@ class ContentCreateUpdateSerializer(serializers.Serializer):
         queryset=Book.objects.all(),
     )
 
-from .book import BookListSerializer
+from .book import BookListForBookTypeSerializer
 
 class ContentListForBookTypeSerializer(serializers.ModelSerializer):
-    book = BookListSerializer()
+    book = BookListForBookTypeSerializer()
     class Meta:
         model = Content
         fields = ('guid', 'book', 'title', 'book_type')

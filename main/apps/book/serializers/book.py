@@ -65,6 +65,31 @@ class BookCreateSerializer(serializers.ModelSerializer):
         return book_obj
 
 
+class BookListForBookTypeSerializer(serializers.ModelSerializer):
+    category = serializers.ReadOnlyField(source='category.title')
+    created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
+    rating = serializers.IntegerField(default=0)
+    class Meta:
+        model = Book
+        fields = (
+            'guid',
+            'title',
+            'slug',
+            'author',
+            'thumbnail',
+            'rating',
+            'category',
+            'language',
+            'short_description',
+            'short_description_uz',
+            'short_description_ru',
+            'published_date',
+            'created_at',
+            'types',
+            
+        )
+
+
 class BookListSerializer(serializers.ModelSerializer):
     category = serializers.ReadOnlyField(source='category.title')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
