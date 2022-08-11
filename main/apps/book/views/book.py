@@ -5,6 +5,7 @@ from rest_framework import generics
 from main.apps.book.models.book_type import BookType
 from ..models.content import Content
 from main.apps.book.serializers.book_type import BookTypeSerializer
+from ..serializers.content import ContentListForBookTypeSerializer
 
 from ...common.permissions import CreatePermission  # noqa
 from ...common.permissions import UpdateDeletePermission  # noqa
@@ -102,19 +103,18 @@ class BestSellerBookAPIView(generics.ListAPIView):
     serializer_class = OrderListSerializer
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
-
-from .content import ContentListSerializer
+ 
 
 class AudioBooksAPIView(generics.ListAPIView):
     queryset = Content.objects.filter(book_type=AUDIO)
-    serializer_class = ContentListSerializer
+    serializer_class = ContentListForBookTypeSerializer
 
 audio_book_api_view = AudioBooksAPIView.as_view()
 
 
 class OnlineBookAPIView(generics.ListAPIView):
     queryset = Content.objects.filter(book_type=ONLINE)
-    serializer_class = BookListSerializer
+    serializer_class = ContentListForBookTypeSerializer
 
 online_book_api_view = OnlineBookAPIView.as_view()
 

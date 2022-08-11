@@ -2,7 +2,7 @@ from django.core.validators import FileExtensionValidator
 from rest_framework import serializers
 
 from ..models.book import Book
-from ..models.content import BOOKTYPEChoices
+from ..models.content import BOOKTYPEChoices, Content
 
 
 class ContentCreateUpdateSerializer(serializers.Serializer):
@@ -15,6 +15,14 @@ class ContentCreateUpdateSerializer(serializers.Serializer):
         slug_field="guid",
         queryset=Book.objects.all(),
     )
+
+from .book import BookListSerializer
+
+class ContentListForBookTypeSerializer(serializers.ModelSerializer):
+    book = BookListSerializer()
+    class Meta:
+        model = Content
+        fields = ('guid', 'book', 'title', 'book_type')
 
 
 class ContentListSerializer(serializers.Serializer):
