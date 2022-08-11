@@ -3,11 +3,12 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
 from main.apps.book.models.book_type import BookType
+from ..models.content import Content
 from main.apps.book.serializers.book_type import BookTypeSerializer
 
 from ...common.permissions import CreatePermission  # noqa
 from ...common.permissions import UpdateDeletePermission  # noqa
-from ..models.book import Book
+from ..models.book import AUDIO, ONLINE, Book
 from ..serializers.book import (
     BookCreateSerializer,
     BookDetailSerializer,
@@ -102,16 +103,17 @@ class BestSellerBookAPIView(generics.ListAPIView):
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
 
+from .content import ContentListSerializer
 
 class AudioBooksAPIView(generics.ListAPIView):
-    queryset = Book.return_audio_books
-    serializer_class = BookListSerializer
+    queryset = Content.objects.filter(book_type=AUDIO)
+    serializer_class = ContentListSerializer
 
 audio_book_api_view = AudioBooksAPIView.as_view()
 
 
 class OnlineBookAPIView(generics.ListAPIView):
-    queryset = Book.return_online_books
+    queryset = Content.objects.filter(book_type=ONLINE)
     serializer_class = BookListSerializer
 
 online_book_api_view = OnlineBookAPIView.as_view()

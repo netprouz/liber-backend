@@ -55,11 +55,13 @@ class Book(BaseModel):
         self.types.all().delete()
         self.types.create_book_type(book_types)
 
+    @classmethod
     def return_online_books(self):
         from ..models.content import Content
 
         return Content.objects.filter(book=self.id, book_type=ONLINE)
-
+        
+    @classmethod
     def return_audio_books(self):
         from ..models.content import Content
 
