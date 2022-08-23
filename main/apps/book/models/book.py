@@ -22,6 +22,7 @@ def upload_book_cover(instance, filename):
 User = get_user_model()
 ONLINE = settings.ONLINE
 AUDIO = settings.AUDIO
+PAPER = settings.PAPER
 
 
 class Book(BaseModel):

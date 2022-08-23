@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
             "phone_number",
             "email",
             "first_name",
-            "last_name",
+            # "last_name",
             "profile_picture",
         )
 
@@ -122,9 +122,9 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "id",
             "guid",
             "first_name",
-            "last_name",
+            # "last_name",
             "profile_picture",
-            "phone_number",
+            # "phone_number",
             "balance",
             "orders",
             "transactions",
@@ -138,7 +138,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             "id",
             "guid",
             "first_name",
-            "last_name",
+            # "last_name",
             "profile_picture",
             "gender",
             "date_of_birth",
@@ -150,10 +150,10 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'first_name',
-            'last_name',
+            # 'last_name',
             'username',
-            'email',
-            'phone_number',
+            # 'email',
+            # 'phone_number',
             'password'
         )    
 

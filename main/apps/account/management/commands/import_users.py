@@ -23,11 +23,11 @@ class Command(BaseCommand):
                 i = 0
                 for item in data:
                     user_obj = User.objects.create_user(
-                        phone_number=item["fields"]["phone_number"],
+                        phone_number=item["fields"]["username"],
                         first_name=item["fields"]["first_name"],
                         profile_picture=item["fields"]["profile_picture"],
-                        last_name=item["fields"]["last_name"],
-                        email=item["fields"]["email"],
+                        # last_name=item["fields"]["last_name"],
+                        # email=item["fields"]["email"],
                         gender=item["fields"]["gender"],
                         date_of_birth=item["fields"]["date_of_birth"],
                         date_joined=item["fields"]["date_joined"],

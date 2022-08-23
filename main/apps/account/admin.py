@@ -16,11 +16,11 @@ class BalanceTabularAdmin(admin.TabularInline):
 class UserAdmin(BaseUserAdmin):
     list_display = (
         "guid",
-        "phone_number",
-        "email",
+        # "phone_number",
+        # "email",
         "profile_picture",
         "first_name",
-        "last_name",
+        # "last_name",
         "is_staff",
         "date_of_birth",
         "gender",
@@ -30,15 +30,15 @@ class UserAdmin(BaseUserAdmin):
         "is_staff",
     )
     fieldsets = (
-        (None, {"fields": ("phone_number", "password")}),
+        (None, {"fields": ("username", "password")}),
         (
             "Personal info",
             {
                 "fields": (
                     "profile_picture",
-                    "first_name",
-                    "last_name",
-                    "email",
+                    # "first_name",
+                    # "last_name",
+                    # "email",
                     "date_of_birth",
                     "gender",
                     "otp",
@@ -68,16 +68,16 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "fields": (
-                    "phone_number",
+                    "username",
                     "password1",
                     "password2",
                 )
             },
         ),
     )
-    search_fields = ("email",)
+    search_fields = ("username",)
     inlines = [BalanceTabularAdmin]
-    ordering = ("email",)
+    ordering = ("first_name",)
     filter_horizontal = (
         "groups",
         "user_permissions",
@@ -94,7 +94,7 @@ class BalanceAdmin(admin.ModelAdmin):
         "amount",
         "owner",
     )
-    search_fields = ["owner__first_name", "owner__last_name"]
+    search_fields = ("owner__first_name",)
     list_editable = (
         "amount",
         "owner",

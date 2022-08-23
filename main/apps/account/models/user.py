@@ -27,27 +27,27 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         MALE = "male"
         FEMALE = "female"
 
-    phone_number = models.CharField(
-        _("Phone number"),
-        max_length=15,
-        unique=True,
-        error_messages={
-            "unique": _(
-                "User with this phone number already exists.",
-            )
-        },
-        blank=False,
-        null=False,
-    )
+    # phone_number = models.CharField(
+    #     _("Phone number"),
+    #     max_length=15,
+    #     unique=True,
+    #     error_messages={
+    #         "unique": _(
+    #             "User with this phone number already exists.",
+    #         )
+    #     },
+    #     blank=False,
+    #     null=False,
+    # )
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     unique_identifier = models.PositiveIntegerField(unique=True, blank=True, null=True)
-    last_name = models.CharField(_("last name"), max_length=150, blank=True)
+    # last_name = models.CharField(_("last name"), max_length=150, blank=True)
     activating_code = models.CharField(max_length=6, blank=True, null=True)
     profile_picture = models.ImageField(
         upload_to=upload_profile_images,
         blank=True,
     )
-    email = models.EmailField(_("email address"), blank=True)
+    # email = models.EmailField(_("email address"), blank=True)
     username = models.CharField(max_length=100, unique=True, null=True)
     otp = models.CharField(max_length=6, null=True)
     is_virified = models.BooleanField(default=False, null=True)
@@ -94,7 +94,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         """
         Return the first_name plus the last_name, with a space in between.
         """
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name}"
 
     def get_short_name(self):
         """Return the short name for the user."""
@@ -120,4 +120,4 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         )
 
     def __str__(self):
-        return f"{self.phone_number} {self.first_name} {self.last_name}"
+        return f"{self.username} {self.first_name}"
