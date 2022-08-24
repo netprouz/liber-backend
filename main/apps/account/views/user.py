@@ -150,6 +150,23 @@ class AuthUserRegistrationView(APIView):
 user_registration_api_view = AuthUserRegistrationView.as_view()
 
 
+
+
+# class ResendOtpToPhoneNumberAPIView(APIView):
+#     serializer_class = user_serializer_.UserRegistrationSerializer
+#     permission_classes = (AllowAny,)
+
+#     def get(self, request):
+#         get_user = request.GET['user']
+#         if User.objects.filter(username=get_user).exists():
+#             user = User.objects.get(username=get_user)
+#             send_sms_code(request.GET['username'])
+
+# user_registration_api_view = AuthUserRegistrationView.as_view()
+
+
+
+
 class AuthUserLoginView(APIView):
     serializer_class = user_serializer_.UserLoginSerializer
 
@@ -251,9 +268,7 @@ password_reset_check_view = PasswordResetCodeCheckView.as_view()
         
 
 class PasswordResetConfirmView(generics.GenericAPIView):
-    # queryset = User.objects.all()
     serializer_class = user_serializer_.ChangePasswordSerializer
-    # model = User
     permission_classes = (AllowAny,)
 
     def get_object(self):

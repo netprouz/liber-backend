@@ -122,7 +122,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "id",
             "guid",
             "first_name",
-            # "last_name",
+            "username",
             "profile_picture",
             # "phone_number",
             "balance",
@@ -149,11 +149,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            "guid",
             'first_name',
-            # 'last_name',
             'username',
-            # 'email',
-            # 'phone_number',
             'password'
         )    
 
