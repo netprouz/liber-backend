@@ -149,6 +149,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            "id",
             "guid",
             'first_name',
             'username',
@@ -161,20 +162,23 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        refresh = self.get_token(self.user)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
 
-    @classmethod
-    def get_token(cls, user):
-        token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+        # Add extra responses here
+        data['id'] = self.user.id
+        data['username'] = self.user.username
+        data['guid'] = self.user.guid
+        return data
 
-        # Add custom claims
-        # email = user.email
-        # if email:
-        #     token['email'] = user.email
-        #     return token
-        # phone_number = user.phone_number
-        # if phone_number:
-        token['username'] = user.username
-        return token
+    # @classmethod
+    # def get_token(cls, user):
+    #     token = super(MyTokenObtainPairSerializer, cls).get_token(user)
+    #     token['username'] = user.username
+    #     return token
 
 
 
