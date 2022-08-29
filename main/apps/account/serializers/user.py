@@ -138,7 +138,6 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             "id",
             "guid",
             "first_name",
-            # "last_name",
             "profile_picture",
             "gender",
             "date_of_birth",
@@ -168,18 +167,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
 
-        # Add extra responses here
         data['id'] = self.user.id
         data['username'] = self.user.username
         data['guid'] = self.user.guid
+        data['is_virified'] = self.user.is_virified
+        if data['is_virified'] == False:
+            raise serializers.ValidationError('Your account is not verified!')
         return data
-
-    # @classmethod
-    # def get_token(cls, user):
-    #     token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-    #     token['username'] = user.username
-    #     return token
-
 
 
 class UserLoginSerializer(serializers.Serializer):

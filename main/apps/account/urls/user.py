@@ -35,4 +35,6 @@ urlpatterns = [
     path("logout/", view=user.user_logout_view, name="user_logout"),
 
     path("password-change/", view=user.password_change_view, name="password-change"),
+
+    path("resend-otp/", view=user.user_resend_otp_api_view, name="password-change"),
 ]

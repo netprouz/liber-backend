@@ -22,6 +22,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.generics import GenericAPIView
 from django.utils.translation import ugettext_lazy as _
 
+from main.apps.account import serializers
+
 User = get_user_model()
 
 
@@ -152,17 +154,23 @@ user_registration_api_view = AuthUserRegistrationView.as_view()
 
 
 
-# class ResendOtpToPhoneNumberAPIView(APIView):
-#     serializer_class = user_serializer_.UserRegistrationSerializer
-#     permission_classes = (AllowAny,)
+class ResendOtpToPhoneNumberAPIView(APIView):
+    permission_classes = (AllowAny,)
 
-#     def get(self, request):
-#         get_user = request.GET['user']
-#         if User.objects.filter(username=get_user).exists():
-#             user = User.objects.get(username=get_user)
-#             send_sms_code(request.GET['username'])
-
-# user_registration_api_view = AuthUserRegistrationView.as_view()
+    def post(self, request):
+        data = request.data 
+        username = data['username']
+        try:
+            user = User.objects.get(username=username)
+            if "+998" in data['username']:
+                send_sms_code(data['username'])
+            elif "@" in data['username']:
+                send_otp_to_email(data['username'])
+        except User.DoesNotExist:
+            return Response('User does not exits')            
+        return Response('OTP resent successfully')
+            
+user_resend_otp_api_view = ResendOtpToPhoneNumberAPIView.as_view()
 
 
 
@@ -204,8 +212,8 @@ class VerifyPhoneOTP(APIView):
             if user.otp != otp:
                 return Response({
                     'status': 400,
-                    'message': 'something went worng',
-                    'data': 'wrong otp'
+                    'message': 'Something went worng',
+                    'data': 'Wrong otp'
                 })
             
             user.is_virified = True
@@ -213,12 +221,11 @@ class VerifyPhoneOTP(APIView):
 
             return Response({
                     'status': 200,
-                    'message': 'account virified',
-                    'data': {}
+                    'message': 'Account virified'
                 })
         return Response({
                     'status': 400,
-                    'message': 'something went worng',
+                    'message': 'Something went worng',
                     'data': serializer.errors
                 })
 
