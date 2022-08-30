@@ -2,7 +2,7 @@ from unicodedata import category
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
-from main.apps.book.models.book_type import BookType
+from main.apps.book.models.book_type import BookType, TYPEChoices
 from ..models.content import Content
 from main.apps.book.serializers.book_type import BookTypeSerializer
 from ..serializers.content import ContentListForBookTypeSerializer
@@ -128,13 +128,16 @@ class BookPulishedDateFilterAPIView(generics.ListAPIView):
 book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
 
-class BookPriceRangeAPIView(generics.ListCreateAPIView):
+class BookPriceRangeAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["published_date",]
 
 book_filter_by_range_api_view = BookPriceRangeAPIView.as_view()
+
+
+
 
 
 

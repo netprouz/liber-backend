@@ -40,14 +40,8 @@ class BookType(BaseModel):
           :type 2 -> hard copy/paper 10 000
           :type 3 -> audio 10 000
     """
-    BOOK_TYPES = (
-        ("online", "online"),
-        ("paper", "paper"),
-        ("audio", "audio")
-    )
-
     book_type = models.CharField(
-        max_length=10, choices=BOOK_TYPES
+        max_length=10, choices=TYPEChoices.choices, default=TYPEChoices.PAPER
     )
     price = models.DecimalField(max_digits=20, decimal_places=2)
     book = models.ForeignKey(

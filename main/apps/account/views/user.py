@@ -272,35 +272,32 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
             return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
 password_reset_check_view = PasswordResetCodeCheckView.as_view()
-        
+
+
+from django.contrib.auth.hashers import make_password
 
 class PasswordResetConfirmView(generics.GenericAPIView):
-    serializer_class = user_serializer_.ChangePasswordSerializer
+    """
+    Accepts the following POST parameters: email,  password1, password2
+    Returns the success/fail message.
+    """
+    serializer_class = user_serializer_.PasswordResetConfirmSerializer
     permission_classes = (AllowAny,)
 
-    def get_object(self):
-        obj = self.request.user
-        return obj
-
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
         serializer = self.get_serializer(data=request.data)
-
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=False):
             if serializer.data['new_password1'] != serializer.data['new_password2']:
-                return Response({'status': False, 'message':"These two fields should be the same"}, status=status.HTTP_400_BAD_REQUEST)
-            self.object.set_password(serializer.data["new_password1"])
-            self.object.save()
-            response = {
-                'status': 'success',
-                'code': status.HTTP_200_OK,
-                'message': 'Password updated successfully',
-                'data': []
-            }
+                return Response({'status': False, 'message':"two fields should be the same!"}, status=status.HTTP_400_BAD_REQUEST)
+            else:
+                UserModel = get_user_model()
+                user = UserModel.objects.get(username=serializer.data['username'])
+                user.password = make_password(serializer.data['new_password1'])
+                user.save()
+                return Response({"message": "Password successfully updated"}, status=status.HTTP_200_OK)
+        else:
+            return Response({'status': False, 'message': 'The entered password is incorrect', 'data': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-            return Response(response)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 password_reset_confirm_view = PasswordResetConfirmView.as_view()
 

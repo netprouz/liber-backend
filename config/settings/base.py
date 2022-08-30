@@ -118,14 +118,14 @@ SIMPLE_JWT = {
 
 DATABASES = {
        "default": {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": os.environ.get("POSTGRES_HOST"),
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # "ENGINE": "django.db.backends.postgresql_psycopg2",
+        # "HOST": os.environ.get("POSTGRES_HOST"),
+        # "NAME": os.environ.get("POSTGRES_DB"),
+        # "PORT": os.environ.get("POSTGRES_PORT"),
+        # "USER": os.environ.get("POSTGRES_USER"),
+        # "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
     }
 }
 
@@ -190,7 +190,7 @@ AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_FILE_OVERWRITE = os.environ.get("AWS_S3_FILE_OVERWRITE")
-DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
+# DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 AWS_S3_SIGNATURE_VERSION = "s3v4"
 AWS_S3_REGION_NAME = "us-east-1"
 CORS_ALLOW_HEADERS = [
