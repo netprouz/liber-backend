@@ -241,14 +241,21 @@ class PasswordResetAPIView(APIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         valid = serializer.is_valid(raise_exception=True)
+
+        data = request.data 
+        username = data['username']
+
         if valid:
             serializer.save()
-            if "+998" in serializer.data['username']:
-                password_reset_verification_code_by_phone_number(serializer.data['username'])
-            elif "@" in serializer.data['username']:
-                password_reset_verification_code_by_email(serializer.data['username'])
-            status_code = status.HTTP_201_CREATED
-
+            try:
+                user = User.objects.get(username=username)
+                if "+998" in serializer.data['username']:
+                    password_reset_verification_code_by_phone_number(serializer.data['username'])
+                elif "@" in serializer.data['username']:
+                    password_reset_verification_code_by_email(serializer.data['username'])
+                status_code = status.HTTP_201_CREATED
+            except User.DoesNotExist:
+                return Response('User does not exits') 
             response = {
                 'success': True,
                 'statusCode': status_code,

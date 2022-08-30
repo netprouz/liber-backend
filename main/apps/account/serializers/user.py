@@ -218,7 +218,7 @@ class VerifySerializer(serializers.Serializer):
 
 
 class PasswordResetSerializer(serializers.Serializer):
-    username = serializers.CharField()    
+    username = serializers.CharField()   
 
     def validate(self, attrs):
         self._errors = {}
