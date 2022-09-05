@@ -5,6 +5,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.contrib.auth.hashers import make_password
 
 from ...common import permissions
 from ..serializers import user as user_serializer_
@@ -125,7 +126,7 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 user_update_api_view = UserUpdateAPIView.as_view()
 
 
-class AuthUserRegistrationView(APIView):
+class AuthUserRegistrationView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserRegistrationSerializer
     permission_classes = (AllowAny,)
 
@@ -154,7 +155,7 @@ user_registration_api_view = AuthUserRegistrationView.as_view()
 
 
 
-class ResendOtpToPhoneNumberAPIView(APIView):
+class ResendOtpToPhoneNumberAPIView(generics.GenericAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request):
@@ -175,7 +176,7 @@ user_resend_otp_api_view = ResendOtpToPhoneNumberAPIView.as_view()
 
 
 
-class AuthUserLoginView(APIView):
+class AuthUserLoginView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserLoginSerializer
 
     def post(self, request):
@@ -201,7 +202,7 @@ class AuthUserLoginView(APIView):
 user_login_api_view = AuthUserLoginView.as_view()
 
 
-class VerifyPhoneOTP(APIView):
+class VerifyPhoneOTP(generics.GenericAPIView):
     serializer_class = user_serializer_.VerifySerializer
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -234,7 +235,7 @@ user_otp_verify_api_view = VerifyPhoneOTP.as_view()
 
 
 
-class PasswordResetAPIView(APIView):
+class PasswordResetAPIView(generics.GenericAPIView):
     serializer_class = user_serializer_.PasswordResetSerializer
     permission_classes = (AllowAny,)
 
@@ -281,7 +282,6 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
 password_reset_check_view = PasswordResetCodeCheckView.as_view()
 
 
-from django.contrib.auth.hashers import make_password
 
 class PasswordResetConfirmView(generics.GenericAPIView):
     """
@@ -309,7 +309,7 @@ class PasswordResetConfirmView(generics.GenericAPIView):
 password_reset_confirm_view = PasswordResetConfirmView.as_view()
 
 
-class PasswordChangeView(GenericAPIView):
+class PasswordChangeView(generics.GenericAPIView):
     serializer_class = user_serializer_.PasswordChangeSerializer
     # permission_classes = (IsAuthenticated,)
 

@@ -20,7 +20,7 @@ class CategoryTypeSerializer(serializers.Serializer):
 
 
 class CategoryModelSerializer(serializers.ModelSerializer):
-    types = CategoryTypeSerializer(many=True)
+    types = CategoryTypeSerializer()
 
     class Meta:
         model = Category
