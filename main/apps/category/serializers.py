@@ -35,7 +35,7 @@ class CategoryModelSerializer(serializers.ModelSerializer):
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
-    types = CategoryTypeSerializer(read_only=True, many=True)
+    types = serializers.SerializerMethodField()
 
     class Meta:
         model = Category
