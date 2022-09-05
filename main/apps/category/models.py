@@ -19,6 +19,7 @@ def upload_category_images(instance, filename):
     filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
     return f"category/{filename}"
 
+import json
 
 class Category(BaseModel):
     thumbnail = models.ImageField(upload_to=upload_category_images)
@@ -49,8 +50,10 @@ class Category(BaseModel):
     @property
     def check_if_subscribed(self):
         from ..subscription.models import Subscription
+
         type_lst = []
         for _type in self.types.all():
+            print(self.types.all())
             is_subscribed = False
             if Subscription.objects.filter(category=self, category_type=_type, active=True).exists():
                 is_subscribed = True
@@ -60,6 +63,7 @@ class Category(BaseModel):
                 price=_type.price,
                 is_subscribed=is_subscribed
             ))
+            print(json.dumps(type_lst))
         return type_lst
 
 

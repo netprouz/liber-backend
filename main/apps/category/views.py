@@ -1,8 +1,8 @@
 from rest_framework import generics
 
 from ..common.permissions import CreatePermission, UpdateDeletePermission
-from .models import Category
-from .serializers import CategoryModelSerializer, CategoryListSerializer
+from .models import Category, CategoryType
+from .serializers import CategoryModelSerializer, CategoryListSerializer, CategoryTestSerializer
 
 
 class CategoryListAPIView(generics.ListAPIView):

@@ -35,7 +35,7 @@ class CategoryModelSerializer(serializers.ModelSerializer):
 
 
 class CategoryListSerializer(serializers.ModelSerializer):
-    types = serializers.SerializerMethodField()
+    types = CategoryTypeSerializer(read_only=True, many=True)
 
     class Meta:
         model = Category
@@ -43,3 +43,11 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
     def get_types(self, obj):
         return obj.check_if_subscribed
+
+    
+class CategoryTestSerializer(serializers.ModelSerializer):
+    category = CategoryListSerializer()
+
+    class Meta:
+        model = CategoryType
+        fields = ("guid", "price", "days", "category", )
