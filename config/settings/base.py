@@ -6,6 +6,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = 'znf0%dw+9+q8ey-*i)e9g7x+v77e#94&rn*v!%dx+1tshpxke6'
 
+ALLOWED_HOSTS = ["*"]
+
 DJANGO_APPS = [
     'modeltranslation',
     "django.contrib.admin",
