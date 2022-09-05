@@ -31,7 +31,7 @@ THIRD_PARTY_APPS = [
     "paycomuz",
     "clickuz",
     'rest_auth',
-    # 'drf_yasg',
+    'drf_yasg',
     
 ]
 
