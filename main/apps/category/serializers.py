@@ -20,11 +20,12 @@ class CategoryTypeSerializer(serializers.Serializer):
 
 
 class CategoryModelSerializer(serializers.ModelSerializer):
-    types = CategoryTypeSerializer()
+    category_types = CategoryTypeSerializer()
 
     class Meta:
         model = Category
-        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "types")
+        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "category_types")
+
 
     def create(self, validated_data):
         types = validated_data.pop("types")

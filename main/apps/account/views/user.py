@@ -329,3 +329,9 @@ class PasswordChangeView(generics.GenericAPIView):
             return Response({'status': 'error', 'message': _('This phone number does not exist'), 'data': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 password_change_view = PasswordChangeView.as_view()
+
+
+
+
+
+
