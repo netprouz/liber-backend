@@ -36,7 +36,7 @@ class Book(BaseModel):
     language = models.CharField(max_length=255, blank=True)
     hardcover = models.PositiveIntegerField()
     short_description = models.TextField(blank=True)
-    published_date = models.DateField()
+    published_date = models.DateField(null=True)
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,

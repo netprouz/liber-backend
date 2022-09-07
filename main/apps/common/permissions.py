@@ -10,13 +10,13 @@ class UpdateDeletePermission(permissions.BasePermission):
 
 
 class CreatePermission(permissions.BasePermission):
-    pass
- #    def has_permission(self, request, view):
- #        if request.method in permissions.SAFE_METHODS:
- #            return True
- #        if request.user.is_moderator:
- #           return True
- #        return False
+    # pass
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if request.user.is_moderator:
+           return True
+        return False
 
 
 class DeletePersonalObjectPermission(permissions.BasePermission):

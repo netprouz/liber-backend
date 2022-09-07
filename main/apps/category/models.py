@@ -47,24 +47,24 @@ class Category(BaseModel):
     def __str__(self) -> str:
         return self.title
 
-    # @property
-    # def check_if_subscribed(self):
-    #     from ..subscription.models import Subscription
+    @property
+    def check_if_subscribed(self):
+        from ..subscription.models import Subscription
 
-    #     type_lst = []
-    #     for _type in self.types.all():
-    #         print(self.types.all())
-    #         is_subscribed = False
-    #         if Subscription.objects.filter(category=self, category_type=_type, active=True).exists():
-    #             is_subscribed = True
-    #         type_lst.append(dict(
-    #             guid=_type.guid,
-    #             days=_type.days,
-    #             price=_type.price,
-    #             is_subscribed=is_subscribed
-    #         ))
-    #         print(json.dumps(type_lst))
-    #     return type_lst
+        type_lst = []
+        for _type in self.types.all():
+            print(self.types.all())
+            is_subscribed = False
+            if Subscription.objects.filter(category=self, category_type=_type, active=True).exists():
+                is_subscribed = True
+            type_lst.append(dict(
+                guid=_type.guid,
+                days=_type.days,
+                price=_type.price,
+                is_subscribed=is_subscribed
+            ))
+            print(json.dumps(type_lst))
+        return type_lst
 
 
 class CategoryType(BaseModel):

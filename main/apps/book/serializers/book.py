@@ -20,7 +20,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         slug_field="guid", queryset=Category.objects.all()
     )
-    book_types = BookTypeSerializer()
+    types = BookTypeSerializer(many=True, write_only=True)
     published_date = serializers.DateField(format="%Y", required=False, read_only=True)
     class Meta:
         model = Book
@@ -37,28 +37,27 @@ class BookCreateSerializer(serializers.ModelSerializer):
             'short_description_uz',
             'short_description_ru',
             "published_date",
-            "book_types",
-            
+            "types",
         )
 
     def validate(self, attrs):
         self._errors = {}
-        types = attrs.get("book_types")
+        types = attrs.get("types")
         res = []
         for type_ in types:
-            if type_.get("book_type") in res:
-                self._errors[type_.get("book_type")] = dict(
-                    message=_(f"{type_['book_type']} cannot be duplicate")
+            if type_.get("types") in res:
+                self._errors[type_.get("types")] = dict(
+                    message=_(f"{type_['types']} cannot be duplicate")
                 )
             else:
-                res.append(type_.get("book_type"))
+                res.append(type_.get("types"))
         if self._errors:
             raise serializers.ValidationError(self._errors)
 
         return attrs
 
     def create(self, validated_data):
-        book_types = validated_data.pop("book_types")
+        book_types = validated_data.pop("types")
         book_obj = Book.objects.create(**validated_data)
         for book_type in book_types:
             BookType.objects.create(**book_type, book=book_obj)

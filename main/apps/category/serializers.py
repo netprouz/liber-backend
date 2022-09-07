@@ -20,17 +20,17 @@ class CategoryTypeSerializer(serializers.Serializer):
 
 
 class CategoryModelSerializer(serializers.ModelSerializer):
-    category_types = CategoryTypeSerializer()
+    types = CategoryTypeSerializer(many=True, write_only=True)
 
     class Meta:
         model = Category
-        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "category_types")
+        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "types")
 
 
     def create(self, validated_data):
-        types = validated_data.pop("types")
+        types_data = validated_data.pop("types")
         obj = Category.objects.create(**validated_data)
-        for type_ in types:
+        for type_ in types_data:
             CategoryType.objects.create(**type_, category=obj)
         return obj
 
@@ -49,8 +49,8 @@ class CategoryListSerializer(serializers.ModelSerializer):
             "category_types"
             )
 
-    # def get_types(self, obj):
-    #     return obj.check_if_subscribed
+    def get_category_types(self, obj):
+        return obj.check_if_subscribed
 
     
 class CategoryTestSerializer(serializers.ModelSerializer):

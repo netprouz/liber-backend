@@ -25,10 +25,10 @@ from ...book.filters.filterprice import BookFilter
 class BookCreateAPIView(generics.CreateAPIView):
     model = Book
     serializer_class = BookCreateSerializer
-    permission_classes = [CreatePermission]
+    # permission_classes = [CreatePermission]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 book_create_api_view = BookCreateAPIView.as_view()

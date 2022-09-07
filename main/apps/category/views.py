@@ -18,10 +18,10 @@ category_list_api_view = CategoryListAPIView.as_view()
 class CategoryCreateAPIView(generics.CreateAPIView):
     model = Category
     serializer_class = CategoryModelSerializer
-    permission_classes = [CreatePermission]
+    # permission_classes = [CreatePermission]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 category_create_api_view = CategoryCreateAPIView.as_view()
