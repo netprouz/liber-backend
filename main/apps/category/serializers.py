@@ -49,6 +49,7 @@ class CategoryUpdateSerializer(serializers.ModelSerializer):
         albums = list(albums)
         instance.thumbnail = validated_data.get('thumbnail', instance.thumbnail)
         instance.title = validated_data.get('title', instance.title)
+        # instance.instrument = validated_data.get('instrument', instance.instrument)
         instance.save()
 
         for album_data in albums_data:
