@@ -21,7 +21,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
         slug_field="guid", queryset=Category.objects.all()
     )
     types = BookTypeSerializer(many=True, write_only=True)
-    published_date = serializers.DateField(format="%Y", required=False, read_only=True)
+    published_date = serializers.DateField(format="%Y", required=False)
     class Meta:
         model = Book
         fields = (

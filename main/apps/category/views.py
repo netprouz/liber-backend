@@ -2,7 +2,7 @@ from rest_framework import generics
 
 from ..common.permissions import CreatePermission, UpdateDeletePermission
 from .models import Category, CategoryType
-from .serializers import CategoryModelSerializer, CategoryListSerializer, CategoryTestSerializer
+from .serializers import CategoryModelSerializer, CategoryListSerializer, CategoryUpdateSerializer
 
 
 class CategoryListAPIView(generics.ListAPIView):
@@ -29,7 +29,7 @@ category_create_api_view = CategoryCreateAPIView.as_view()
 
 class CategoryUpdateAPIView(generics.UpdateAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategoryModelSerializer
+    serializer_class = CategoryUpdateSerializer
     permission_classes = [UpdateDeletePermission]
     lookup_field = "guid"
 

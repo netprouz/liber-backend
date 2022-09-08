@@ -35,6 +35,30 @@ class CategoryModelSerializer(serializers.ModelSerializer):
         return obj
 
 
+class CategoryUpdateSerializer(serializers.ModelSerializer):
+    category_types = CategoryTypeSerializer(many=True)
+
+    class Meta:
+        model = Category
+        fields = ("guid", "thumbnail", "title", "title_uz", "title_ru", "category_types")
+
+
+    def update(self, instance, validated_data):
+        albums_data = validated_data.pop('category_types')
+        albums = (instance.category_types).all()
+        albums = list(albums)
+        instance.thumbnail = validated_data.get('thumbnail', instance.thumbnail)
+        instance.title = validated_data.get('title', instance.title)
+        instance.save()
+
+        for album_data in albums_data:
+            album = albums.pop(0)
+            album.days = album_data.get('days', album.days)
+            album.price = album_data.get('price', album.price)
+            album.save()
+        return instance
+
+
 class CategoryListSerializer(serializers.ModelSerializer):
     category_types = CategoryTypeSerializer(many=True)
 
