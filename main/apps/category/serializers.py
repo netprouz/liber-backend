@@ -44,19 +44,18 @@ class CategoryUpdateSerializer(serializers.ModelSerializer):
 
 
     def update(self, instance, validated_data):
-        albums_data = validated_data.pop('category_types')
-        albums = (instance.category_types).all()
-        albums = list(albums)
+        types_data = validated_data.pop('category_types')
+        types = (instance.category_types).all()
+        types = list(types)
         instance.thumbnail = validated_data.get('thumbnail', instance.thumbnail)
         instance.title = validated_data.get('title', instance.title)
-        # instance.instrument = validated_data.get('instrument', instance.instrument)
         instance.save()
 
-        for album_data in albums_data:
-            album = albums.pop(0)
-            album.days = album_data.get('days', album.days)
-            album.price = album_data.get('price', album.price)
-            album.save()
+        for type_data in types_data:
+            type = types.pop(0)
+            type.days = type_data.get('days', type.days)
+            type.price = type_data.get('price', type.price)
+            type.save()
         return instance
 
 

@@ -6,6 +6,8 @@ from main.apps.book.models.book_type import BookType, TYPEChoices
 from ..models.content import Content
 from main.apps.book.serializers.book_type import BookTypeSerializer
 from ..serializers.content import ContentListForBookTypeSerializer
+from rest_framework_simplejwt import authentication
+from rest_framework import permissions
 
 from ...common.permissions import CreatePermission  # noqa
 from ...common.permissions import UpdateDeletePermission  # noqa
@@ -14,6 +16,7 @@ from ..serializers.book import (
     BookCreateSerializer,
     BookDetailSerializer,
     BookListSerializer,
+    BookUpdateSerializer
 )
 from ..utils import count_book_view
 from ...order.models import Order
@@ -24,11 +27,12 @@ from ...book.filters.filterprice import BookFilter
 
 class BookCreateAPIView(generics.CreateAPIView):
     model = Book
+    authentication_classes = [authentication.JWTAuthentication]
     serializer_class = BookCreateSerializer
-    # permission_classes = [CreatePermission]
+    permission_classes = [permissions.IsAuthenticated, CreatePermission]
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 book_create_api_view = BookCreateAPIView.as_view()
@@ -69,12 +73,13 @@ book_detail_api_view = BookDetailAPIView.as_view()
 
 class BookUpdateAPIView(generics.UpdateAPIView):
     queryset = Book.objects.all()
-    serializer_class = BookCreateSerializer
-    permission_classes = [UpdateDeletePermission]
+    authentication_classes = [authentication.JWTAuthentication]
+    serializer_class = BookUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated, UpdateDeletePermission]
     lookup_field = "guid"
 
-    def perform_update(self, serializer):
-        serializer.instance.update_with_types(serializer.validated_data)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 book_update_api_view = BookUpdateAPIView.as_view()
@@ -82,8 +87,9 @@ book_update_api_view = BookUpdateAPIView.as_view()
 
 class BookDeleteAPIView(generics.DestroyAPIView):
     queryset = Book.objects.all()
+    authentication_classes = [authentication.JWTAuthentication]
     serializer_class = BookListSerializer
-    permission_classes = [UpdateDeletePermission]
+    permission_classes = [permissions.IsAuthenticated, UpdateDeletePermission]
     lookup_field = "guid"
 
 
