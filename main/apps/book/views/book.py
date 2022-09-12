@@ -16,6 +16,7 @@ from ..serializers.book import (
     BookCreateSerializer,
     BookDetailSerializer,
     BookListSerializer,
+    BookPublishedDateSerializer,
     BookUpdateSerializer
 )
 from ..utils import count_book_view
@@ -144,6 +145,9 @@ book_filter_by_range_api_view = BookPriceRangeAPIView.as_view()
 
 
 
+class BookPublishedDateView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookPublishedDateSerializer
 
 
-
+book_published_date_list = BookPublishedDateView.as_view()

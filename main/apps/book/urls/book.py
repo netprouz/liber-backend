@@ -35,4 +35,10 @@ urlpatterns = [
         book.book_delete_api_view,
         name="book_delete",
     ),
+
+    path(
+        "published-list/",
+        book.book_published_date_list,
+        name="book_published_date_list",
+    ),
 ]

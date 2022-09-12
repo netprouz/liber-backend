@@ -46,6 +46,7 @@ class Book(BaseModel):
         related_name="books",
     )
     objects = BookManager()
+    
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 

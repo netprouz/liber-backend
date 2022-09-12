@@ -197,3 +197,10 @@ class BookUpdateSerializer(serializers.ModelSerializer):
             type.price = type_data.get('price', type.price)
             type.save()
         return instance
+
+
+class BookPublishedDateSerializer(serializers.ModelSerializer):
+    published_date = serializers.DateField(format="%Y", required=False)
+    class Meta:
+        model = Book
+        fields = ['published_date']
