@@ -9,9 +9,9 @@ urlpatterns = [
 
     path("best-seller/", view=book.best_seller_books_api_view, name="best_seller_books"),
 
-    # path("online-books/", view=book.online_book_api_view, name="online_books"),
+    path("online-books/", view=book.online_book_api_view, name="online_books"),
 
-    # path("audio-books/", view=book.audio_book_api_view, name="audio_books"),
+    path("audio-books/", view=book.audio_book_api_view, name="audio_books"),
 
     path("book-filter/", view=book.book_filter_by_range_api_view, name="price_filter"),
 
