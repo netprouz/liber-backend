@@ -156,6 +156,7 @@ user_registration_api_view = AuthUserRegistrationView.as_view()
 
 
 class ResendOtpToPhoneNumberAPIView(generics.GenericAPIView):
+    serializer_class = user_serializer_.UserRegistrationSerializer
     permission_classes = (AllowAny,)
 
     def post(self, request):
