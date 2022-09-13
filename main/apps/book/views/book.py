@@ -136,13 +136,24 @@ book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
 
 class BookFilterAPIView(generics.ListAPIView):
-    queryset = Book.objects.all().order_by('-created_at')
+    queryset = Book.objects.all()
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
 
-book_filter_api_view = BookFilterAPIView.as_view()
+    def list(self, request, *args, **kwargs):
+        new_books = request.GET.get('new')
+        old_books = request.GET.get('old')
 
+        if new_books:
+            qs = self.filter_queryset(self.get_queryset()).order_by('-created_at')
+            return qs
+        elif old_books:
+            qs = self.filter_queryset(self.get_queryset()).order_by('created_at')
+            return qs
+
+
+book_filter_api_view = BookFilterAPIView.as_view()
 
 
 class BookPublishedDateView(generics.ListAPIView):
@@ -154,10 +165,21 @@ book_published_date_list = BookPublishedDateView.as_view()
 
 
 class OldBooksAPIView(generics.ListAPIView):
-    queryset = Book.objects.all().order_by('created_at')
+    queryset = Book.objects.all()
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
 
+
 old_books_api_view = OldBooksAPIView.as_view()
 
+
+
+class BookPriceAPIView(generics.ListAPIView):
+    data = BookType.objects.all()
+    product_ser = BookTypeSerializer(data, many=True)
+
+    min_price = min(product_ser.data, key=lambda x: x["price"])
+    max_price = max(product_ser.data, key=lambda x: x["price"])
+
+book_price_api_view = BookPriceAPIView.as_view()

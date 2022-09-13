@@ -60,9 +60,15 @@ urlpatterns = [
         name="book_published_date_list",
     ),
 
-     path(
+    path(
         "old-books/",
         book.old_books_api_view,
+        name="ol_book_list",
+    ),
+
+    path(
+        "book-price/",
+        book.book_price_api_view,
         name="ol_book_list",
     ),
 ]
