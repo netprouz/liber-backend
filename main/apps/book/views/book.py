@@ -148,10 +148,10 @@ class BookFilterAPIView(generics.ListAPIView):
         old_books = request.GET.get('old')
 
         if new_books:
-            qs = self.get_queryset().order_by('-created_at')
+            qs = self.filter_queryset(self.get_queryset()).order_by('-created_at')
             return qs
         elif old_books:
-            qs = self.get_queryset().order_by('created_at')
+            qs = self.filter_queryset(self.get_queryset()).order_by('created_at')
             return qs
         return Response('success')
 
