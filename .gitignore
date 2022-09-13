@@ -3,6 +3,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+local.yml
 db.sqlite3
 # C extensions
 *.so
@@ -275,4 +277,3 @@ static/
 
 .ipython/
 .env
-

@@ -135,13 +135,13 @@ class BookPulishedDateFilterAPIView(generics.ListAPIView):
 book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
 
-class BookPriceRangeAPIView(generics.ListAPIView):
-    queryset = Book.objects.all()
+class BookFilterAPIView(generics.ListAPIView):
+    queryset = Book.objects.all().order_by('-created_at')
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
 
-book_filter_by_range_api_view = BookPriceRangeAPIView.as_view()
+book_filter_api_view = BookFilterAPIView.as_view()
 
 
 
@@ -151,3 +151,4 @@ class BookPublishedDateView(generics.ListAPIView):
 
 
 book_published_date_list = BookPublishedDateView.as_view()
+
