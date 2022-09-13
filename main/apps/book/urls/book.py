@@ -59,4 +59,10 @@ urlpatterns = [
         book.book_published_date_list,
         name="book_published_date_list",
     ),
+
+     path(
+        "old-books/",
+        book.old_books_api_view,
+        name="ol_book_list",
+    ),
 ]
