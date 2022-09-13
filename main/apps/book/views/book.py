@@ -137,6 +137,7 @@ book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
 class BookFilterAPIView(generics.ListAPIView):
     queryset = Book.objects.all().order_by('-created_at')
+    print(queryset)
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
