@@ -1,3 +1,4 @@
+from importlib.resources import Resource
 from unicodedata import category
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
@@ -151,7 +152,7 @@ class BookFilterAPIView(generics.ListAPIView):
         elif old_books:
             qs = self.filter_queryset(self.get_queryset()).order_by('created_at')
             return qs
-
+        return Resource('success')
 
 book_filter_api_view = BookFilterAPIView.as_view()
 
