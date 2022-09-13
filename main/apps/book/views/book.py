@@ -153,7 +153,7 @@ class BookFilterAPIView(generics.ListAPIView):
         elif old_books:
             qs = self.filter_queryset(self.get_queryset()).order_by('created_at')
             return qs
-        return Response('success')
+        return Response(qs)
 
 book_filter_api_view = BookFilterAPIView.as_view()
 
