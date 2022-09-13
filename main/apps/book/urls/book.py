@@ -66,9 +66,9 @@ urlpatterns = [
         name="ol_book_list",
     ),
 
-    path(
-        "book-price/",
-        book.book_price_api_view,
-        name="ol_book_list",
-    ),
+    # path(
+    #     "book-price/",
+    #     book.book_price_api_view,
+    #     name="ol_book_list",
+    # ),
 ]

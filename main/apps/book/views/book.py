@@ -175,11 +175,11 @@ old_books_api_view = OldBooksAPIView.as_view()
 
 
 
-class BookPriceAPIView(generics.ListAPIView):
-    data = BookType.objects.all()
-    product_ser = BookTypeSerializer(data, many=True)
+# class BookPriceAPIView(generics.ListAPIView):
+#     data = BookType.objects.all()
+#     product_ser = BookTypeSerializer(data, many=True)
 
-    min_price = min(product_ser.data, key=lambda x: x["price"])
-    max_price = max(product_ser.data, key=lambda x: x["price"])
+#     min_price = min(product_ser.data, key=lambda x: x["price"])
+#     max_price = max(product_ser.data, key=lambda x: x["price"])
 
-book_price_api_view = BookPriceAPIView.as_view()
+# book_price_api_view = BookPriceAPIView.as_view()
