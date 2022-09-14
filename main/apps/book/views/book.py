@@ -144,13 +144,15 @@ class BookFilterAPIView(generics.ListAPIView):
     search_fields = ["title", "published_date",]
 
     def get_queryset(self):
-        new = self.request.query_params.get('new')
-        old = self.request.query_params.get('old')
+        # new = self.request.query_params.get('new')
+        # old = self.request.query_params.get('old')
 
-        if new:
+        if 'new' in self.request.query_params.get('new'):
             qs = Book.objects.all().order_by('-created_at')
-        elif old:
+            print(qs)
+        elif 'old' in self.request.query_params.get('old'):
             qs = Book.objects.all().order_by('created_at')
+            print(qs)
             return qs
         return super().get_queryset()
 
