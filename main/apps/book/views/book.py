@@ -176,13 +176,15 @@ class OldBooksAPIView(generics.ListAPIView):
 
 old_books_api_view = OldBooksAPIView.as_view()
 
+from django.db.models import Max, Min
 
+class BookPriceAPIView(generics.ListAPIView):
+    queryset = BookType.objects.all()
+    serializer_class = BookTypeSerializer
+    
+    def get(self):
+        qs = BookType.objects.aggregate(Max('price'))
 
-# class BookPriceAPIView(generics.ListAPIView):
-#     data = BookType.objects.all()
-#     product_ser = BookTypeSerializer(data, many=True)
+        return Response(qs)
 
-#     min_price = min(product_ser.data, key=lambda x: x["price"])
-#     max_price = max(product_ser.data, key=lambda x: x["price"])
-
-# book_price_api_view = BookPriceAPIView.as_view()
+book_price_api_view = BookPriceAPIView.as_view()
