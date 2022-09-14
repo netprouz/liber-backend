@@ -119,7 +119,7 @@ class BookListSerializer(serializers.ModelSerializer):
 
 class BookDetailSerializer(serializers.ModelSerializer):
     types = serializers.SerializerMethodField()
-    view = serializers.IntegerField()
+    # view = serializers.IntegerField()
     reviews = ReviewListSerializer(many=True)
 
     class Meta:
@@ -137,7 +137,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'short_description_ru',
             "published_date",
             "reviews",
-            "view",
+            # "view",
             "types",
             "reviews",
         )
