@@ -178,11 +178,11 @@ old_books_api_view = OldBooksAPIView.as_view()
 
 from django.db.models import Max, Min
 
-class BookPriceAPIView(generics.ListAPIView):
+class BookPriceAPIView(generics.GenericAPIView):
     queryset = BookType.objects.all()
     serializer_class = BookTypeSerializer
     
-    def get(self):
+    def get(self, request):
         qs = BookType.objects.aggregate(Max('price'))
 
         return Response(qs)
