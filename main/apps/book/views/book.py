@@ -25,6 +25,7 @@ from ...order.models import Order
 from django.db.models import Sum
 from main.apps.order.serializers import OrderListSerializer
 from ...book.filters.filterprice import BookFilter
+from django.db.models import Max, Min
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -176,15 +177,20 @@ class OldBooksAPIView(generics.ListAPIView):
 
 old_books_api_view = OldBooksAPIView.as_view()
 
-from django.db.models import Max, Min
 
 class BookPriceAPIView(generics.GenericAPIView):
     queryset = BookType.objects.all()
     serializer_class = BookTypeSerializer
     
     def get(self, request):
-        qs = BookType.objects.aggregate(Max('price'))
+        max_price = BookType.objects.aggregate(Max('price'))
+        min_price = BookType.objects.aggregate(Min('price'))
 
-        return Response(qs)
+        data = {
+            "max_price": max_price,
+            "min_price": min_price
+        }
+
+        return Response(data)
 
 book_price_api_view = BookPriceAPIView.as_view()
