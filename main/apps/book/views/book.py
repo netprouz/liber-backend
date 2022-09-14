@@ -158,7 +158,7 @@ class BookFilterAPIView(generics.GenericAPIView):
             data = {
                 'qs': qs
             }
-        return Response(data)
+            return Response(data)
 
 book_filter_api_view = BookFilterAPIView.as_view()
 
