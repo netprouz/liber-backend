@@ -51,23 +51,23 @@ book_list_api_view = BookListAPIView.as_view()
 
 
 class BookDetailAPIView(generics.RetrieveAPIView):
-    queryset = Book.objects.filter_with_children()
+    queryset = Book.objects.all()
     serializer_class = BookDetailSerializer
     lookup_field = "guid"
 
-    def get_object(self):
-        queryset = self.filter_queryset(self.get_queryset())
-        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
-        assert lookup_url_kwarg in self.kwargs, (
-            self.__class__.__name__,
-            lookup_url_kwarg,
-        )
-        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
-        obj = get_object_or_404(queryset, **filter_kwargs)
-        # self.check_object_permissions(self.request, obj)
-        # count book views
-        # count_book_view(book=obj, user=self.request.user)
-        return obj
+    # def get_object(self):
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+    #     assert lookup_url_kwarg in self.kwargs, (
+    #         self.__class__.__name__,
+    #         lookup_url_kwarg,
+    #     )
+    #     filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+    #     obj = get_object_or_404(queryset, **filter_kwargs)
+    #     # self.check_object_permissions(self.request, obj)
+    #     # count book views
+    #     # count_book_view(book=obj, user=self.request.user)
+    #     return obj
 
 
 book_detail_api_view = BookDetailAPIView.as_view()
