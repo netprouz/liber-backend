@@ -118,8 +118,9 @@ class BookListSerializer(serializers.ModelSerializer):
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
-    types = serializers.SerializerMethodField()
+    # types = serializers.SerializerMethodField()
     # view = serializers.IntegerField()
+    types = BookTypeSerializer(read_only=True, many=True)
     reviews = ReviewListSerializer(many=True)
 
     class Meta:
@@ -140,6 +141,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             # "view",
             "types",
             "reviews",
+            "created_at"
         )
 
     def __init__(self, *args, **kwargs):
@@ -152,8 +154,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
         self.fields["category"] = CategoryHelperSerializer()
         return super().to_representation(instance)
 
-    def get_types(self, obj):
-        return obj.set_purchased_book_types_true(self.user)
+    # def get_types(self, obj):
+    #     return obj.set_purchased_book_types_true(self.user)
 
 
 class BookUpdateSerializer(serializers.ModelSerializer):

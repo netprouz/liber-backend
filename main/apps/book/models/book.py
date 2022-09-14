@@ -70,29 +70,29 @@ class Book(BaseModel):
 
         return Content.objects.filter(book=self.id, book_type=AUDIO)
 
-    def set_purchased_book_types_true(self, user):
-        from ...account.models.user_book import UserBook
+    # def set_purchased_book_types_true(self, user):
+    #     from ...account.models.user_book import UserBook
 
-        type_list = []
-        for book_type in self.types.all():
-            is_purchased = False
-            reference = ""
+    #     type_list = []
+    #     for book_type in self.types.all():
+    #         is_purchased = False
+    #         reference = ""
 
-            qs = UserBook.objects.filter(
-                book=self, owner=user, book_type=book_type.book_type
-            )
-            if qs.exists():
-                is_purchased = True
-                reference = qs.first().guid
-            data = dict(
-                guid=book_type.guid,
-                book_type=book_type.book_type,
-                price=book_type.price,
-                is_purchased=is_purchased,
-                reference=reference,
-            )
-            type_list.append(data)
-        return type_list
+    #         qs = UserBook.objects.filter(
+    #             book=self, owner=user, book_type=book_type.book_type
+    #         )
+    #         if qs.exists():
+    #             is_purchased = True
+    #             reference = qs.first().guid
+    #         data = dict(
+    #             guid=book_type.guid,
+    #             book_type=book_type.book_type,
+    #             price=book_type.price,
+    #             is_purchased=is_purchased,
+    #             reference=reference,
+    #         )
+    #         type_list.append(data)
+    #     return type_list
 
     class Meta(BaseMeta):
         verbose_name = _("Book")
