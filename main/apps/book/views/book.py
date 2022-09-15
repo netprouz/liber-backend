@@ -138,27 +138,28 @@ book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
 from rest_framework.response import Response
 
-class BookFilterAPIView(generics.GenericAPIView):
-    queryset = Book.objects.all()
+class BookFilterAPIView(generics.ListAPIView):
+    # queryset = Book.objects.all()
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
 
-    # def get(self, request):
-    #     new = self.request.query_params.get('new')
-    #     old = self.request.query_params.get('old')
+    def get_queryset(self):
+        queryset = Book.objects.all()
+        new = self.request.query_params.get('new')
+        old = self.request.query_params.get('old')
 
-    #     if new:
-    #         qs = Book.objects.all().order_by('-created_at')
-    #         print(qs)
-    #     elif old:
-    #         qs = Book.objects.all().order_by('created_at')
-    #         print(qs)
+        if new:
+            queryset = Book.objects.all().order_by('-created_at')
+            # print(qs)
+        elif old:
+            queryset = Book.objects.all().order_by('created_at')
+            # print(qs)
             
-    #         data = {
-    #             'qs': qs
-    #         }
-    #         return Response(data)
+            # data = {
+            #     'qs': queryset
+            # }
+            return queryset
         # return Response('success')
 
 book_filter_api_view = BookFilterAPIView.as_view()
