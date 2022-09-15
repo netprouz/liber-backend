@@ -69,6 +69,7 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
     category = serializers.ReadOnlyField(source='category.title')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     rating = serializers.IntegerField(default=0)
+    published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
@@ -94,7 +95,7 @@ class BookListSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     types = BookTypeSerializer(read_only=True, many=True)
     rating = serializers.IntegerField(default=0)
-    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
+    published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
@@ -122,7 +123,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
     # view = serializers.IntegerField()
     types = BookTypeSerializer(read_only=True, many=True)
     reviews = ReviewListSerializer(many=True)
-
+    published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
