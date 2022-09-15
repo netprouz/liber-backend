@@ -13,9 +13,10 @@ class BookFilter(FilterSet):
     min_price = NumberFilter(field_name='types__price', lookup_expr='gte')
     max_price = NumberFilter(field_name='types__price', lookup_expr='lte')
     book_type = filters.CharFilter(field_name='types__book_type',  label="Book Type")
-    published_date = filters.CharFilter(
-        field_name='published_date__year',  label='Published date')
-        
+    # published_date = filters.CharFilter(
+    #     field_name='published_date__year',  label='Published date')
+    published_date = filters.CharFilter(field_name='published_date', label='Published Date')
+
     
     class Meta:
         model = Book
