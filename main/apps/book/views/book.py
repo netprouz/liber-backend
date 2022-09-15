@@ -26,6 +26,7 @@ from django.db.models import Sum
 from main.apps.order.serializers import OrderListSerializer
 from ...book.filters.filterprice import BookFilter
 from django.db.models import Max, Min
+from rest_framework.response import Response
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -136,7 +137,6 @@ class BookPulishedDateFilterAPIView(generics.ListAPIView):
 
 book_publisheddate_filter_api_view = BookPulishedDateFilterAPIView.as_view()
 
-from rest_framework.response import Response
 
 class BookFilterAPIView(generics.ListAPIView):
     serializer_class = BookListSerializer

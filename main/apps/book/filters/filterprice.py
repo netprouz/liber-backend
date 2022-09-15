@@ -15,15 +15,7 @@ class BookFilter(FilterSet):
     book_type = filters.CharFilter(field_name='types__book_type',  label="Book Type")
     published_date = filters.CharFilter(
         field_name='published_date__year',  label='Published date')
-    new = filters.CharFilter(field_name='created_at', label='New Books')
-    old = filters.CharFilter(field_name='created_at', label='Old Books')
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.filters['book_type'].extra['choices'] = [
-    #         (ip, ip)
-    #         for ip in BookType.objects.values_list('book_type', flat=True)
-    #     ]
+        
     
     class Meta:
         model = Book
