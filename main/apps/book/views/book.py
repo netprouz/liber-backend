@@ -146,10 +146,10 @@ class BookFilterAPIView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Book.objects.all()
 
-        if 'new_book' in self.request.GET:
+        if 'new-book' in self.request.GET:
             queryset = queryset.order_by('-created_at')
-            
-        elif 'old_book' in self.request.GET:
+
+        elif 'old-book' in self.request.GET:
             queryset = queryset.order_by('created_at')
             return queryset
 
