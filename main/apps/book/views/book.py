@@ -81,8 +81,8 @@ class BookUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated, UpdateDeletePermission]
     lookup_field = "guid"
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 book_update_api_view = BookUpdateAPIView.as_view()

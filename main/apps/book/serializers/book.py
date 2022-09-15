@@ -195,6 +195,10 @@ class BookUpdateSerializer(serializers.ModelSerializer):
         types = list(types)
         print(types)
         instance.title = validated_data.get('title', instance.title)
+        instance.short_description = validated_data.get('short_description', instance.short_description)
+        instance.short_description_uz = validated_data.get('short_description_uz', instance.short_description_uz)
+        instance.short_description_ru = validated_data.get('short_description_ru', instance.short_description_ru)
+        instance.published_date = validated_data.get('published_date', instance.published_date)
         instance.hardcover = validated_data.get('hardcover', instance.hardcover)
         instance.save()
 
