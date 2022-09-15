@@ -108,8 +108,8 @@ class BookListSerializer(serializers.ModelSerializer):
             'thumbnail',
             'rating',
             'category',
-            'category_uz'
-            'category_ru'
+            'category_uz',
+            'category_ru',
             'language',
             'short_description',
             'short_description_uz',
