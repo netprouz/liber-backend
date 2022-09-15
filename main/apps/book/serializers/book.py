@@ -22,7 +22,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
         slug_field="guid", queryset=Category.objects.all()
     )
     types = BookTypeSerializer(many=True, write_only=True)
-    published_date = serializers.DateField(format="%Y", required=False)
+    # published_date = serializers.DateField(format="%Y", required=False)
     class Meta:
         model = Book
         fields = (
@@ -69,7 +69,7 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
     category = serializers.ReadOnlyField(source='category.title')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     rating = serializers.IntegerField(default=0)
-    published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
+    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
@@ -97,7 +97,7 @@ class BookListSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     types = BookTypeSerializer(read_only=True, many=True)
     rating = serializers.IntegerField(default=0)
-    published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
+    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
@@ -127,7 +127,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
     # view = serializers.IntegerField()
     types = BookTypeSerializer(read_only=True, many=True)
     reviews = ReviewListSerializer(many=True)
-    published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
+    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
@@ -168,7 +168,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
         slug_field="guid", queryset=Category.objects.all()
     )
     types = BookTypeSerializer(many=True)
-    published_date = serializers.DateField(format="%Y", required=False)
+    # published_date = serializers.DateField(format="%Y", required=False)
     class Meta:
         model = Book
         fields = (
@@ -191,14 +191,14 @@ class BookUpdateSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         types_data = validated_data.pop('types')
         types = (instance.types).all()
-        print(types)
         types = list(types)
-        print(types)
         instance.title = validated_data.get('title', instance.title)
         instance.short_description = validated_data.get('short_description', instance.short_description)
         instance.short_description_uz = validated_data.get('short_description_uz', instance.short_description_uz)
         instance.short_description_ru = validated_data.get('short_description_ru', instance.short_description_ru)
         instance.published_date = validated_data.get('published_date', instance.published_date)
+        instance.thumbnail = validated_data.get('thumbnail', instance.thumbnail)
+        instance.language = validated_data.get('language', instance.language)
         instance.hardcover = validated_data.get('hardcover', instance.hardcover)
         instance.save()
 
@@ -211,7 +211,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
 
 
 class BookPublishedDateSerializer(serializers.ModelSerializer):
-    published_date = serializers.DateField(format="%Y", required=False)
+    # published_date = serializers.DateField(format="%Y", required=False)
     class Meta:
         model = Book
         fields = ['published_date']
