@@ -9,7 +9,7 @@ from django_filters import filters
 
 
 class BookFilter(FilterSet):
-    category = filters.CharFilter(field_name='category__title', lookup_expr='iexact', label='Category')
+    category = filters.CharFilter(field_name='category__guid', lookup_expr='iexact', label='Category')
     min_price = NumberFilter(field_name='types__price', lookup_expr='gte')
     max_price = NumberFilter(field_name='types__price', lookup_expr='lte')
     book_type = filters.CharFilter(field_name='types__book_type',  label="Book Type")
