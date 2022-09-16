@@ -35,7 +35,7 @@ class Book(BaseModel):
     )
     language = models.CharField(max_length=255, blank=True)
     hardcover = models.PositiveIntegerField()
-    ISNB = models.CharField(max_length=100, null=True, blank=True)
+    isbn = models.CharField(max_length=100, null=True, blank=True)
     publisher = models.CharField(max_length=100, null=True, blank=True)
     short_description = models.TextField(blank=True)
     published_date = models.CharField(max_length=10, null=True, blank=True)

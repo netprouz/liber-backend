@@ -35,7 +35,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "language",
             "hardcover",
             "publisher",
-            "ISBN",
+            "isbn",
             "short_description",
             'short_description_uz',
             'short_description_ru',
@@ -84,7 +84,7 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
             'category',
             'language',
             "publisher",
-            "ISBN",
+            "isbn",
             'short_description',
             'short_description_uz',
             'short_description_ru',
@@ -116,7 +116,7 @@ class BookListSerializer(serializers.ModelSerializer):
             'category_ru',
             'language',
             "publisher",
-            "ISBN",
+            "isbn",
             'short_description',
             'short_description_uz',
             'short_description_ru',
@@ -145,7 +145,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "language",
             "hardcover",
             "publisher",
-            "ISBN",
+            "isbn",
             "short_description",
             'short_description_uz',
             'short_description_ru',
@@ -189,7 +189,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
             "language",
             "hardcover",
             "publisher",
-            "ISBN",
+            "isbn",
             "short_description",
             'short_description_uz',
             'short_description_ru',
@@ -209,7 +209,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
         instance.published_date = validated_data.get('published_date', instance.published_date)
         instance.thumbnail = validated_data.get('thumbnail', instance.thumbnail)
         instance.language = validated_data.get('language', instance.language)
-        instance.ISBN = validated_data.get('ISBN', instance.ISBN)
+        instance.isbn = validated_data.get('isbn', instance.isbn)
         instance.publisher = validated_data.get('publisher', instance.publisher)
         instance.hardcover = validated_data.get('hardcover', instance.hardcover)
         instance.save()
