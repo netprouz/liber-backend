@@ -45,6 +45,7 @@ book_create_api_view = BookCreateAPIView.as_view()
 class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.filter_with_rates()
     serializer_class = BookListSerializer
+    # pagination_class = BooksLimitOffsetPagionation
     filterset_fields = ["title", "author", "category__id"]
     search_fields = ["title", "author", "category__title"]
 
