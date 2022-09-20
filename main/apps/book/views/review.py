@@ -1,6 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from ...common.permissions import DeletePersonalObjectPermission
+from ...common.pagination import ReviewLimitOffsetPagionation
 from ..models.review import Review
 from ..serializers.review import ReviewCreateSerializer, ReviewListSerializer
 
@@ -22,6 +23,7 @@ review_create_api_view = ReviewCreateAPIView.as_view()
 class ReviewListAPIView(generics.ListAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewListSerializer
+    pagination_class = ReviewLimitOffsetPagionation
     lookup_field = "guid"
 
     def get(self, request, guid):
@@ -30,6 +32,7 @@ class ReviewListAPIView(generics.ListAPIView):
         return Response(serializer.data)
 
 review_list_api_view = ReviewListAPIView.as_view()
+
 
 class ReviewDeleteAPIView(generics.DestroyAPIView):
     queryset = Review.objects.all()
