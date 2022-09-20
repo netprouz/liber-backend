@@ -9,9 +9,9 @@ from django.conf import settings
 
 
 
-account_sid = 'AC4fdab225852de8c61861a448f5e57c2d'
-auth_token = "68295c2dc18dd1c1a6ba3b88c2c12196"
-twilio_phone = "+19787170501"
+account_sid = 'AC59d0629692bb9a29e294b73663696933'
+auth_token = "9a1035b65c166d343605b2697a80b10b"
+twilio_phone = "+18329798435"
 client = TwilioClient(account_sid, auth_token)
 
 

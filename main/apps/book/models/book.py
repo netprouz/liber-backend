@@ -17,6 +17,19 @@ def upload_book_cover(instance, filename):
     timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
     filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
     return f"book/{filename}"
+
+
+def upload_file(instance, filename):
+    filename_without_extension, extension = os.path.splitext(filename.lower())
+    timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
+    filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
+    return f"paper_book/{filename}"
+
+def auido_file(instance, filename):
+    filename_without_extension, extension = os.path.splitext(filename.lower())
+    timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
+    filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
+    return f"audio_book/{filename}"
     
 
 User = get_user_model()
@@ -30,6 +43,8 @@ class Book(BaseModel):
     slug = AutoSlugField(populate_from='title', null=True)
     author = models.CharField(max_length=255, blank=True)
     thumbnail = models.ImageField(blank=True, upload_to=upload_book_cover)
+    # file_upload = models.FileField(blank=True, upload_to=upload_file)
+    # audio_upload = models.FileField(blank=True, upload_to=auido_file)
     category = models.ForeignKey(
         "category.Category", on_delete=models.CASCADE, related_name="books"
     )
@@ -47,8 +62,6 @@ class Book(BaseModel):
         related_name="books",
     )
     objects = BookManager()
-    
-
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def update_with_types(self, data):

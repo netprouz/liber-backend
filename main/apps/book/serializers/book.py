@@ -1,3 +1,4 @@
+from email.mime import audio
 from email.policy import default
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
@@ -223,7 +224,20 @@ class BookUpdateSerializer(serializers.ModelSerializer):
 
 
 class BookPublishedDateSerializer(serializers.ModelSerializer):
-    # published_date = serializers.DateField(format="%Y", required=False)
     class Meta:
         model = Book
         fields = ['published_date']
+
+
+# class AudiouploadSerializer( serializers.Serializer ):
+#     audio_upload = serializers.ListField(
+#                        child=serializers.FileField( max_length=100000,
+#                                          allow_empty_file=False,
+#                                          use_url=False )
+#                                 )
+#     def create(self, validated_data):
+#         # blogs=Blogs.objects.latest('created_at')
+#         audio_upload=validated_data.pop('audio_upload')
+#         for audio in audio_upload:
+#             aud=Book.objects.create(audio_upload=audio, **validated_data)
+#         return aud

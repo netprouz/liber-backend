@@ -25,3 +25,5 @@ class RateCreateUpdateSerializer(serializers.Serializer):
         if self.errors:
             raise serializers.ValidationError(self._errors)
         return attrs
+
+

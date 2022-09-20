@@ -1,8 +1,8 @@
 from rest_framework import generics
-
+from rest_framework.response import Response
 from ...common.permissions import DeletePersonalObjectPermission
 from ..models.review import Review
-from ..serializers.review import ReviewCreateSerializer
+from ..serializers.review import ReviewCreateSerializer, ReviewListSerializer
 
 
 class ReviewCreateAPIView(generics.CreateAPIView):
@@ -18,6 +18,18 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 
 review_create_api_view = ReviewCreateAPIView.as_view()
 
+
+class ReviewListAPIView(generics.ListAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewListSerializer
+    lookup_field = "guid"
+
+    def get(self, request, guid):
+        reviews = Review.objects.filter(book__guid=guid)
+        serializer = ReviewListSerializer(reviews, many=True)
+        return Response(serializer.data)
+
+review_list_api_view = ReviewListAPIView.as_view()
 
 class ReviewDeleteAPIView(generics.DestroyAPIView):
     queryset = Review.objects.all()

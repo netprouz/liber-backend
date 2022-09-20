@@ -13,4 +13,9 @@ urlpatterns = [
         review.review_delete_api_view,
         name="book_review_delete",
     ),
+    path(
+        "<uuid:guid>/list/",
+        review.review_list_api_view,
+        name="book_review_list",
+    ),
 ]
