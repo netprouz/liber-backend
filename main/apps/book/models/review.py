@@ -8,8 +8,21 @@ from ..managers.review import ReviewManager
 User = get_user_model()
 
 
+
+class RATEChoices(models.IntegerChoices):
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+
+
 class Review(BaseModel):
     title = models.TextField()
+    point = models.IntegerField(
+        choices=RATEChoices.choices,
+        default=RATEChoices.THREE,
+    )
     book = models.ForeignKey(
         "book.Book", on_delete=models.CASCADE, related_name="reviews"
     )
