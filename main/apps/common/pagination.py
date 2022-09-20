@@ -13,5 +13,5 @@ class LargeResultsSetPagination(pagination.PageNumberPagination):
     max_page_size = 10000
 
 class ReviewLimitOffsetPagionation(LimitOffsetPagination):
-    default_limit = 4
-    max_limit = 4
+    default_limit = 2
+    max_limit = 2
