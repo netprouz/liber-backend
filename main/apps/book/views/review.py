@@ -1,9 +1,9 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from ...common.permissions import DeletePersonalObjectPermission
-from ...common.pagination import ReviewLimitOffsetPagionation
 from ..models.review import Review
 from ..serializers.review import ReviewCreateSerializer, ReviewListSerializer
+from ...common.pagination import ReviewLimitOffsetPagionation
 
 
 class ReviewCreateAPIView(generics.CreateAPIView):
@@ -20,16 +20,24 @@ class ReviewCreateAPIView(generics.CreateAPIView):
 review_create_api_view = ReviewCreateAPIView.as_view()
 
 
-class ReviewListAPIView(generics.ListAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewListSerializer
-    pagination_class = ReviewLimitOffsetPagionation
-    lookup_field = "guid"
+# class ReviewListAPIView(APIView):
+#     # queryset = Review.objects.filter_review()
+#     # serializer_class = ReviewListSerializer
+#     # lookup_field = "guid"
+#     # paginate_by = 1
+#     # def get_queryset(self):
+#     #     return self.queryset.filter(owner=self.request.user)
+#     def get(request, guid):
+#         reviews = Review.objects.filter(book__guid=guid)
+#         serializer = ReviewListSerializer(reviews, many=True)
+#         return Response(serializer.data)
 
-    def get(self, request, guid):
-        reviews = Review.objects.filter(book__guid=guid)
-        serializer = ReviewListSerializer(reviews, many=True)
-        return Response(serializer.data)
+class ReviewListAPIView(generics.ListAPIView):
+    pagination_class = ReviewLimitOffsetPagionation
+    def get_queryset(self):
+        queryset = Review.objects.filter(book__guid=self.kwargs['guid'])
+        return queryset
+    serializer_class = ReviewListSerializer
 
 review_list_api_view = ReviewListAPIView.as_view()
 
