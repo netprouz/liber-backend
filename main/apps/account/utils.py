@@ -56,12 +56,12 @@ def generate_random_password():
     return _int
 
 
-def send_password_as_sms(phone_number, password):
-    url = s.SMS_DOMAIN + "?token=" + s.SMS_TOKEN
-    data = {
-        "message": {"recipients": [str(phone_number)]},
-        "priority": "default",
-        "sms": {"content": f"your password for zukko system is: {password}"},
-    }
+# def send_password_as_sms(phone_number, password):
+#     url = s.SMS_DOMAIN + "?token=" + s.SMS_TOKEN
+#     data = {
+#         "message": {"recipients": [str(phone_number)]},
+#         "priority": "default",
+#         "sms": {"content": f"your password for zukko system is: {password}"},
+#     }
 
-    requests.post(url, data=json.dumps(data), timeout=5)
+#     requests.post(url, data=json.dumps(data), timeout=5)

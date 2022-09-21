@@ -9,10 +9,11 @@ from django.contrib.auth.hashers import make_password
 
 from ...common import permissions
 from ..serializers import user as user_serializer_
-from ..utils import generate_random_password, send_password_as_sms
+# from ..utils import generate_random_password, send_password_as_sms
 
 from ...account.sendotp import (
     send_sms_code, 
+    send_password_as_sms,
     password_reset_verification_code_by_phone_number, 
     send_otp_to_email,
     password_reset_verification_code_by_email
@@ -137,9 +138,11 @@ class AuthUserRegistrationView(generics.GenericAPIView):
         if valid:
             serializer.save()
             if "+998" in serializer.data['username']:
-                send_sms_code(serializer.data['username'])
-            elif "@" in serializer.data['username']:
-                send_otp_to_email(serializer.data['username'])
+                send_password_as_sms(serializer.data['username'])
+                # send_sms_code(serializer.data['username'])
+            # elif "@" in serializer.data['username']:
+            #     send_password_as_sms(serializer.data['username'])
+            #     # send_otp_to_email(serializer.data['username'])
             status_code = status.HTTP_201_CREATED
 
             response = {

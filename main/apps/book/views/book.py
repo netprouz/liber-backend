@@ -53,6 +53,17 @@ class BookListAPIView(generics.ListAPIView):
 book_list_api_view = BookListAPIView.as_view()
 
 
+class RelatedBooksListAPIView(generics.ListAPIView):
+    # pagination_class = ReviewLimitOffsetPagionation
+    
+    def get_queryset(self):
+        book = Book.objects.get(guid=self.kwargs['guid'])
+        queryset = Book.objects.filter(category=book.category).exclude(guid=self.kwargs['guid']).order_by('?')
+    serializer_class = BookListSerializer
+
+related_book_api_view = RelatedBooksListAPIView.as_view()
+
+
 class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookDetailSerializer
@@ -71,7 +82,6 @@ class BookDetailAPIView(generics.RetrieveAPIView):
     #     # count book views
     #     # count_book_view(book=obj, user=self.request.user)
     #     return obj
-
 
 book_detail_api_view = BookDetailAPIView.as_view()
 
@@ -191,3 +201,5 @@ class BookPriceAPIView(generics.GenericAPIView):
         return Response(data)
 
 book_price_api_view = BookPriceAPIView.as_view()
+
+

@@ -7,6 +7,11 @@ from rest_framework.response import Response
 from django.core.mail import EmailMessage
 from django.conf import settings
 
+import json
+import random
+
+import requests
+
 
 
 account_sid = 'AC59d0629692bb9a29e294b73663696933'
@@ -27,6 +32,60 @@ def send_sms_code(username):
                      to=user_phone_number
                  )
     return Response(status=200)
+
+import datetime
+
+def send_password_as_sms(username):
+    user_phone_number = User.objects.get(username=username).username
+    otp = random.randint(100000, 999999)
+    user_otp = User.objects.get(username=username)
+    user_otp.otp = otp
+    user_otp.save()
+    from_whom = '+998901234567'
+    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9ub3RpZnkuZXNraXoudXovYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDc1Njc1NTAsImV4cCI6MTU0NzY1Mzk1MCwibmJmIjoxNTQ3NTY3NTUwLCJqdGkiOiJTSmxYYUFSU3FPS29ZWUlxIn0.O2B_87_KlmGwPqXZfaISy5VPT6N2_QpjN3h7lGlvpDo'
+    payload = {
+            "mobile_phone": str(user_phone_number),
+            "message": 'message',
+            "from_whom": from_whom,
+            "callback_url": 'http://0000.uz/test.php'
+        }
+    response = requests.post("/message/sms/send", token=token, payload=payload)
+    return response
+
+    # url = "https://notify.eskiz.uz/api/message/sms/send" + "?token=" + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9ub3RpZnkuZXNraXoudXovYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDc1Njc1NTAsImV4cCI6MTU0NzY1Mzk1MCwibmJmIjoxNTQ3NTY3NTUwLCJqdGkiOiJTSmxYYUFSU3FPS29ZWUlxIn0.O2B_87_KlmGwPqXZfaISy5VPT6N2_QpjN3h7lGlvpDo"
+    # status = "good job"
+    # data = {
+    #         'mobile_phone': user_phone_number,
+    #         'message': "Test",
+    #         'from': "4546",
+    #         'callback_url': "http://0000.uz/test.php"
+    #     }
+    # print(data)
+    # data = {
+    #     "message": {"recipients": [str(user_phone_number)]},
+    #     "priority": "default",
+    #     "sms": {"content": f"your password for liber system is: {otp}"},
+    # }
+
+    # requests.post(url, data=json.dumps(data), timeout=5)
+
+# from shared import rdb
+# send_sms_api = "https://notify.eskiz.uz/api/message/sms/send" 
+
+# def send_password_as_sms(data):
+#     # while not rdb.get('eskiz_token'):
+#     #     get_token_eskiz()
+
+#     headers = {
+#         "Authorization": "Bearer " + rdb.get('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9ub3RpZnkuZXNraXoudXovYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDc1Njc1NTAsImV4cCI6MTU0NzY1Mzk1MCwibmJmIjoxNTQ3NTY3NTUwLCJqdGkiOiJTSmxYYUFSU3FPS29ZWUlxIn0.O2B_87_KlmGwPqXZfaISy5VPT6N2_QpjN3h7lGlvpDo')
+#     }
+
+#     return requests.post(
+#         send_sms_api,
+#         data=data,
+#         headers=headers
+#     )
+
 
 
 def password_reset_verification_code_by_phone_number(username):
