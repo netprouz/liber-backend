@@ -18,3 +18,9 @@ class ReviewLimitOffsetPagionation(LimitOffsetPagination):
     max_limit = 25
     page_size_query_param = "page_size"
 
+
+class RelatedBookLimitOffsetPagionation(LimitOffsetPagination):
+    default_limit = 3
+    max_limit = 25
+    page_size_query_param = "page_size"
+

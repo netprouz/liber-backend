@@ -12,6 +12,7 @@ from rest_framework import permissions
 
 from ...common.permissions import CreatePermission  # noqa
 from ...common.permissions import UpdateDeletePermission  # noqa
+from ...common.pagination import RelatedBookLimitOffsetPagionation
 from ..models.book import AUDIO, ONLINE, Book
 from ..serializers.book import (
     BookCreateSerializer,
@@ -54,12 +55,14 @@ book_list_api_view = BookListAPIView.as_view()
 
 
 class RelatedBooksListAPIView(generics.ListAPIView):
-    # pagination_class = ReviewLimitOffsetPagionation
+    pagination_class = RelatedBookLimitOffsetPagionation
     
     def get_queryset(self):
         book = Book.objects.get(guid=self.kwargs['guid'])
         queryset = Book.objects.filter(category=book.category).exclude(guid=self.kwargs['guid']).order_by('?')
+        return queryset
     serializer_class = BookListSerializer
+
 
 related_book_api_view = RelatedBooksListAPIView.as_view()
 
