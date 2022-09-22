@@ -75,4 +75,10 @@ urlpatterns = [
         book.related_book_api_view,
         name="related_book_list",
     ),
+
+    # path(
+    #     "<uuid:guid>/test-url/",
+    #     book.test_api_view,
+    #     name="related_book_list",
+    # ),
 ]

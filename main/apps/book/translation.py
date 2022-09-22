@@ -1,4 +1,3 @@
-from main.apps.category.models import Category
 from .models.book import Book
 from modeltranslation.translator import TranslationOptions, translator
 
