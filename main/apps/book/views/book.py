@@ -1,5 +1,5 @@
 from importlib.resources import Resource
-from unicodedata import category
+from unicodedata import category, decimal
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
@@ -67,11 +67,13 @@ class RelatedBooksListAPIView(generics.ListAPIView):
 
 related_book_api_view = RelatedBooksListAPIView.as_view()
 
+from math import floor
+import json
 
 class BookDetailAPIView(generics.RetrieveAPIView):
     def get(self, request, guid):
             review_count = Review.objects.filter(book__guid=self.kwargs['guid'])
-            rate_avg = Review.objects.filter(book__guid=self.kwargs['guid']).aggregate(Avg('point'))
+            rate_avg = Review.objects.filter(book__guid=guid).aggregate(Avg('point'))
 
             point_one = Review.objects.filter(book__guid=self.kwargs['guid'], point='1').count()
             point_two = Review.objects.filter(book__guid=self.kwargs['guid'], point='2').count()
@@ -86,15 +88,18 @@ class BookDetailAPIView(generics.RetrieveAPIView):
             point_three_percent = (point_three/total)*100
             point_four_percent = (point_four/total)*100
             point_five_percent = (point_five/total)*100
+            
+            for key in rate_avg.keys():
+                rate_avg[key] = round(rate_avg[key], 1)
 
             data = {
                 'review_count': review_count.count(),
                 'rate': rate_avg,
-                'point_one_percent': point_one_percent,
-                'point_two_percent': point_two_percent,
-                'point_three_percent': point_three_percent,
-                'point_four_percent': point_four_percent,
-                'point_five_percent': point_five_percent,
+                'point_one_percent': round(point_one_percent),
+                'point_two_percent': round(point_two_percent),
+                'point_three_percent': round(point_three_percent),
+                'point_four_percent': round(point_four_percent),
+                'point_five_percent': round(point_five_percent),
             }
 
             book = Book.objects.get(guid=guid)
