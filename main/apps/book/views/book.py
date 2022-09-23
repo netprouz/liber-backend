@@ -88,13 +88,22 @@ class BookDetailAPIView(generics.RetrieveAPIView):
             point_three_percent = (point_three/total)*100
             point_four_percent = (point_four/total)*100
             point_five_percent = (point_five/total)*100
-            
+
             for key in rate_avg.keys():
                 rate_avg[key] = round(rate_avg[key], 1)
 
             data = {
                 'review_count': review_count.count(),
                 'rate': rate_avg,
+
+                # rate number
+                "point_one": point_one,
+                "point_two": point_two,
+                "point_three": point_three,
+                "point_four": point_four,
+                "point_five": point_five,
+
+                # percent
                 'point_one_percent': round(point_one_percent),
                 'point_two_percent': round(point_two_percent),
                 'point_three_percent': round(point_three_percent),
