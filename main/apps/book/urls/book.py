@@ -75,4 +75,5 @@ urlpatterns = [
         book.related_book_api_view,
         name="related_book_list",
     ),
+
 ]

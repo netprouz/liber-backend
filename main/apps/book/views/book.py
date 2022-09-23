@@ -91,7 +91,6 @@ class BookDetailAPIView(generics.RetrieveAPIView):
 
             for key in rate_avg.keys():
                 rate_avg[key] = round(rate_avg[key], 1)
-                # print(rate_avg[key])
 
             data = {
                 'review_count': review_count.count(),
@@ -174,10 +173,11 @@ class BestSellerBookAPIView(generics.ListAPIView):
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
  
+from ...book.serializers.book_type import BookTypeSerializer
 
 class AudioBooksAPIView(generics.ListAPIView):
-    queryset = Content.objects.filter(book_type=AUDIO)
-    serializer_class = ContentListForBookTypeSerializer
+    queryset = BookType.objects.all()
+    serializer_class = BookTypeSerializer
 
 audio_book_api_view = AudioBooksAPIView.as_view()
 
