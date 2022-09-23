@@ -91,10 +91,11 @@ class BookDetailAPIView(generics.RetrieveAPIView):
 
             for key in rate_avg.keys():
                 rate_avg[key] = round(rate_avg[key], 1)
+                # print(rate_avg[key])
 
             data = {
                 'review_count': review_count.count(),
-                'rate': rate_avg,
+                'rate': rate_avg[key],
 
                 # rate number
                 "point_one": point_one,
