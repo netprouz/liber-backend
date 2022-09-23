@@ -33,7 +33,9 @@ def send_sms_code(username):
                  )
     return Response(status=200)
 
-import datetime
+from pprint import pprint
+from eskiz.client import SMSClient
+
 
 def send_password_as_sms(username):
     user_phone_number = User.objects.get(username=username).username
@@ -41,16 +43,33 @@ def send_password_as_sms(username):
     user_otp = User.objects.get(username=username)
     user_otp.otp = otp
     user_otp.save()
-    from_whom = '+998901234567'
-    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9ub3RpZnkuZXNraXoudXovYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDc1Njc1NTAsImV4cCI6MTU0NzY1Mzk1MCwibmJmIjoxNTQ3NTY3NTUwLCJqdGkiOiJTSmxYYUFSU3FPS29ZWUlxIn0.O2B_87_KlmGwPqXZfaISy5VPT6N2_QpjN3h7lGlvpDo'
-    payload = {
-            "mobile_phone": str(user_phone_number),
-            "message": 'message',
-            "from_whom": from_whom,
-            "callback_url": 'http://0000.uz/test.php'
-        }
-    response = requests.post("/message/sms/send", token=token, payload=payload)
-    return response
+    client = SMSClient(
+        api_url = "https://notify.eskiz.uz/api/",
+        email = "test@eskiz.uz",
+        password = "j6DWtQjjpLDNjWEk74Sx"
+    )
+    resp = client._send_sms(
+        phone_number=str(user_phone_number),
+        message=f"Your otp is {otp}" 
+    )
+    pprint(resp)
+
+# def send_password_as_sms(username):
+#     user_phone_number = User.objects.get(username=username).username
+#     otp = random.randint(100000, 999999)
+#     user_otp = User.objects.get(username=username)
+#     user_otp.otp = otp
+#     user_otp.save()
+#     from_whom = '+998901234567'
+#     token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9ub3RpZnkuZXNraXoudXovYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDc1Njc1NTAsImV4cCI6MTU0NzY1Mzk1MCwibmJmIjoxNTQ3NTY3NTUwLCJqdGkiOiJTSmxYYUFSU3FPS29ZWUlxIn0.O2B_87_KlmGwPqXZfaISy5VPT6N2_QpjN3h7lGlvpDo'
+#     payload = {
+#             "mobile_phone": str(user_phone_number),
+#             "message": 'message',
+#             "from_whom": from_whom,
+#             "callback_url": 'http://0000.uz/test.php'
+#         }
+#     response = requests.post("/message/sms/send", token=token, payload=payload)
+#     return response
 
     # url = "https://notify.eskiz.uz/api/message/sms/send" + "?token=" + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjUsImlzcyI6Imh0dHA6Ly9ub3RpZnkuZXNraXoudXovYXBpL2F1dGgvbG9naW4iLCJpYXQiOjE1NDc1Njc1NTAsImV4cCI6MTU0NzY1Mzk1MCwibmJmIjoxNTQ3NTY3NTUwLCJqdGkiOiJTSmxYYUFSU3FPS29ZWUlxIn0.O2B_87_KlmGwPqXZfaISy5VPT6N2_QpjN3h7lGlvpDo"
     # status = "good job"

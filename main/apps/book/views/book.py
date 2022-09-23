@@ -69,18 +69,23 @@ related_book_api_view = RelatedBooksListAPIView.as_view()
 
 
 class BookDetailAPIView(generics.RetrieveAPIView):
-    # queryset = Book.objects.all()
-    # serializer_class = BookDetailSerializer
-    # lookup_field = "guid"
-
     def get(self, request, guid):
             review_count = Review.objects.filter(book__guid=self.kwargs['guid'])
             rate_avg = Review.objects.filter(book__guid=self.kwargs['guid']).aggregate(Avg('point'))
-            point_one_percent = ((Review.objects.filter(book__guid=self.kwargs['guid'], point='1').count())/5)*100
-            point_two_percent = ((Review.objects.filter(book__guid=self.kwargs['guid'], point='2').count())/5)*100
-            point_three_percent = ((Review.objects.filter(book__guid=self.kwargs['guid'], point='3').count())/5)*100
-            point_four_percent = ((Review.objects.filter(book__guid=self.kwargs['guid'], point='4').count())/5)*100
-            point_five_percent = ((Review.objects.filter(book__guid=self.kwargs['guid'], point='5').count())/5)*100
+
+            point_one = Review.objects.filter(book__guid=self.kwargs['guid'], point='1').count()
+            point_two = Review.objects.filter(book__guid=self.kwargs['guid'], point='2').count()
+            point_three = Review.objects.filter(book__guid=self.kwargs['guid'], point='3').count()
+            point_four = Review.objects.filter(book__guid=self.kwargs['guid'], point='4').count()
+            point_five = Review.objects.filter(book__guid=self.kwargs['guid'], point='5').count()
+
+            total = point_one + point_two + point_three + point_four + point_five
+
+            point_one_percent = (point_one/total)*100
+            point_two_percent = (point_two/total)*100
+            point_three_percent = (point_three/total)*100
+            point_four_percent = (point_four/total)*100
+            point_five_percent = (point_five/total)*100
 
             data = {
                 'review_count': review_count.count(),
@@ -113,11 +118,6 @@ class BookDetailAPIView(generics.RetrieveAPIView):
 
 book_detail_api_view = BookDetailAPIView.as_view()
 
-
-# class TestView(generics.RetrieveAPIView):
-    
-            
-# test_api_view = TestView.as_view()
 
 
 class BookUpdateAPIView(generics.UpdateAPIView):

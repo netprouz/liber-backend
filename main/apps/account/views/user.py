@@ -137,7 +137,7 @@ class AuthUserRegistrationView(generics.GenericAPIView):
 
         if valid:
             serializer.save()
-            if "+998" in serializer.data['username']:
+            if "998" in serializer.data['username']:
                 send_password_as_sms(serializer.data['username'])
                 # send_sms_code(serializer.data['username'])
             # elif "@" in serializer.data['username']:
