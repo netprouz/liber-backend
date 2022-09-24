@@ -11,6 +11,7 @@ from ...common.models import BaseMeta, BaseModel
 from ..managers.book import BookManager
 from autoslug import AutoSlugField
 from main.apps.book.models.review import Review
+from main.apps.book.models.rate import Rate
 
 
 def upload_book_cover(instance, filename):
@@ -38,7 +39,7 @@ ONLINE = settings.ONLINE
 AUDIO = settings.AUDIO
 PAPER = settings.PAPER
 
-from rest_framework.response import Response
+
 
 class Book(BaseModel):
     title = models.CharField(max_length=255)
@@ -68,8 +69,11 @@ class Book(BaseModel):
 
     def get_review(self, *args, **kwargs):
         res = Review.objects.filter(owner=self.id).count()
-        print(res)
         return {"review":res}
+
+    def get_rate(self, *args, **kwargs):
+        rate = Rate.objects.filter(owner=self.id).count()
+        return {"rate":rate}
 
 
     def update_with_types(self, data):

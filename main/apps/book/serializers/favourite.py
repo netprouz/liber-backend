@@ -31,14 +31,14 @@ class FavouriteCreateSerializer(serializers.Serializer):
 
 
 class FavouriteListSerializer(serializers.ModelSerializer):
-    rating = serializers.IntegerField()
 
     class Meta:
         model = Favourite
         fields = (
             "guid",
             "book",
-            "rating",
+            'get_rate',
+            'get_review',
         )
 
     def to_representation(self, instance):

@@ -106,7 +106,7 @@ class BookListSerializer(serializers.ModelSerializer):
     category_ru = serializers.ReadOnlyField(source='category.title_ru')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     types = BookTypeSerializer(read_only=True, many=True)
-    rating = serializers.IntegerField(default=0)
+    # rating = serializers.IntegerField(default=0)
     # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
 
     def get_review(self, *args, **kwargs):
@@ -122,7 +122,7 @@ class BookListSerializer(serializers.ModelSerializer):
             'slug',
             'author',
             'thumbnail',
-            'rating',
+            'get_rate',
             'get_review',
             'category',
             'category_uz',
