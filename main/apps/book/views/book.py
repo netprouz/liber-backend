@@ -50,7 +50,6 @@ class BookListAPIView(generics.ListAPIView):
     search_fields = ["title", "author", "category__title"]
 
 
-
 book_list_api_view = BookListAPIView.as_view()
 
 

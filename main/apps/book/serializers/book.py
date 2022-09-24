@@ -23,7 +23,6 @@ class BookCreateSerializer(serializers.ModelSerializer):
         slug_field="guid", queryset=Category.objects.all()
     )
     types = BookTypeSerializer(many=True, write_only=True)
-    # published_date = serializers.DateField(format="%Y", required=False)
     class Meta:
         model = Book
         fields = (
@@ -73,8 +72,6 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
     category = serializers.ReadOnlyField(source='category.title')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     rating = serializers.IntegerField(default=0)
-    # review = serializers.ReadOnlyField(source='reviews.title')
-    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
     class Meta:
         model = Book
         fields = (
@@ -95,9 +92,6 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
             'created_at',
 
         )
-
-from main.apps.book.models.review import Review
-from rest_framework.response import Response
 
 
 class BookListSerializer(serializers.ModelSerializer):
@@ -135,11 +129,8 @@ class BookListSerializer(serializers.ModelSerializer):
 
 
 class BookDetailSerializer(serializers.ModelSerializer):
-    # types = serializers.SerializerMethodField()
-    # view = serializers.IntegerField()
     types = BookTypeSerializer(read_only=True, many=True)
-    reviews = ReviewListSerializer(many=True)
-    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
+    # reviews = ReviewListSerializer(many=True)
     class Meta:
         model = Book
         fields = (
@@ -147,6 +138,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "title",
             "author",
             "thumbnail",
+            'get_rate',
+            'get_review',
             "category",
             "language",
             "hardcover",
@@ -156,10 +149,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'short_description_uz',
             'short_description_ru',
             "published_date",
-            "reviews",
-            # "view",
             "types",
-            "reviews",
+            # "reviews",
             "created_at"
         )
 
