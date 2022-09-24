@@ -277,3 +277,5 @@ static/
 
 .ipython/
 .env
+/env
+env
