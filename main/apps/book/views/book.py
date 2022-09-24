@@ -73,9 +73,6 @@ class RelatedBooksListAPIView(generics.ListAPIView):
 
 related_book_api_view = RelatedBooksListAPIView.as_view()
 
-from math import floor
-import json
-
 class BookDetailAPIView(generics.RetrieveAPIView):
     def get(self, request, guid):
             review_count = Review.objects.filter(book__guid=self.kwargs['guid'])
