@@ -1,5 +1,3 @@
-from importlib.resources import Resource
-from unicodedata import category, decimal
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
@@ -52,12 +50,20 @@ class BookListAPIView(generics.ListAPIView):
     search_fields = ["title", "author", "category__title"]
 
 
+    # def get(self, *args, **kwargs):
+    #     res = Review.objects.filter(owner=self.request.user.id).count()
+    #     print(res)
+    #     return Response({"review":res})
+
+
+
+
 book_list_api_view = BookListAPIView.as_view()
 
 
 class RelatedBooksListAPIView(generics.ListAPIView):
     pagination_class = RelatedBookLimitOffsetPagionation
-    
+
     def get_queryset(self):
         book = Book.objects.get(guid=self.kwargs['guid'])
         queryset = Book.objects.filter(category=book.category).exclude(guid=self.kwargs['guid']).order_by('?')
@@ -172,7 +178,7 @@ class BestSellerBookAPIView(generics.ListAPIView):
     serializer_class = OrderListSerializer
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
- 
+
 from ...book.serializers.book_type import BookTypeSerializer
 
 class AudioBooksAPIView(generics.ListAPIView):
@@ -237,7 +243,7 @@ old_books_api_view = OldBooksAPIView.as_view()
 class BookPriceAPIView(generics.GenericAPIView):
     queryset = BookType.objects.all()
     serializer_class = BookTypeSerializer
-    
+
     def get(self, request):
         max_price = BookType.objects.aggregate(Max('price'))
         min_price = BookType.objects.aggregate(Min('price'))

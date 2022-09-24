@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from ...common.models import BaseMeta, BaseModel
 from ..managers.book import BookManager
 from autoslug import AutoSlugField
+from main.apps.book.models.review import Review
 
 
 def upload_book_cover(instance, filename):
@@ -30,13 +31,14 @@ def auido_file(instance, filename):
     timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
     filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
     return f"audio_book/{filename}"
-    
+
 
 User = get_user_model()
 ONLINE = settings.ONLINE
 AUDIO = settings.AUDIO
 PAPER = settings.PAPER
 
+from rest_framework.response import Response
 
 class Book(BaseModel):
     title = models.CharField(max_length=255)
@@ -64,6 +66,12 @@ class Book(BaseModel):
     objects = BookManager()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
+    def get_review(self, *args, **kwargs):
+        res = Review.objects.filter(owner=self.id).count()
+        print(res)
+        return {"review":res}
+
+
     def update_with_types(self, data):
         book_types = data.pop("book_types")
         for field, value in data.items():
@@ -77,7 +85,7 @@ class Book(BaseModel):
         from ..models.content import Content
 
         return Content.objects.filter(book=self.id, book_type=ONLINE)
-        
+
     @classmethod
     def return_audio_books(self):
         from ..models.content import Content
