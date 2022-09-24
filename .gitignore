@@ -269,8 +269,6 @@ tags
 .env/
 
 ### Project template
-
-media/
 static/
 
 .pytest_cache/
