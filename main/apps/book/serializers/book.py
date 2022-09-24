@@ -106,13 +106,6 @@ class BookListSerializer(serializers.ModelSerializer):
     category_ru = serializers.ReadOnlyField(source='category.title_ru')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
     types = BookTypeSerializer(read_only=True, many=True)
-    # rating = serializers.IntegerField(default=0)
-    # published_date = serializers.DateField(format="%Y", input_formats=['%Y'])
-
-    def get_review(self, *args, **kwargs):
-        res = Review.objects.all().count()
-        print(res)
-        return Response(res)
 
     class Meta:
         model = Book
