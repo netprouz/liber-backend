@@ -10,6 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 from ...common.models import BaseMeta, BaseModel
 from ..managers.book import BookManager
 from autoslug import AutoSlugField
+from main.apps.book.models.review import Review
+from main.apps.book.models.rate import Rate
 
 
 def upload_book_cover(instance, filename):
@@ -30,12 +32,15 @@ def auido_file(instance, filename):
     timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
     filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
     return f"audio_book/{filename}"
-    
+
 
 User = get_user_model()
 ONLINE = settings.ONLINE
 AUDIO = settings.AUDIO
 PAPER = settings.PAPER
+
+
+from django.db.models import Avg
 
 
 class Book(BaseModel):
@@ -64,6 +69,53 @@ class Book(BaseModel):
     objects = BookManager()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
+    # def get_review(self, *args, **kwargs):
+    #     res = Review.objects.filter(owner=self.id).count()
+    #     return {"review":res}
+
+    def get_rate(self, *args, **kwargs):
+        review_count = Review.objects.filter(book__id=self.id)
+        rate_avg = Review.objects.filter(book__id=self.id).aggregate(Avg('point'))
+
+        point_one = Review.objects.filter(book__id=self.id, point='1').count()
+        point_two = Review.objects.filter(book__id=self.id, point='2').count()
+        point_three = Review.objects.filter(book__id=self.id, point='3').count()
+        point_four = Review.objects.filter(book__id=self.id, point='4').count()
+        point_five = Review.objects.filter(book__id=self.id, point='5').count()
+
+        total = point_one + point_two + point_three + point_four + point_five
+
+        point_one_percent = (point_one/total)*100
+        point_two_percent = (point_two/total)*100
+        point_three_percent = (point_three/total)*100
+        point_four_percent = (point_four/total)*100
+        point_five_percent = (point_five/total)*100
+
+        for key in rate_avg.keys():
+            rate_avg[key] = round(rate_avg[key], 1)
+
+        data = {
+            'review_count': review_count.count(),
+            'rate': rate_avg[key],
+
+            # rate number
+            "point_one": point_one,
+            "point_two": point_two,
+            "point_three": point_three,
+            "point_four": point_four,
+            "point_five": point_five,
+
+            # percent
+            'point_one_percent': round(point_one_percent),
+            'point_two_percent': round(point_two_percent),
+            'point_three_percent': round(point_three_percent),
+            'point_four_percent': round(point_four_percent),
+            'point_five_percent': round(point_five_percent),
+        }
+
+        return data
+
+
     def update_with_types(self, data):
         book_types = data.pop("book_types")
         for field, value in data.items():
@@ -77,7 +129,7 @@ class Book(BaseModel):
         from ..models.content import Content
 
         return Content.objects.filter(book=self.id, book_type=ONLINE)
-        
+
     @classmethod
     def return_audio_books(self):
         from ..models.content import Content

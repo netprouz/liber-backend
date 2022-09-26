@@ -1,5 +1,3 @@
-from importlib.resources import Resource
-from unicodedata import category, decimal
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 
@@ -47,7 +45,7 @@ book_create_api_view = BookCreateAPIView.as_view()
 
 
 class BookListAPIView(generics.ListAPIView):
-    queryset = Book.objects.filter_with_rates()
+    queryset = Book.objects.all()
     serializer_class = BookListSerializer
     filterset_fields = ["title", "author", "category__id"]
     search_fields = ["title", "author", "category__title"]
@@ -58,12 +56,58 @@ class BookListAPIView(generics.ListAPIView):
     #     return books
 
 
+    # def get(self, request):
+    #     review_count = Review.objects.all()
+    #     rate_avg = Review.objects.all().aggregate(Avg('point'))
+
+    #     point_one = Review.objects.filter(book__id=self.request.user.id, point='1').count()
+    #     point_two = Review.objects.filter(book__id=request.user.id, point='2').count()
+    #     point_three = Review.objects.filter(book__id=request.user.id, point='3').count()
+    #     point_four = Review.objects.filter(book__id=request.user.id, point='4').count()
+    #     point_five = Review.objects.filter(book__id=request.user.id, point='5').count()
+
+    #     total = point_one + point_two + point_three + point_four + point_five
+
+    #     point_one_percent = (point_one/total)*100
+    #     point_two_percent = (point_two/total)*100
+    #     point_three_percent = (point_three/total)*100
+    #     point_four_percent = (point_four/total)*100
+    #     point_five_percent = (point_five/total)*100
+
+    #     for key in rate_avg.keys():
+    #         rate_avg[key] = round(rate_avg[key], 1)
+
+    #     data = {
+    #         'review_count': review_count.count(),
+    #         'rate': rate_avg[key],
+
+    #         # rate number
+    #         "point_one": point_one,
+    #         "point_two": point_two,
+    #         "point_three": point_three,
+    #         "point_four": point_four,
+    #         "point_five": point_five,
+
+    #         # percent
+    #         'point_one_percent': round(point_one_percent),
+    #         'point_two_percent': round(point_two_percent),
+    #         'point_three_percent': round(point_three_percent),
+    #         'point_four_percent': round(point_four_percent),
+    #         'point_five_percent': round(point_five_percent),
+    #     }
+
+    #     book = Book.objects.all()
+    #     serializer = BookListSerializer(book)
+
+    #     return Response({'data':data, 'book_detail':serializer.data})
+
+
 book_list_api_view = BookListAPIView.as_view()
 
 
 class RelatedBooksListAPIView(generics.ListAPIView):
     pagination_class = RelatedBookLimitOffsetPagionation
-    
+
     def get_queryset(self):
         book = Book.objects.get(guid=self.kwargs['guid'])
         queryset = Book.objects.filter(category=book.category).exclude(guid=self.kwargs['guid']).order_by('?')
@@ -75,6 +119,9 @@ related_book_api_view = RelatedBooksListAPIView.as_view()
 
 
 class BookDetailAPIView(generics.RetrieveAPIView):
+    # lookup_field = 'guid'
+    # queryset = Book.objects.all()
+    # serializer_class = BookDetailSerializer
     def get(self, request, guid):
             review_count = Review.objects.filter(book__guid=self.kwargs['guid'])
             rate_avg = Review.objects.filter(book__guid=guid).aggregate(Avg('point'))
@@ -118,19 +165,19 @@ class BookDetailAPIView(generics.RetrieveAPIView):
 
             return Response({'data':data, 'book_detail':serializer.data})
 
-    # def get_object(self):
-    #     queryset = self.filter_queryset(self.get_queryset())
-    #     lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
-    #     assert lookup_url_kwarg in self.kwargs, (
-    #         self.__class__.__name__,
-    #         lookup_url_kwarg,
-    #     )
-    #     filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
-    #     obj = get_object_or_404(queryset, **filter_kwargs)
-    #     # self.check_object_permissions(self.request, obj)
-    #     # count book views
-    #     # count_book_view(book=obj, user=self.request.user)
-    #     return obj
+    def get_object(self):
+        queryset = self.filter_queryset(self.get_queryset())
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+        assert lookup_url_kwarg in self.kwargs, (
+            self.__class__.__name__,
+            lookup_url_kwarg,
+        )
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+        # self.check_object_permissions(self.request, obj)
+        # count book views
+        # count_book_view(book=obj, user=self.request.user)
+        return obj
 
 book_detail_api_view = BookDetailAPIView.as_view()
 
@@ -174,7 +221,9 @@ class BestSellerBookAPIView(generics.ListAPIView):
     serializer_class = OrderListSerializer
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
- 
+
+from ...book.serializers.book_type import BookTypeSerializer
+
 
 class AudioBooksAPIView(generics.ListAPIView):
     queryset = Book.objects.filter(types__book_type=AUDIO)
@@ -238,7 +287,7 @@ old_books_api_view = OldBooksAPIView.as_view()
 class BookPriceAPIView(generics.GenericAPIView):
     queryset = BookType.objects.all()
     serializer_class = BookTypeSerializer
-    
+
     def get(self, request):
         max_price = BookType.objects.aggregate(Max('price'))
         min_price = BookType.objects.aggregate(Min('price'))

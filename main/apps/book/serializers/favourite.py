@@ -31,16 +31,24 @@ class FavouriteCreateSerializer(serializers.Serializer):
 
 
 class FavouriteListSerializer(serializers.ModelSerializer):
+<<<<<<< HEAD
     # rating = serializers.IntegerField()
     cat = serializers.ReadOnlyField(source='book.category.title')
+=======
+>>>>>>> 445bd27dca66ac3410b4f58e6c5f47a3c0faa5c1
 
     class Meta:
         model = Favourite
         fields = (
             "guid",
             "book",
+<<<<<<< HEAD
             "cat",
             # "rating",
+=======
+            'get_rate',
+            'get_review',
+>>>>>>> 445bd27dca66ac3410b4f58e6c5f47a3c0faa5c1
         )
 
     def to_representation(self, instance):
