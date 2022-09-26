@@ -56,52 +56,6 @@ class BookListAPIView(generics.ListAPIView):
     #     return books
 
 
-    # def get(self, request):
-    #     review_count = Review.objects.all()
-    #     rate_avg = Review.objects.all().aggregate(Avg('point'))
-
-    #     point_one = Review.objects.filter(book__id=self.request.user.id, point='1').count()
-    #     point_two = Review.objects.filter(book__id=request.user.id, point='2').count()
-    #     point_three = Review.objects.filter(book__id=request.user.id, point='3').count()
-    #     point_four = Review.objects.filter(book__id=request.user.id, point='4').count()
-    #     point_five = Review.objects.filter(book__id=request.user.id, point='5').count()
-
-    #     total = point_one + point_two + point_three + point_four + point_five
-
-    #     point_one_percent = (point_one/total)*100
-    #     point_two_percent = (point_two/total)*100
-    #     point_three_percent = (point_three/total)*100
-    #     point_four_percent = (point_four/total)*100
-    #     point_five_percent = (point_five/total)*100
-
-    #     for key in rate_avg.keys():
-    #         rate_avg[key] = round(rate_avg[key], 1)
-
-    #     data = {
-    #         'review_count': review_count.count(),
-    #         'rate': rate_avg[key],
-
-    #         # rate number
-    #         "point_one": point_one,
-    #         "point_two": point_two,
-    #         "point_three": point_three,
-    #         "point_four": point_four,
-    #         "point_five": point_five,
-
-    #         # percent
-    #         'point_one_percent': round(point_one_percent),
-    #         'point_two_percent': round(point_two_percent),
-    #         'point_three_percent': round(point_three_percent),
-    #         'point_four_percent': round(point_four_percent),
-    #         'point_five_percent': round(point_five_percent),
-    #     }
-
-    #     book = Book.objects.all()
-    #     serializer = BookListSerializer(book)
-
-    #     return Response({'data':data, 'book_detail':serializer.data})
-
-
 book_list_api_view = BookListAPIView.as_view()
 
 
@@ -164,6 +118,12 @@ class BookDetailAPIView(generics.RetrieveAPIView):
             serializer = BookDetailSerializer(book)
 
             return Response({'data':data, 'book_detail':serializer.data})
+
+    queryset = Book.objects.all()
+    authentication_classes = [authentication.JWTAuthentication]
+    serializer_class = BookDetailSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    lookup_field = "guid"
 
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
