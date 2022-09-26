@@ -30,6 +30,7 @@ from ...book.filters.filterprice import BookFilter
 from django.db.models import Max, Min
 from rest_framework.response import Response
 from django.db.models import Avg
+from ...book.serializers.book import BookListSerializer
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -51,6 +52,11 @@ class BookListAPIView(generics.ListAPIView):
     filterset_fields = ["title", "author", "category__id"]
     search_fields = ["title", "author", "category__title"]
 
+    # def get_queryset(self):
+    #     books = Book.objects.all()
+    #     rate_avg = Review.objects.filter(book__guid=self.kwargs['guid']).aggregate(Avg('point'))
+    #     return books
+
 
 book_list_api_view = BookListAPIView.as_view()
 
@@ -67,8 +73,6 @@ class RelatedBooksListAPIView(generics.ListAPIView):
 
 related_book_api_view = RelatedBooksListAPIView.as_view()
 
-from math import floor
-import json
 
 class BookDetailAPIView(generics.RetrieveAPIView):
     def get(self, request, guid):
@@ -96,14 +100,12 @@ class BookDetailAPIView(generics.RetrieveAPIView):
                 'review_count': review_count.count(),
                 'rate': rate_avg[key],
 
-                # rate number
                 "point_one": point_one,
                 "point_two": point_two,
                 "point_three": point_three,
                 "point_four": point_four,
                 "point_five": point_five,
 
-                # percent
                 'point_one_percent': round(point_one_percent),
                 'point_two_percent': round(point_two_percent),
                 'point_three_percent': round(point_three_percent),
@@ -173,11 +175,10 @@ class BestSellerBookAPIView(generics.ListAPIView):
 
 best_seller_books_api_view = BestSellerBookAPIView.as_view()
  
-from ...book.serializers.book_type import BookTypeSerializer
 
 class AudioBooksAPIView(generics.ListAPIView):
-    queryset = BookType.objects.all()
-    serializer_class = BookTypeSerializer
+    queryset = Book.objects.filter(types__book_type=AUDIO)
+    serializer_class = BookListSerializer
 
 audio_book_api_view = AudioBooksAPIView.as_view()
 

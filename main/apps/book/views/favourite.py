@@ -23,15 +23,27 @@ class FavouriteCreateAPIView(generics.CreateAPIView):
 favourite_create_api_view = FavouriteCreateAPIView.as_view()
 
 
+from ...book.models.review import Review
+from django.db.models import Avg
+from rest_framework.response import Response
+
 class FavouriteListAPIView(generics.ListAPIView):
     queryset = Favourite.objects.filter_favourites()
     serializer_class = FavouriteListSerializer
     filterset_class = FavouriteFilterSet
     search_fields = ["book__title", "book__author"]
 
-    def get_queryset(self):
-        return self.queryset.filter(owner=self.request.user)
 
+    # def get(self, request):
+    #     fav = Favourite.objects.filter_favourites()
+    #     review_count = Review.objects.filter(book__guid=self.kwargs['guid'])
+    #     rate_avg = Review.objects.filter(book__guid=self.kwargs['guid']).aggregate(Avg('point'))
+    #     data = {
+    #         'review_count': review_count,
+    #         'rate_avg': rate_avg,
+    #         'fav': fav
+    #     }
+    #     return Response(data)
 
 favourite_list_api_view = FavouriteListAPIView.as_view()
 
