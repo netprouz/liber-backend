@@ -31,13 +31,12 @@ class FavouriteCreateSerializer(serializers.Serializer):
 
 
 class FavouriteListSerializer(serializers.ModelSerializer):
-
+    get_review = serializers.ReadOnlyField(source='book.get_review')
     class Meta:
         model = Favourite
         fields = (
             "guid",
             "book",
-            'get_rate',
             'get_review',
         )
 

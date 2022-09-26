@@ -109,8 +109,7 @@ class BookListSerializer(serializers.ModelSerializer):
             'slug',
             'author',
             'thumbnail',
-            'get_rate',
-            # 'get_review',
+            'get_review',
             'category',
             'category_uz',
             'category_ru',
@@ -138,8 +137,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "title",
             "author",
             "thumbnail",
-            'get_rate',
-            # 'get_review',
+            'get_review',
             "category",
             "language",
             "hardcover",
@@ -150,7 +148,6 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'short_description_ru',
             "published_date",
             "types",
-            # "reviews",
             "created_at"
         )
 
