@@ -48,8 +48,6 @@ class Book(BaseModel):
     slug = AutoSlugField(populate_from='title', null=True)
     author = models.CharField(max_length=255, blank=True)
     thumbnail = models.ImageField(blank=True, upload_to=upload_book_cover)
-    # file_upload = models.FileField(blank=True, upload_to=upload_file)
-    # audio_upload = models.FileField(blank=True, upload_to=auido_file)
     category = models.ForeignKey(
         "category.Category", on_delete=models.CASCADE, related_name="books"
     )

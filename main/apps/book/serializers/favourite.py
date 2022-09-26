@@ -32,16 +32,19 @@ class FavouriteCreateSerializer(serializers.Serializer):
 
 class FavouriteListSerializer(serializers.ModelSerializer):
     # rating = serializers.IntegerField()
+    # cat = serializers.ReadOnlyField(source='book.category.title')
+    book_title = serializers.ReadOnlyField(source='book.title')
+    book_thumbnail = serializers.ImageField(source='book.thumbnail', read_only=True)
     cat = serializers.ReadOnlyField(source='book.category.title')
     get_review = serializers.ReadOnlyField(source='book.get_review')
     class Meta:
         model = Favourite
         fields = (
             "guid",
-            "book",
+            # "book",
             "cat",
-            # "rating",
-            'get_rate',
+            "book_title",
+            'book_thumbnail',
             'get_review',
         )
 
