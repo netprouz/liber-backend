@@ -20,7 +20,6 @@ from ..serializers.book import (
     BookPublishedDateSerializer,
     BookUpdateSerializer
 )
-from ..utils import count_book_view
 from ...order.models import Order
 from django.db.models import Sum
 from main.apps.order.serializers import OrderListSerializer
@@ -69,7 +68,7 @@ class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     authentication_classes = [authentication.JWTAuthentication]
     serializer_class = BookDetailSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     lookup_field = "guid"
 
     def get_object(self):
