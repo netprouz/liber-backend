@@ -85,10 +85,6 @@ class Book(BaseModel):
             point_three_percent = 0
             point_four_percent = 0
             point_five_percent = 0
-
-            # for key in rate_avg.keys():
-            #     rate_avg[key] = round(rate_avg[key], 1)
-
             data = {
                 'review_count': review_count.count(),
                 'rate': 0,
