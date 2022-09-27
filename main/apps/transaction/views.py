@@ -40,6 +40,7 @@ class InitializePaymentAPIView(MerchantAPIView):
             price,
             transaction_type,
         )
+
         paycomresponse = PayComResponse
         generated_link = ""
         if transaction_type == TRANSACTIONTYPECHOICES.PAYME:
