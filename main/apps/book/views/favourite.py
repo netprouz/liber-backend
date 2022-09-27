@@ -9,6 +9,10 @@ from ..serializers.favourite import (
 )
 
 
+
+
+
+
 class FavouriteCreateAPIView(generics.CreateAPIView):
     model = Favourite
     serializer_class = FavouriteCreateSerializer
