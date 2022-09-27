@@ -32,7 +32,7 @@ THIRD_PARTY_APPS = [
     "clickuz",
     'rest_auth',
     'drf_yasg',
-    
+
 ]
 
 LOCAL_APPS = [
@@ -151,7 +151,7 @@ gettext = lambda s: s
 LANGUAGES = (
     ('uz', gettext('Uzbek')),
     ('ru', gettext('Russian')),
-    # ('en', gettext('English')),
+    ('en', gettext('English')),
 )
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
 
@@ -160,7 +160,7 @@ LOCALE_PATHS = [
 ]
 
 
-LANGUAGE_CODE = "ru-us"
+LANGUAGE_CODE = "en"
 
 TIME_ZONE = "UTC"
 

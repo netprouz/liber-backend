@@ -81,9 +81,6 @@ class BookDetailAPIView(generics.RetrieveAPIView):
         )
         filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
         obj = get_object_or_404(queryset, **filter_kwargs)
-        # self.check_object_permissions(self.request, obj)
-        # count book views
-        # count_book_view(book=obj, user=self.request.user)
         return obj
 
 book_detail_api_view = BookDetailAPIView.as_view()
