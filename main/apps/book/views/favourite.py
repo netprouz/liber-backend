@@ -29,12 +29,6 @@ class FavouriteListAPIView(generics.ListAPIView):
     filterset_class = FavouriteFilterSet
     search_fields = ["book__title", "book__author"]
 
-    # def get_queryset(self):
-    #     book = Favourite.objects.all()
-    #     # queryset = Favourite.objects.filter(category=book.category).exclude(guid=self.kwargs['guid']).order_by('?')
-    #     return book
-    # serializer_class = FavouriteListSerializer
-
 
 favourite_list_api_view = FavouriteListAPIView.as_view()
 

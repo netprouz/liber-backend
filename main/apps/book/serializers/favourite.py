@@ -45,7 +45,3 @@ class FavouriteListSerializer(serializers.ModelSerializer):
             'book_thumbnail',
             'get_review',
         )
-
-    # def to_representation(self, instance):
-    #     self.fields["book"] = BookHelperSerializer()
-    #     return super().to_representation(instance)
