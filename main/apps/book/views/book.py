@@ -64,7 +64,7 @@ class RelatedBooksListAPIView(generics.ListAPIView):
 
 related_book_api_view = RelatedBooksListAPIView.as_view()
 
-
+# hello
 class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     authentication_classes = [authentication.JWTAuthentication]
