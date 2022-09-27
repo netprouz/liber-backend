@@ -1,7 +1,7 @@
 from django.conf import settings
 from paycomuz import Paycom
 from paycomuz.views import MerchantAPIView
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from clickuz.views import ClickUzMerchantAPIView
@@ -11,11 +11,21 @@ from .helper import CheckClickTransaction
 from .models import TRANSACTIONTYPECHOICES, Transaction
 from .service import initialize_transaction
 from clickuz import ClickUz
+from rest_framework_simplejwt import authentication
+
+from .paycomresponse import PayComResponse
 
 converter_amount = settings.PAYME_PRICE_HELPER
 
 
-class InitializePaymentAPIView(APIView):
+
+
+
+
+
+class InitializePaymentAPIView(MerchantAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.JWTAuthentication]
     serializer_class = serializers.InitializePaymentSerializer
 
     def post(self, request):
@@ -30,6 +40,7 @@ class InitializePaymentAPIView(APIView):
             price,
             transaction_type,
         )
+        paycomresponse = PayComResponse
         generated_link = ""
         if transaction_type == TRANSACTIONTYPECHOICES.PAYME:
             """
@@ -40,12 +51,17 @@ class InitializePaymentAPIView(APIView):
             thats why we send 10000 sums * 100 that is 1 000 000 tiyn
             """
             price = price * converter_amount
+            # generated_link = PayComResponse.create_initialization(price, transaction_id, return_url='https://api-liber.uz/success/')
             # TODO: change success return url
-            generated_link = Paycom().create_initialization(
-                price,
-                transaction_id,
+            generated_link = paycomresponse.create_initialization(
+                amount=price,
+                order_id = transaction_id,
                 return_url="https://example.com",
             )
+            print(">>>>USER>>>>",request.user)
+            print(">>>>OREDER_ID>>>>",transaction_id)
+            print(">>>>transaction_type>>>>",transaction_type)
+            print(">>>>PRICE>>>>",price)
         elif transaction_type == TRANSACTIONTYPECHOICES.CLICK:
             generated_link = ClickUz.generate_url(order_id=transaction_id, amount=price)
         return Response(
@@ -78,3 +94,27 @@ class TransactionListAPIView(generics.ListAPIView):
 
 
 transaction_list_api_view = TransactionListAPIView.as_view()
+
+from django.conf import settings
+import base64
+from decimal import Decimal
+
+assert settings.PAYCOM_SETTINGS.get('KASSA_ID') != None
+assert settings.PAYCOM_SETTINGS.get('ACCOUNTS') != None
+assert settings.PAYCOM_SETTINGS['ACCOUNTS'].get('KEY') != None
+
+TOKEN = settings.PAYCOM_SETTINGS['TOKEN']
+KEY = settings.PAYCOM_SETTINGS['ACCOUNTS']['KEY']
+
+
+class CheckOrder(Paycom):
+    def check_order(self, amount, account, *args, **kwargs):
+        return self.ORDER_FOUND
+
+    def successfully_payment(self, account, transaction, *args, **kwargs):
+            print(account)
+
+    def cancel_payment(self, account, transaction, *args, **kwargs):
+            print(account)
+
+

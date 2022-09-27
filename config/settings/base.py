@@ -32,7 +32,7 @@ THIRD_PARTY_APPS = [
     "clickuz",
     'rest_auth',
     'drf_yasg',
-    
+
 ]
 
 LOCAL_APPS = [
