@@ -21,8 +21,6 @@ converter_amount = settings.PAYME_PRICE_HELPER
 
 
 
-
-
 class InitializePaymentAPIView(MerchantAPIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.JWTAuthentication]
