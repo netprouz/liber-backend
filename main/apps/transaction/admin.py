@@ -10,7 +10,8 @@ class TransactionAdmin(admin.ModelAdmin):
         "transaction_type",
         "status",
         "is_paid",
-        "created_at",
+        "is_verified",
+        "is_canceled",
     )
     list_display_links = ("guid",)
     list_filter = (
@@ -18,6 +19,8 @@ class TransactionAdmin(admin.ModelAdmin):
         "status",
         "transaction_type",
         "is_paid",
+        "is_verified",
+        "is_canceled",
     )
     search_fields = [
         "owner__first_name",
