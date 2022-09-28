@@ -1,4 +1,5 @@
-from .models import Transaction, TRANSACTIONSTATUS
+from .models import Transaction
+from ..account.models.balance import Balance
 
 
 def initialize_transaction(owner, price, transaction_type):
@@ -13,9 +14,8 @@ def initialize_transaction(owner, price, transaction_type):
 def pay_transaction(transaction_id):
     try:
         instance = Transaction.objects.get(id=transaction_id)
-        instance.is_paid = True
-        instance.status = TRANSACTIONSTATUS.PAID
-        instance.save()
+        instance.make_payment()
+        create_user_balance(instance.owner, instance.total_price)
     except Transaction.DoesNotExist:
         return
 
@@ -23,7 +23,10 @@ def pay_transaction(transaction_id):
 def cancel_transaction(transaction_id):
     try:
         instance = Transaction.objects.get(id=transaction_id)
-        instance.status = TRANSACTIONSTATUS.CANCELED
-        instance.save()
+        instance.cancel()
     except Transaction.DoesNotExist:
         return
+
+
+def create_user_balance(owner, amount):
+    Balance.objects.create(owner=owner, amount=amount)
