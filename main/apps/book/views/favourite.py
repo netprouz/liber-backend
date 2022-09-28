@@ -8,10 +8,6 @@ from ..serializers.favourite import (
     FavouriteListSerializer,
 )
 
-
-
-# test production
-
 class FavouriteCreateAPIView(generics.CreateAPIView):
     model = Favourite
     serializer_class = FavouriteCreateSerializer

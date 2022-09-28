@@ -151,7 +151,7 @@ gettext = lambda s: s
 LANGUAGES = (
     ('uz', gettext('Uzbek')),
     ('ru', gettext('Russian')),
-    # ('en', gettext('English')),
+    ('en', gettext('English')),
 )
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'uz'
 
@@ -160,7 +160,7 @@ LOCALE_PATHS = [
 ]
 
 
-LANGUAGE_CODE = "ru-us"
+LANGUAGE_CODE = "en"
 
 TIME_ZONE = "UTC"
 
@@ -219,11 +219,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 PAYCOM_SETTINGS = {
     "KASSA_ID": os.environ["MERCHANT_ID"],  # token
     # TODO: TOKEN key was not declared in the docs, find out and remove if needed
-    "TOKEN": os.environ["MERCHANT_ID"],  # token
-    "SECRET_KEY": os.environ["MERCHANT_SECRET_KEY"],  # password
-    "ACCOUNTS": {
-        "KEY": "order_id"
-    }
+    "TOKEN": os.environ.get("MERCHANT_ID"),  # token
+    "SECRET_KEY": os.environ.get("MERCHANT_SECRET_KEY"),  # password
+    # qiPHySwuIojC0p&vXK1rcnzx6ne@BjG?WbB%
+    "ACCOUNTS": {"KEY": "order_id"},
 }
 
 
