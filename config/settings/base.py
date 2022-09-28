@@ -221,6 +221,7 @@ PAYCOM_SETTINGS = {
     # TODO: TOKEN key was not declared in the docs, find out and remove if needed
     "TOKEN": os.environ.get("MERCHANT_ID"),  # token
     "SECRET_KEY": os.environ.get("MERCHANT_SECRET_KEY"),  # password
+    # qiPHySwuIojC0p&vXK1rcnzx6ne@BjG?WbB%
     "ACCOUNTS": {"KEY": "order_id"},
 }
 
