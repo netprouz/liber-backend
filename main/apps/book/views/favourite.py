@@ -8,11 +8,6 @@ from ..serializers.favourite import (
     FavouriteListSerializer,
 )
 
-
-
-
-
-
 class FavouriteCreateAPIView(generics.CreateAPIView):
     model = Favourite
     serializer_class = FavouriteCreateSerializer
@@ -35,6 +30,7 @@ class FavouriteListAPIView(generics.ListAPIView):
 
 
 favourite_list_api_view = FavouriteListAPIView.as_view()
+
 
 
 class FavouriteDeleteAPIView(generics.DestroyAPIView):
