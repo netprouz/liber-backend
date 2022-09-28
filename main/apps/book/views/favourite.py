@@ -36,6 +36,7 @@ class FavouriteListAPIView(generics.ListAPIView):
 favourite_list_api_view = FavouriteListAPIView.as_view()
 
 
+
 class FavouriteDeleteAPIView(generics.DestroyAPIView):
     queryset = Favourite.objects.all()
     serializer_class = FavouriteListSerializer
