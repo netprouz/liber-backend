@@ -217,12 +217,15 @@ CORS_ALLOW_METHODS = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 PAYCOM_SETTINGS = {
-    "KASSA_ID": '6229ec614fed152a1068002a',  # token
+    "KASSA_ID": os.environ["MERCHANT_ID"],  # token
     # TODO: TOKEN key was not declared in the docs, find out and remove if needed
-    "TOKEN": os.environ.get("MERCHANT_ID"),  # token
-    "SECRET_KEY": os.environ.get("MERCHANT_SECRET_KEY"),  # password
-    "ACCOUNTS": {"KEY": "order_id"},
+    "TOKEN": os.environ["MERCHANT_ID"],  # token
+    "SECRET_KEY": os.environ["MERCHANT_SECRET_KEY"],  # password
+    "ACCOUNTS": {
+        "KEY": "order_id"
+    }
 }
+
 
 PAYME_PRICE_HELPER = 100
 
