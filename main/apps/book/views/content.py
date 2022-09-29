@@ -1,5 +1,7 @@
 from rest_framework import generics
 
+from main.apps.transaction import serializers
+
 from ...common.permissions import CreatePermission, UpdateDeletePermission
 from ..models.content import Content
 from ..serializers.content import (
@@ -33,6 +35,19 @@ class ContentListAPIView(generics.ListAPIView):
 
 content_list_api_view = ContentListAPIView.as_view()
 
+from rest_framework.response import Response
+
+class BookContentAPIView(generics.ListAPIView):
+    # queryset = Content.objects.all()
+    # serializer_class = ContentListSerializer
+    # lookup_field = "guid"
+
+    def get_queryset(self):
+        book = Content.objects.filter(book__guid=self.kwargs['guid'])
+        return book
+    serializer_class = ContentListSerializer
+
+contents_api_view = BookContentAPIView.as_view()
 
 class ContentDetailAPIView(generics.RetrieveAPIView):
     queryset = Content.objects.get_content_detail()

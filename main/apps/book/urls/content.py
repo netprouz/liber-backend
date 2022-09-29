@@ -28,4 +28,9 @@ urlpatterns = [
         content.content_delete_api_view,
         name="book_content_delete",
     ),
+     path(
+        "<uuid:guid>/contents/",
+        content.contents_api_view,
+        name="book_content_delete",
+    ),
 ]

@@ -7,16 +7,14 @@ from . import serializers
 from .service import initialize_transaction
 from .helper import CheckTransaction
 from .models import TRANSACTIONTYPECHOICES
+from rest_framework_simplejwt import authentication
+from rest_framework import permissions
 
 
-<<<<<<< HEAD
 
-class InitializePaymentAPIView(MerchantAPIView):
+class InitializePaymentAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.JWTAuthentication]
-=======
-class InitializePaymentAPIView(APIView):
->>>>>>> 13b3a7f7f8a7366d87d97d195f2c6d1379d59348
     serializer_class = serializers.InitializePaymentSerializer
 
     def post(self, request):
