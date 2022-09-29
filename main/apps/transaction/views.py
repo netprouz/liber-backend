@@ -10,7 +10,7 @@ from .helper import CheckPayMeTransaction
 from .helper import CheckClickTransaction
 from .models import TRANSACTIONTYPECHOICES, Transaction
 from .service import initialize_transaction
-from .helper import CheckTransaction
+# from .helper import CheckTransaction
 from .models import TRANSACTIONTYPECHOICES
 from rest_framework_simplejwt import authentication
 from rest_framework import permissions
