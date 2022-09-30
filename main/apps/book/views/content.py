@@ -49,12 +49,12 @@ def get_custom_detail(self, guid):
 
     # serializer = ContentListSerializer(contents, many=True)
 
-    content = ContentListSerializer(online_books, many=True)
-    contents = ContentListSerializer(audio_books, many=True)
+    online = ContentListSerializer(online_books, many=True)
+    audio = ContentListSerializer(audio_books, many=True)
 
     data = {
-        'content': content.data,
-        'contents': contents.data
+        'online_books': online.data,
+        'audio_books': audio.data
     }
 
 
