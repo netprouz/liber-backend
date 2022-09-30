@@ -19,10 +19,9 @@ class ContentCreateUpdateSerializer(serializers.Serializer):
 from .book import BookListForBookTypeSerializer
 
 class ContentListForBookTypeSerializer(serializers.ModelSerializer):
-    book = BookListForBookTypeSerializer()
     class Meta:
         model = Content
-        fields = ('book', 'guid', 'title', 'book_type')
+        fields = ('guid', 'title', 'book_type', 'body')
 
 
 class ContentListSerializer(serializers.Serializer):

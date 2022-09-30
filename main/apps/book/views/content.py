@@ -8,6 +8,7 @@ from ..serializers.content import (
     ContentCreateUpdateSerializer,
     ContentDetailSerializer,
     ContentListSerializer,
+    ContentListForBookTypeSerializer
 )
 
 
@@ -39,6 +40,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 
+
 @api_view(['GET'])
 def get_custom_detail(self, guid):
     """
@@ -49,8 +51,8 @@ def get_custom_detail(self, guid):
 
     # serializer = ContentListSerializer(contents, many=True)
 
-    online = ContentListSerializer(online_books, many=True)
-    audio = ContentListSerializer(audio_books, many=True)
+    online = ContentListForBookTypeSerializer(online_books, many=True)
+    audio = ContentListForBookTypeSerializer(audio_books, many=True)
 
     data = {
         'online_books': online.data,
