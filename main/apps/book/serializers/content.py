@@ -29,6 +29,7 @@ class ContentListSerializer(serializers.Serializer):
     guid = serializers.UUIDField()
     title = serializers.CharField()
     book_type = serializers.CharField()
+    body = serializers.FileField()
 
 
 class ContentDetailSerializer(serializers.Serializer):
