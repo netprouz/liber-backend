@@ -36,23 +36,28 @@ class ContentListAPIView(generics.ListAPIView):
 content_list_api_view = ContentListAPIView.as_view()
 
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
-class BookContentAPIView(generics.ListAPIView):
-    queryset = Content.objects.all()
-    # serializer_class = ContentListSerializer
-    # lookup_field = "guid"
 
-    def get(self, request, guid):
-        online_book = Content.objects.filter(book__guid=guid, book_type='online')
-        audio_book = Content.objects.filter(book__guid=guid, book_type='audio')
-        data = {
-            'online_book': online_book,
-            'audio_book': audio_book
-        }
-        return Response(data)
-    serializer_class = ContentListSerializer
+@api_view(['GET'])
+def get_custom_detail(self, guid):
+    """
+    One custom detail views
+    """
+    content = Content.objects.filter(book__guid=guid)
+    contents = Content.objects.filter(book__guid=guid)
+    # serializer = ContentListSerializer(contents, many=True)
 
-contents_api_view = BookContentAPIView.as_view()
+    data = {
+        'content': content,
+        'contents': contents
+    }
+
+
+    return Response(data)
+
+
+contents_api_view = get_custom_detail
 
 class ContentDetailAPIView(generics.RetrieveAPIView):
     queryset = Content.objects.get_content_detail()
