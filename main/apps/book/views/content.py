@@ -44,13 +44,17 @@ def get_custom_detail(self, guid):
     """
     One custom detail views
     """
-    content = Content.objects.get(book__guid=guid, book_type='online').body
-    contents = Content.objects.get(book__guid=guid,  book_type='audio').body
+    online_books = Content.objects.filter(book__guid=guid, book_type='online')
+    audio_books = Content.objects.filter(book__guid=guid,  book_type='audio')
+
     # serializer = ContentListSerializer(contents, many=True)
 
+    content = ContentListSerializer(online_books, many=True)
+    contents = ContentListSerializer(audio_books, many=True)
+
     data = {
-        'content': content,
-        'contents': contents
+        'content': content.data,
+        'contents': contents.data
     }
 
 
