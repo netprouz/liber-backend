@@ -43,8 +43,8 @@ class BookContentAPIView(generics.ListAPIView):
     # lookup_field = "guid"
 
     def get(self, request, guid):
-        online_book = Content.objects.filter(book__guid=self.request.GET.get('guid'), book_type='online')
-        audio_book = Content.objects.filter(book__guid=self.request.GET.get('guid'), book_type='audio')
+        online_book = Content.objects.filter(book__guid=guid, book_type='online')
+        audio_book = Content.objects.filter(book__guid=guid, book_type='audio')
         data = {
             'online_book': online_book,
             'audio_book': audio_book
