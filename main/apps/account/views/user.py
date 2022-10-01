@@ -1,3 +1,4 @@
+from genericpath import exists
 from django.contrib.auth import get_user_model
 from rest_framework import generics, renderers, status
 from rest_framework.authtoken.models import Token
@@ -295,9 +296,18 @@ class PasswordResetConfirmView(generics.GenericAPIView):
     serializer_class = user_serializer_.PasswordResetConfirmSerializer
     permission_classes = (AllowAny,)
 
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
+        
+        data = request.data 
+        username = data['username']
+
         if serializer.is_valid(raise_exception=False):
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                return Response('User does not exits') 
             if serializer.data['new_password1'] != serializer.data['new_password2']:
                 return Response({'status': False, 'message':"two fields should be the same!"}, status=status.HTTP_400_BAD_REQUEST)
             else:
@@ -335,7 +345,22 @@ class PasswordChangeView(generics.GenericAPIView):
 password_change_view = PasswordChangeView.as_view()
 
 
+# from ...order.models import Order
+# from ...book.models.book import Book
+# from rest_framework_simplejwt import authentication
+# from rest_framework import permissions
 
+
+# class PurchasedBook(generics.ListAPIView):
+#     authentication_classes = [authentication.JWTAuthentication]
+#     permission_classes = [permissions.IsAuthenticated, ]
+#     books = Book.objects.all()
+#     orders = Order.objects.all()
+
+#     for order in orders:
+#         if order.is_paid and order.is_completed == True:
+#             for book in books:
+#                 book.is_purchased = True
 
 
 

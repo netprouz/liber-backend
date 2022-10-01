@@ -251,6 +251,15 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     new_password1 = serializers.CharField()
     new_password2 = serializers.CharField()
 
+    # def validate(self, attrs):
+    #     self._errors = {}
+    #     data = super().validate(attrs)
+    #     username = data['username']
+    #     user_qs = User.objects.filter(username=username)
+    #     if user_qs.exists():
+    #         pass
+    #     else:
+    #         raise serializers.ValidationError('bad')
 
 class PasswordResetCodeCheckSerializer(serializers.Serializer):
     confirm_code = serializers.CharField()

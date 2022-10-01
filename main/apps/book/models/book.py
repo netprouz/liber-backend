@@ -1,3 +1,4 @@
+from email.policy import default
 import os
 
 from django.conf import settings
@@ -66,6 +67,7 @@ class Book(BaseModel):
     )
     objects = BookManager()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+    is_purchased = models.BooleanField(default=False, null=True)
 
 
     def get_review(self, *args, **kwargs):
