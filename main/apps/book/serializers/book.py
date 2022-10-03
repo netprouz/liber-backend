@@ -149,7 +149,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'short_description_ru',
             "published_date",
             "types",
-            'purchased',
+            # 'purchased',
             "created_at"
         )
 
@@ -163,8 +163,8 @@ class BookDetailSerializer(serializers.ModelSerializer):
         self.fields["category"] = CategoryHelperSerializer()
         return super().to_representation(instance)
 
-    def get_purchased(self, obj):
-        return obj.set_purchased_book_types_true(self.user)
+    # def get_purchased(self, obj):
+    #     return obj.set_purchased_book_types_true(self.user)
 
 
 class BookUpdateSerializer(serializers.ModelSerializer):
