@@ -33,7 +33,6 @@ class OnlineBookSerializer(serializers.ModelSerializer):
     thumbnail = serializers.ImageField(source='book.thumbnail', read_only=True)
     category= serializers.ReadOnlyField(source='book.category.title')
     get_review = serializers.ReadOnlyField(source='book.get_review')
-    # rating = serializers.IntegerField()
 
     class Meta:
         model = OnlineBook
