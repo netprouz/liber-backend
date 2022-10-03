@@ -67,9 +67,9 @@ related_book_api_view = RelatedBooksListAPIView.as_view()
 # hello
 class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
-    authentication_classes = [authentication.JWTAuthentication]
+    # authentication_classes = [authentication.JWTAuthentication]
     serializer_class = BookDetailSerializer
-    permission_classes = [permissions.AllowAny]
+    # permission_classes = [permissions.AllowAny]
     lookup_field = "guid"
 
     def get_object(self):
