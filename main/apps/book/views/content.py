@@ -30,7 +30,8 @@ content_create_api_view = ContentCreateAPIView.as_view()
 
 
 class ContentListAPIView(generics.ListAPIView):
-    queryset = Content.objects.values("guid", "title", "book_type")
+    queryset = Content.objects.all()
+    # queryset = Content.objects.values("guid", "title", "book_type")
     serializer_class = ContentListSerializer
     filterset_fields = ["title", "book_type", "book__guid"]
     search_fields = ["title"]
