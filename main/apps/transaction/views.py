@@ -12,6 +12,8 @@ from .models import TRANSACTIONTYPECHOICES, Transaction
 from .service import initialize_transaction
 from clickuz import ClickUz
 
+from .paycomuz import PayComResponse
+
 converter_amount = settings.PAYME_PRICE_HELPER
 
 
@@ -41,9 +43,9 @@ class InitializePaymentAPIView(APIView):
             """
             price = price * converter_amount
             # TODO: change success return url
-            generated_link = Paycom().create_initialization(
-                price,
-                transaction_id,
+            generated_link = PayComResponse().create_initialization(
+                amount=price,
+                order_id=transaction_id,
                 return_url="https://example.com",
             )
         elif transaction_type == TRANSACTIONTYPECHOICES.CLICK:
@@ -52,8 +54,6 @@ class InitializePaymentAPIView(APIView):
             status=status.HTTP_200_OK,
             data={"generated_link": generated_link},
         )
-
-
 
 
 initialize_payment_api_view = InitializePaymentAPIView.as_view()
