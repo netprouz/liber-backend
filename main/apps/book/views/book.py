@@ -28,6 +28,9 @@ from django.db.models import Max, Min
 from rest_framework.response import Response
 from django.db.models import Avg
 from ...book.serializers.book import BookListSerializer
+from ...account.models.user_book import UserBook
+from ...account.models.audio_book import AudioBook
+from ...account.models.online_book import OnlineBook
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -72,6 +75,7 @@ class BookDetailAPIView(generics.RetrieveAPIView):
     # permission_classes = [permissions.AllowAny]
     lookup_field = "guid"
 
+
     def get_object(self):
         queryset = self.filter_queryset(self.get_queryset())
         lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
@@ -85,25 +89,29 @@ class BookDetailAPIView(generics.RetrieveAPIView):
 
 book_detail_api_view = BookDetailAPIView.as_view()
 
-from ...account.models.user_book import UserBook
-
 
 class UserBookAPIView(generics.ListAPIView):
     authentication_classes = [authentication.JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    # queryset = UserBook.objects.all()
+    queryset = UserBook.objects.all()
     serializer_class = BookListSerializer
+    lookup_field = "guid"
 
-    def get_queryset(self):
-        user_books = UserBook.objects.all()
-        books = Book.objects.filter(guid=self.kwargs['guid'])
-        # for user_book in user_books:
-        # for book in books:
-        #     if book in user_books:
-        #         return Response('true')
-        #     else:
-        #         return Response('false')
 
+    def get(self, request, guid):
+        try:
+            user_books_online = OnlineBook.objects.get(book__guid=guid)
+            if user_books_online:
+                return Response({'online': True})
+        except OnlineBook.DoesNotExist:
+            try:
+                user_book_audio = AudioBook.objects.get(book__guid=guid)
+                if user_book_audio:
+                    return Response({'audio': True})
+            except AudioBook.DoesNotExist:
+                return Response({"status":"error", "message": 'book does not exist'})
+
+           
 user_book_api_view = UserBookAPIView.as_view()
 
 

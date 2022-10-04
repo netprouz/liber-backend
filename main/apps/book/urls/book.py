@@ -76,7 +76,7 @@ urlpatterns = [
         name="related_book_list",
     ),
     path(
-        "<uuid:guid>/user-books",
+        "<uuid:guid>/user-books/",
         book.user_book_api_view,
         name="user_book_list",
     ),
