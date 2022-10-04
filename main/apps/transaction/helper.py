@@ -5,7 +5,9 @@ from django.conf import settings
 from clickuz import ClickUz
 from decimal import Decimal
 
+
 converter_amount = settings.PAYME_PRICE_HELPER
+
 
 
 class CheckPayMeTransaction(Paycom):
@@ -22,7 +24,7 @@ class CheckPayMeTransaction(Paycom):
                 - that's why we have to divide Payme price by 100 to convert it into sums    
             """
 
-            if transaction.total_price != amount / converter_amount:
+            if transaction.book_type.price != amount / converter_amount:
                 return self.INVALID_AMOUNT
             transaction.verify()
         except Transaction.DoesNotExist:

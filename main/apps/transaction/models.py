@@ -1,6 +1,6 @@
 from django.db import models
 from ..common.models import BaseModel
-
+from ..book.models.book_type import BookType
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -19,6 +19,7 @@ class TRANSACTIONSTATUS(models.TextChoices):
 
 
 class Transaction(BaseModel):
+    book_type = models.OneToOneField(BookType,on_delete=models.PROTECT, related_name='book_types',null=True) 
     total_price = models.DecimalField(max_digits=20, decimal_places=2)
     transaction_external_id = models.CharField(max_length=30, blank=True, default="")
     is_verified = models.BooleanField(default=False)

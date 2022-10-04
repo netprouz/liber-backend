@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path(
-        "initialize_payment/",
+        "initialize_payment/<int:pk>/",
         view=views.initialize_payment_api_view,
         name="initialize_payment",
     ),
