@@ -17,6 +17,8 @@ from rest_framework import permissions
 from clickuz import ClickUz
 from .paycomuz import PayComResponse
 
+from .paycomuz import PayComResponse
+
 converter_amount = settings.PAYME_PRICE_HELPER
 
 
@@ -59,8 +61,6 @@ class InitializePaymentAPIView(APIView):
             status=status.HTTP_200_OK,
             data={"generated_link": generated_link},
         )
-
-
 
 
 initialize_payment_api_view = InitializePaymentAPIView.as_view()
