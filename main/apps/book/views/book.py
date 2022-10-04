@@ -10,7 +10,7 @@ from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 
 from ...common.permissions import CreatePermission  # noqa
-from ...common.permissions import UpdateDeletePermission  # noqa
+from ...common.permissions import UpdateDeletePermission, PersonalObjectPermission  # noqa
 from ...common.pagination import RelatedBookLimitOffsetPagionation
 from ..models.book import AUDIO, ONLINE, Book
 from ..serializers.book import (
@@ -64,7 +64,7 @@ class RelatedBooksListAPIView(generics.ListAPIView):
 
 related_book_api_view = RelatedBooksListAPIView.as_view()
 
-# hello
+
 class BookDetailAPIView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     # authentication_classes = [authentication.JWTAuthentication]
@@ -84,6 +84,27 @@ class BookDetailAPIView(generics.RetrieveAPIView):
         return obj
 
 book_detail_api_view = BookDetailAPIView.as_view()
+
+from ...account.models.user_book import UserBook
+
+
+class UserBookAPIView(generics.ListAPIView):
+    authentication_classes = [authentication.JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    # queryset = UserBook.objects.all()
+    serializer_class = BookListSerializer
+
+    def get_queryset(self):
+        user_books = UserBook.objects.all()
+        books = Book.objects.filter(guid=self.kwargs['guid'])
+        # for user_book in user_books:
+        # for book in books:
+        #     if book in user_books:
+        #         return Response('true')
+        #     else:
+        #         return Response('false')
+
+user_book_api_view = UserBookAPIView.as_view()
 
 
 

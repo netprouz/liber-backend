@@ -63,17 +63,22 @@ urlpatterns = [
     path(
         "old-books/",
         book.old_books_api_view,
-        name="ol_book_list",
+        name="old_book_list",
     ),
     path(
         "book-price/",
         book.book_price_api_view,
-        name="ol_book_list",
-    ),
+        name="book_price",
+    ), 
     path(
         "<uuid:guid>/related-books/",
         book.related_book_api_view,
         name="related_book_list",
+    ),
+    path(
+        "<uuid:guid>/user-books",
+        book.user_book_api_view,
+        name="user_book_list",
     ),
 
 ]
