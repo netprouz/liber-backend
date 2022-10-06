@@ -229,11 +229,16 @@ PAYCOM_SETTINGS = {
     }
 }
 
-# PAYCOM: dict = {
-#     "paycom_key": "qiPHySwuIojC0p&vXK1rcnzx6ne@BjG?WbB%"
-# }
 
-
+PAYME_SETTINGS = {
+    'DEBUG':True,   #True - test mode, False - production mode
+    'ID':'6225ed4c06698169c87dab1f',  
+    'SECRET_KEY':'9amoraZORrdn3uy&WdFkYj9j5Ix7JTQIOyd1',
+    'ACCOUNTS':{
+        'KEY_1':'order_id',
+        'KEY_2':'',
+    }
+}
 
 PAYME_PRICE_HELPER = 100
 

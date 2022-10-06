@@ -5,10 +5,16 @@ from ..models import Order
 from ..serializers import CompleteOrderSerializer  # noqa
 from ..serializers import OrderCreateSerializer, OrderListSerializer
 
+from rest_framework_simplejwt import authentication
+from rest_framework import permissions
+
 
 class OrderCreateAPIView(generics.CreateAPIView):
     model = Order
     serializer_class = OrderCreateSerializer
+    authentication_classes = [authentication.JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
 
     def perform_create(self, serializer):
         return self.model.objects.create_order_instance(

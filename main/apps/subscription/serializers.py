@@ -15,8 +15,6 @@ class SubscriptionListSerializer(serializers.Serializer):
     begin_date = serializers.DateField()
     end_date = serializers.DateField()
     price = serializers.CharField()
-    active = serializers.CharField()
-
     def to_representation(self, instance):
         self.fields["category"] = CategoryHelperSerializer()
         return super(SubscriptionListSerializer, self).to_representation(
@@ -48,7 +46,6 @@ class SubscriptionCreateSerializer(serializers.Serializer):
             subscription_obj = Subscription.objects.filter(
                 category=category,
                 owner=owner,
-                active=True,
                 end_date__gte=today,
             )
             if subscription_obj.exists():
@@ -85,3 +82,17 @@ class SubscriptionCreateSerializer(serializers.Serializer):
             if self._errors:
                 raise serializers.ValidationError(self._errors)
         return attrs
+
+
+class CodeSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=128)
+
+
+class CardCreateSerializer(serializers.Serializer):
+    card_number = serializers.CharField(max_length=128)
+    expire = serializers.CharField(max_length=128)
+
+
+class SubscribeSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    params = serializers.JSONField()
