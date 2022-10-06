@@ -12,6 +12,16 @@ from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 
 
+import requests
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .serializers import SubscribeSerializer,CardCreateSerializer,CodeSerializer
+from .models import SubscriptionTransaction
+from .config import *
+from .methods import *
+
+
 class SubscriptionCreateAPIView(generics.CreateAPIView):
     model = Subscription
     serializer_class = SubscriptionCreateSerializer
@@ -50,20 +60,6 @@ class SubscriptionAPIView(APIView):
 
 
 subscription_view = SubscriptionAPIView.as_view()
-
-
-
-
-import requests
-from rest_framework.views import APIView
-from rest_framework.response import Response
-
-from .serializers import SubscribeSerializer,CardCreateSerializer,CodeSerializer
-from .models import SubscriptionTransaction
-from .config import *
-from .methods import *
-
-
 
 
 
@@ -146,7 +142,8 @@ class CardVerifyApiView(generics.GenericAPIView):
         print('subscription', subscription)
         for subs in subscription:
             if subs.status == False:
-                subs.status =True
+                subs.status = True
+                subs.save()
                 print('status',subs.status)
         result = {
             'status':True,

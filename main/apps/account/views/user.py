@@ -239,7 +239,6 @@ user_otp_verify_api_view = VerifyPhoneOTP.as_view()
 
 
 
-
 class PasswordResetAPIView(generics.GenericAPIView):
     serializer_class = user_serializer_.PasswordResetSerializer
     permission_classes = (AllowAny,)
@@ -343,24 +342,6 @@ class PasswordChangeView(generics.GenericAPIView):
             return Response({'status': 'error', 'message': _('This phone number does not exist'), 'data': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 password_change_view = PasswordChangeView.as_view()
-
-
-# from ...order.models import Order
-# from ...book.models.book import Book
-# from rest_framework_simplejwt import authentication
-# from rest_framework import permissions
-
-
-# class PurchasedBook(generics.ListAPIView):
-#     authentication_classes = [authentication.JWTAuthentication]
-#     permission_classes = [permissions.IsAuthenticated, ]
-#     books = Book.objects.all()
-#     orders = Order.objects.all()
-
-#     for order in orders:
-#         if order.is_paid and order.is_completed == True:
-#             for book in books:
-#                 book.is_purchased = True
 
 
 
