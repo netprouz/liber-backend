@@ -241,6 +241,7 @@ PAYME_SETTINGS = {
 }
 
 PAYME_PRICE_HELPER = 100
+CLICK_PRICE_HELPER = 1
 
 CLICK_SETTINGS = {
     "service_id": os.environ.get("CLICK_SERVICE_ID"),

@@ -23,6 +23,7 @@ from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 
 converter_amount = settings.PAYME_PRICE_HELPER
+converter_amount_click = settings.CLICK_PRICE_HELPER
 
 
 class InitializePaymentAPIView(APIView):
@@ -61,7 +62,11 @@ class InitializePaymentAPIView(APIView):
                 return_url="https://api-liber.uz/",
             )
         elif transaction_type == TRANSACTIONTYPECHOICES.CLICK:
-            generated_link = ClickUz.generate_url(order_id=transaction_id, amount=price)
+            price = price * converter_amount_click
+            generated_link = ClickUz.generate_url(
+                order_id=transaction_id, 
+                amount=price
+                )
         return Response(
             status=status.HTTP_200_OK,
             data={"generated_link": generated_link},

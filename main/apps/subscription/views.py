@@ -41,7 +41,7 @@ subscription_create_api_view = SubscriptionCreateAPIView.as_view()
 class SubscriptionListAPIView(generics.ListAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionListSerializer
-    filterset_fields = ["category", "active"]
+    filterset_fields = ["category",]
 
     def get_queryset(self):
         return self.queryset.filter(owner=self.request.user)
