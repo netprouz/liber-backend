@@ -96,42 +96,33 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
 from ...book.serializers.review import ReviewListSerializer
 
 class BookListSerializer(serializers.ModelSerializer):
-    guid = serializers.ReadOnlyField(source='book.guid')
-    title = serializers.ReadOnlyField(source='book.title')
-    get_review = serializers.ReadOnlyField(source='book.get_review')
-    category = serializers.ReadOnlyField(source='book.category.title')
-    category_uz = serializers.ReadOnlyField(source='book.category.title_uz')
-    category_ru = serializers.ReadOnlyField(source='book.category.title_ru')
+    category = serializers.ReadOnlyField(source='category.title')
+    category_uz = serializers.ReadOnlyField(source='category.title_uz')
+    category_ru = serializers.ReadOnlyField(source='category.title_ru')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
-    # types = BookTypeSerializer(read_only=True, many=True)
-
-    # category = serializers.ReadOnlyField(source='category.title')
-    # category_uz = serializers.ReadOnlyField(source='category.title_uz')
-    # category_ru = serializers.ReadOnlyField(source='category.title_ru')
-    # created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
-    # types = BookTypeSerializer(read_only=True, many=True)
+    types = BookTypeSerializer(read_only=True, many=True)
 
     class Meta:
-        model = BookType
+        model = Book
         fields = (
             'guid',
             'title',
-            # 'slug',
-            # 'author',
-            # 'thumbnail',
+            'slug',
+            'author',
+            'thumbnail',
             'get_review',
             'category',
             'category_uz',
             'category_ru',
-            # 'language',
-            # "publisher",
-            # "isbn",
-            # 'short_description',
-            # 'short_description_uz',
-            # 'short_description_ru',
-            # 'published_date',
+            'language',
+            "publisher",
+            "isbn",
+            'short_description',
+            'short_description_uz',
+            'short_description_ru',
+            'published_date',
             'created_at',
-            'book_type',
+            'types',
         )
 
 

@@ -205,17 +205,16 @@ class BookFilterAPIView(generics.ListAPIView):
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
-    queryset = BookType.objects.all()
 
-    # def get_queryset(self):
-    #     queryset = Book.objects.all()
+    def get_queryset(self):
+        queryset = Book.objects.all()
 
-    #     if 'new-book' in self.request.GET:
-    #         queryset = queryset.order_by('-created_at')
+        if 'new-book' in self.request.GET:
+            queryset = queryset.order_by('-created_at')
 
-    #     elif 'old-book' in self.request.GET:
-    #         queryset = queryset.order_by('created_at')
-    #         return queryset
+        elif 'old-book' in self.request.GET:
+            queryset = queryset.order_by('created_at')
+            return queryset
 
 book_filter_api_view = BookFilterAPIView.as_view()
 
