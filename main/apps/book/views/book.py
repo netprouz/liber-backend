@@ -31,6 +31,7 @@ from ...book.serializers.book import BookListSerializer
 from ...account.models.user_book import UserBook
 from ...account.models.audio_book import AudioBook
 from ...account.models.online_book import OnlineBook
+from django.http import Http404
 
 
 class BookCreateAPIView(generics.CreateAPIView):
@@ -99,18 +100,37 @@ class UserBookAPIView(generics.ListAPIView):
 
 
     def get(self, request, guid):
-        try:
-            user_books_online = OnlineBook.objects.get(book__guid=guid)
-            if user_books_online:
-                return Response({'online': True})
-        except OnlineBook.DoesNotExist:
-            try:
-                user_book_audio = AudioBook.objects.get(book__guid=guid)
-                if user_book_audio:
-                    return Response({'audio': True})
-            except AudioBook.DoesNotExist:
-                return Response({"status":"error", "message": 'book does not exist'})
 
+        # try:
+        user_online_books = OnlineBook.objects.get(book__guid=guid)
+        user_audio_books = AudioBook.objects.get(book__guid=guid)
+
+        user_audio_online_books = UserBook.objects.filter(book__guid=guid)
+
+        
+        try:
+            if user_online_books in user_audio_online_books:
+                print(user_online_books in user_audio_online_books)
+                return Response({"online": True})
+        except OnlineBook.DoesNotExist:
+            raise Http404
+
+        try:
+            if user_audio_books in user_audio_online_books:
+                print(user_audio_books in user_audio_online_books)
+                return Response({"audio": True})
+        except AudioBook.DoesNotExist:
+            raise Http404
+        
+        try:
+            if user_online_books and user_audio_books in user_audio_online_books:
+                print(user_online_books and user_audio_books in user_audio_online_books)
+                return Response({'online':True, "audio":True})
+        except UserBook.DoesNotExist:
+            raise Http404
+            
+        # except UserBook.DoesNotExist:
+        #     raise Http404      
            
 user_book_api_view = UserBookAPIView.as_view()
 
@@ -185,16 +205,17 @@ class BookFilterAPIView(generics.ListAPIView):
     serializer_class = BookListSerializer
     filter_class = BookFilter
     search_fields = ["title", "published_date",]
+    queryset = BookType.objects.all()
 
-    def get_queryset(self):
-        queryset = Book.objects.all()
+    # def get_queryset(self):
+    #     queryset = Book.objects.all()
 
-        if 'new-book' in self.request.GET:
-            queryset = queryset.order_by('-created_at')
+    #     if 'new-book' in self.request.GET:
+    #         queryset = queryset.order_by('-created_at')
 
-        elif 'old-book' in self.request.GET:
-            queryset = queryset.order_by('created_at')
-            return queryset
+    #     elif 'old-book' in self.request.GET:
+    #         queryset = queryset.order_by('created_at')
+    #         return queryset
 
 book_filter_api_view = BookFilterAPIView.as_view()
 

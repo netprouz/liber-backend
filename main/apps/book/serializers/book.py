@@ -43,21 +43,21 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "types",
         )
 
-    # def validate(self, attrs):
-    #     self._errors = {}
-    #     types = attrs.get("types")
-    #     res = []
-    #     for type_ in types:
-    #         if type_.get("types") in res:
-    #             self._errors[type_.get("types")] = dict(
-    #                 message=_(f"{type_['types']} cannot be duplicate")
-    #             )
-    #         else:
-    #             res.append(type_.get("types"))
-    #     if self._errors:
-    #         raise serializers.ValidationError(self._errors)
+    def validate(self, attrs):
+        self._errors = {}
+        types = attrs.get("types")
+        res = []
+        for type_ in types:
+            if type_.get("types") in res:
+                self._errors[type_.get("types")] = dict(
+                    message=_(f"{type_['types']} cannot be duplicate")
+                )
+            else:
+                res.append(type_.get("types"))
+        if self._errors:
+            raise serializers.ValidationError(self._errors)
 
-    #     return attrs
+        return attrs
 
     def create(self, validated_data):
         book_types = validated_data.pop("types")
@@ -96,33 +96,42 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
 from ...book.serializers.review import ReviewListSerializer
 
 class BookListSerializer(serializers.ModelSerializer):
-    category = serializers.ReadOnlyField(source='category.title')
-    category_uz = serializers.ReadOnlyField(source='category.title_uz')
-    category_ru = serializers.ReadOnlyField(source='category.title_ru')
+    guid = serializers.ReadOnlyField(source='book.guid')
+    title = serializers.ReadOnlyField(source='book.title')
+    get_review = serializers.ReadOnlyField(source='book.get_review')
+    category = serializers.ReadOnlyField(source='book.category.title')
+    category_uz = serializers.ReadOnlyField(source='book.category.title_uz')
+    category_ru = serializers.ReadOnlyField(source='book.category.title_ru')
     created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
-    types = BookTypeSerializer(read_only=True, many=True)
+    # types = BookTypeSerializer(read_only=True, many=True)
+
+    # category = serializers.ReadOnlyField(source='category.title')
+    # category_uz = serializers.ReadOnlyField(source='category.title_uz')
+    # category_ru = serializers.ReadOnlyField(source='category.title_ru')
+    # created_at = serializers.DateTimeField('%Y-%m-%d, %X' )
+    # types = BookTypeSerializer(read_only=True, many=True)
 
     class Meta:
-        model = Book
+        model = BookType
         fields = (
             'guid',
             'title',
-            'slug',
-            'author',
-            'thumbnail',
+            # 'slug',
+            # 'author',
+            # 'thumbnail',
             'get_review',
             'category',
             'category_uz',
             'category_ru',
-            'language',
-            "publisher",
-            "isbn",
-            'short_description',
-            'short_description_uz',
-            'short_description_ru',
-            'published_date',
+            # 'language',
+            # "publisher",
+            # "isbn",
+            # 'short_description',
+            # 'short_description_uz',
+            # 'short_description_ru',
+            # 'published_date',
             'created_at',
-            'types',
+            'book_type',
         )
 
 
