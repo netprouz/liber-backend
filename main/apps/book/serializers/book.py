@@ -62,8 +62,8 @@ class BookCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         book_types = validated_data.pop("types")
         book_obj = Book.objects.create(**validated_data)
-        for book_type in book_types:
-            BookType.objects.create(**book_type, book=book_obj)
+        for types in book_types:
+            BookType.objects.create(**types, book=book_obj)
         return book_obj
 
 
