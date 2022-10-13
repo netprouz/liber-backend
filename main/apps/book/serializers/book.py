@@ -43,21 +43,21 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "types",
         )
 
-    def validate(self, attrs):
-        self._errors = {}
-        types = attrs.get("types")
-        res = []
-        for type_ in types:
-            if type_.get("types") in res:
-                self._errors[type_.get("types")] = dict(
-                    message=_(f"{type_['types']} cannot be duplicate")
-                )
-            else:
-                res.append(type_.get("types"))
-        if self._errors:
-            raise serializers.ValidationError(self._errors)
+    # def validate(self, attrs):
+    #     self._errors = {}
+    #     types = attrs.get("types")
+    #     res = []
+    #     for type_ in types:
+    #         if type_.get("types") in res:
+    #             self._errors[type_.get("types")] = dict(
+    #                 message=_(f"{type_['types']} cannot be duplicate")
+    #             )
+    #         else:
+    #             res.append(type_.get("types"))
+    #     if self._errors:
+    #         raise serializers.ValidationError(self._errors)
 
-        return attrs
+    #     return attrs
 
     def create(self, validated_data):
         book_types = validated_data.pop("types")
