@@ -128,6 +128,7 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 user_update_api_view = UserUpdateAPIView.as_view()
 
 
+
 class AuthUserRegistrationView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserRegistrationSerializer
     permission_classes = (AllowAny,)
