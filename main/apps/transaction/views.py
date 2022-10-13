@@ -56,7 +56,7 @@ class InitializePaymentAPIView(APIView):
             generated_link = Paycom().create_initialization(
                 price,
                 transaction_id,
-                return_url="https://api-liber.uz/",
+                return_url="https://liber.uz/login/",
             )
         elif transaction_type == TRANSACTIONTYPECHOICES.CLICK:
             price = price * converter_amount_click
