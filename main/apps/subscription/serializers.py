@@ -53,10 +53,10 @@ class SubscriptionCreateSerializer(serializers.Serializer):
                 self._errors.update(
                     {
                         "errors": dict(
-                            message=f"Subscription for this category "
-                            f"expires on "
-                            f"{subscription_obj[0].end_date}, you can "
-                            f"subscribe on {day}",
+                            message=f"Ushbu categoryga obuna "
+                            f"kuni tugaydi "
+                            f"{subscription_obj[0].end_date}, o'zgartira olasiz "
+                            f"obuna bo'ling {day}",
                         ),
                     },
                 )
@@ -65,13 +65,13 @@ class SubscriptionCreateSerializer(serializers.Serializer):
                 self._errors.update(
                     {
                         "errors": dict(
-                            message="category type's category does not match"
-                            "with actual category",
+                            message="category turining categorysi mos kelmaydi"
+                            "haqiqiy category bilan",
                         ),
                     },
                 )
             if category_type.price > owner.check_balance:
-                msg = "Insufficient balance"
+                msg = "Balans yetarli emas"
                 self._errors.update(
                     {
                         "errors": dict(

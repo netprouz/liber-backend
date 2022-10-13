@@ -88,7 +88,7 @@ class OrderCreateSerializer(serializers.Serializer):
             book_type=book_type.book_type,
             owner=user,
         ).exists():
-            msg = "A book cannot be bought more than once"
+            msg = "Kitobni bir necha marta sotib olish mumkin emas!"
             self._errors.update(
                 {
                     "errors": dict(
@@ -98,7 +98,7 @@ class OrderCreateSerializer(serializers.Serializer):
             )
 
         if book_type.book != book:
-            msg = "this book type does not belong to the given book"
+            msg = "Bu kitob turi berilgan kitobga tegishli emas!"
             self._errors.update(
                 {
                     "errors": dict(
@@ -143,7 +143,7 @@ class OrderCreateSerializer(serializers.Serializer):
             if (book_type.book_type == TYPEChoices.ONLINE) or (
                 book_type.book_type == TYPEChoices.AUDIO
             ):
-                msg = "PDF and Audio formats can only be purchased online"
+                msg = "PDF va Audio formatlarini faqat onlayn xarid qilish mumkin"
 
                 self._errors.update(
                     {
