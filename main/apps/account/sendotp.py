@@ -129,12 +129,13 @@ def send_otp_to_email(username):
     user_otp.save()
 
     email = EmailMessage(
-                        "Your verification code for Liber is " + str(otp),
-                        settings.EMAIL_HOST_USER,
-                        to=[user_email]
+        'LiberUz',
+        f'LiberUz uchun tasdiqlash kodi: {otp}',
+        settings.EMAIL_HOST_USER,
+        [user_email]
     )
     email.send()
-    
+
     return Response(status=200)
 
 

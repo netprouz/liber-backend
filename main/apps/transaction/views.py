@@ -15,7 +15,6 @@ from .models import TRANSACTIONTYPECHOICES
 from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 from clickuz import ClickUz
-from .paycomuz import PayComResponse
 
 
 
@@ -30,8 +29,6 @@ class InitializePaymentAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [authentication.JWTAuthentication]
     serializer_class = serializers.InitializePaymentSerializer
-    authentication_classes = [authentication.JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
         data = self.serializer_class(data=request.data)

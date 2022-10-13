@@ -128,6 +128,7 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 user_update_api_view = UserUpdateAPIView.as_view()
 
 
+
 class AuthUserRegistrationView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserRegistrationSerializer
     permission_classes = (AllowAny,)
@@ -141,9 +142,9 @@ class AuthUserRegistrationView(generics.GenericAPIView):
             if "998" in serializer.data['username']:
                 send_password_as_sms(serializer.data['username'])
                 # send_sms_code(serializer.data['username'])
-            # elif "@" in serializer.data['username']:
-            #     send_password_as_sms(serializer.data['username'])
-            #     # send_otp_to_email(serializer.data['username'])
+            elif "@" in serializer.data['username']:
+                # send_password_as_sms(serializer.data['username'])
+                send_otp_to_email(serializer.data['username'])
             status_code = status.HTTP_201_CREATED
 
             response = {
