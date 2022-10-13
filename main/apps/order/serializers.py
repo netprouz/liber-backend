@@ -5,7 +5,7 @@ from ..book.models.book import Book
 from ..book.models.book_type import BookType, TYPEChoices
 from ..book.serializers.book import BookHelperSerializer
 from .models import Order, PAYMENTTypeChoices
-
+from ..book.serializers.book_type import BookTypeSerializer
 
 class BookTypeHelperSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,12 +18,29 @@ class BookTypeHelperSerializer(serializers.ModelSerializer):
 
 
 class OrderListSerializer(serializers.ModelSerializer):
+    book_title = serializers.ReadOnlyField(source="book.title")
+    category_title = serializers.ReadOnlyField(source="book.category.title")
+    short_description = serializers.ReadOnlyField(source="book.short_description")
+    short_description_uz = serializers.ReadOnlyField(source="book.short_description_uz")
+    short_description_ru = serializers.ReadOnlyField(source="book.short_description_ru")
+    author = serializers.ReadOnlyField(source="book.author")
+    publisher = serializers.ReadOnlyField(source="book.publisher")
+    published_date = serializers.ReadOnlyField(source="book.published_date")
+    get_review = serializers.ReadOnlyField(source="book.get_review")
+    
     class Meta:
         model = Order
         fields = (
             "guid",
-            "book",
-            "book_type",
+            "book_title",
+            "category_title",
+            "short_description",
+            "short_description_uz",
+            "short_description_ru",
+            "author",
+            "publisher",
+            "published_date",
+            "get_review",
             "payment_type",
             "order_number",
             "total_price",
@@ -32,10 +49,10 @@ class OrderListSerializer(serializers.ModelSerializer):
             "full_name",
         )
 
-    def to_representation(self, instance):
-        self.fields["book"] = BookHelperSerializer()
-        self.fields["book_type"] = BookTypeHelperSerializer()
-        return super().to_representation(instance)
+    # def to_representation(self, instance):
+    #     self.fields["book"] = BookHelperSerializer()
+    #     self.fields["book_type"] = BookTypeHelperSerializer()
+    #     return super().to_representation(instance)
 
 
 class OrderCreateSerializer(serializers.Serializer):

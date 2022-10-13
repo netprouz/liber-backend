@@ -169,6 +169,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         data['id'] = self.user.id
         data['username'] = self.user.username
+        data['first_name'] = self.user.first_name
         data['guid'] = self.user.guid
         data['is_virified'] = self.user.is_virified
         if data['is_virified'] == False:
