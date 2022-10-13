@@ -1,3 +1,5 @@
+from email.policy import default
+from random import choices
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -13,6 +15,11 @@ class PAYMENTTypeChoices(models.TextChoices):
 
 
 class Order(BaseModel):
+    STATUS = (
+        ("pending", "pending"),
+        ("accepted", "accepted"),
+        ("cancelled", "cancelled")
+    )
     payment_type = models.CharField(
         max_length=10,
         choices=PAYMENTTypeChoices.choices,
@@ -34,6 +41,7 @@ class Order(BaseModel):
     order_number = models.CharField(unique=True, max_length=50)
     quantity = models.IntegerField(default=1)
     total_price = models.DecimalField(max_digits=20, decimal_places=2)
+    status = models.CharField(max_length=30, choices=STATUS, default="pending")
     owner = models.ForeignKey(
         User,
         on_delete=models.PROTECT,

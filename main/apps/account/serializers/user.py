@@ -16,10 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "guid",
-            # "phone_number",
-            # "email",
+            "username",
             "first_name",
-            # "last_name",
             "profile_picture",
         )
 

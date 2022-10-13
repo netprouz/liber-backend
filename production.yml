@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   static_volume:
+  media_volume:
   local_postgres_data: { }
   local_postgres_data_backups: { }
 
@@ -17,6 +18,7 @@ services:
     volumes:
       - .:/app:cached
       - static_volume:/home/app/web/main/static
+      - media_volume:/home/app/web/main/media
     env_file:
       - ./.envs/.production/.django
       - ./.envs/.production/.postgres
@@ -44,6 +46,7 @@ services:
     container_name: nginx
     volumes:
       - static_volume:/home/app/web/main/static
+      - media_volume:/home/app/web/main/media
     ports:
       - 80:80
       - 443:443
