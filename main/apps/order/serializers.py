@@ -51,6 +51,7 @@ class OrderListSerializer(serializers.ModelSerializer):
             "order_number",
             "total_price",
             "quantity",
+            "status",
             "phone_number",
             "full_name",
         )
