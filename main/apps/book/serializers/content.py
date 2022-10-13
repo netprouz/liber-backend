@@ -24,11 +24,19 @@ class ContentListForBookTypeSerializer(serializers.ModelSerializer):
         fields = ('guid', 'title', 'book_type', 'body')
 
 
-class ContentListSerializer(serializers.Serializer):
-    guid = serializers.UUIDField()
-    title = serializers.CharField()
-    book_type = serializers.CharField()
-    body = serializers.FileField()
+class ContentListSerializer(serializers.ModelSerializer):
+    book_image = serializers.ImageField(source="book.thumbnail", read_only=True)
+    book_author = serializers.ReadOnlyField(source="book.author")
+    class Meta:
+        model = Content
+        fields = (
+            "guid",
+            "title",
+            "book_type",
+            "body",
+            "book_image",
+            "book_author"
+        )
 
 
 class ContentDetailSerializer(serializers.Serializer):
