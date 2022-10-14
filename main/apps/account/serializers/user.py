@@ -152,7 +152,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             "guid",
             'first_name',
             'username',
-            'password'
+            'password',
+            'user_generate_id',
         )    
 
     def create(self, validated_data):

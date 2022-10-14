@@ -56,6 +56,10 @@ def generate_random_password():
     return _int
 
 
+
+def generate_random_password_user():
+    _int = "".join(random.choice(string.digits) for _ in range(6))
+    return _int
 # def send_password_as_sms(phone_number, password):
 #     url = s.SMS_DOMAIN + "?token=" + s.SMS_TOKEN
 #     data = {

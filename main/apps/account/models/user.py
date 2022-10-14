@@ -11,6 +11,8 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
+from ..utils import generate_random_password_user
+
 from ...common.models import BaseModel
 from ..managers.user import UserManager
 
@@ -26,28 +28,14 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     class GenderChoices(models.TextChoices):
         MALE = "male"
         FEMALE = "female"
-
-    # phone_number = models.CharField(
-    #     _("Phone number"),
-    #     max_length=15,
-    #     unique=True,
-    #     error_messages={
-    #         "unique": _(
-    #             "User with this phone number already exists.",
-    #         )
-    #     },
-    #     blank=False,
-    #     null=False,
-    # )
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     unique_identifier = models.PositiveIntegerField(unique=True, blank=True, null=True)
-    # last_name = models.CharField(_("last name"), max_length=150, blank=True)
     activating_code = models.CharField(max_length=6, blank=True, null=True)
     profile_picture = models.ImageField(
         upload_to=upload_profile_images,
         blank=True,
     )
-    # email = models.EmailField(_("email address"), blank=True)
+    user_generate_id = models.CharField(max_length=6, default=generate_random_password_user)
     username = models.CharField(max_length=100, unique=True, null=True)
     otp = models.CharField(max_length=6, null=True)
     is_virified = models.BooleanField(default=False, null=True)
