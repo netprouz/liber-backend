@@ -10,7 +10,9 @@ from ..serializers.content import (
     ContentListSerializer,
 )
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework import permissions
+from rest_framework_simplejwt import authentication
 
 
 
@@ -40,7 +42,11 @@ class ContentListAPIView(generics.ListAPIView):
 content_list_api_view = ContentListAPIView.as_view()
 
 
+
+
 @api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([authentication.JWTAuthentication]) 
 def get_content(self, guid):
     online_books = Content.objects.filter(book__guid=guid, book_type='online')
     audio_books = Content.objects.filter(book__guid=guid,  book_type='audio')
@@ -56,6 +62,7 @@ def get_content(self, guid):
 
 
 contents_api_view = get_content
+
 
 class ContentDetailAPIView(generics.RetrieveAPIView):
     queryset = Content.objects.get_content_detail()

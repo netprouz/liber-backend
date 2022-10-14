@@ -34,7 +34,7 @@ class OrderListAPIView(generics.ListAPIView):
         return self.queryset.filter(owner=self.request.user)
 
 
-oder_list_api_view = OrderListAPIView.as_view()
+order_list_api_view = OrderListAPIView.as_view()
 
 
 class OrderCompleteAPIView(generics.UpdateAPIView):
