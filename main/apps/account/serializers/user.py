@@ -172,6 +172,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['username'] = self.user.username
         data['guid'] = self.user.guid
         data['is_virified'] = self.user.is_virified
+        data['user_generate_id'] = self.user.user_generate_id
         if data['is_virified'] == False:
             raise serializers.ValidationError('Your account is not verified!')
         return data
