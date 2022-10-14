@@ -61,8 +61,9 @@ class InitializePaymentAPIView(APIView):
         elif transaction_type == TRANSACTIONTYPECHOICES.CLICK:
             price = price * converter_amount_click
             generated_link = ClickUz.generate_url(
-                order_id=transaction_id, 
-                amount=price
+                order_id=transaction_id,
+                amount=price,
+                return_url="https://liber.uz/login/",
                 )
         return Response(
             status=status.HTTP_200_OK,
