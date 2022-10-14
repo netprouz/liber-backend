@@ -36,7 +36,7 @@ class UserAdmin(BaseUserAdmin):
             {
                 "fields": (
                     "profile_picture",
-                    # "first_name",
+                    "first_name",
                     # "last_name",
                     # "email",
                     "date_of_birth",
