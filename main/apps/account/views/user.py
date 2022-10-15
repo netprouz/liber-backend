@@ -284,7 +284,7 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)                                                     
         valid = serializer.is_valid(raise_exception=False)
         if valid:
-            user = User.objects.get(activating_code=serializer.data['confirm_code'])
+            # user = User.objects.get(activating_code=serializer.data['confirm_code'])
             return Response({'data': serializer.data}, status=status.HTTP_200_OK)
 
 password_reset_check_view = PasswordResetCodeCheckView.as_view()
