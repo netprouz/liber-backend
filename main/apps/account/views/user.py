@@ -159,7 +159,6 @@ user_registration_api_view = AuthUserRegistrationView.as_view()
 
 
 
-
 class ResendOtpToPhoneNumberAPIView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserRegistrationSerializer
     permission_classes = (AllowAny,)
@@ -169,8 +168,12 @@ class ResendOtpToPhoneNumberAPIView(generics.GenericAPIView):
         username = data['username']
         try:
             user = User.objects.get(username=username)
-            if "+998" in data['username']:
-                send_sms_code(data['username'])
+            # if "998" in data['username']:
+            #     send_sms_code(data['username'])
+            # elif "@" in data['username']:
+            #     send_otp_to_email(data['username'])
+            if "998" in data['username']:
+                send_password_as_sms(data['username'])
             elif "@" in data['username']:
                 send_otp_to_email(data['username'])
         except User.DoesNotExist:
@@ -255,10 +258,10 @@ class PasswordResetAPIView(generics.GenericAPIView):
             serializer.save()
             try:
                 user = User.objects.get(username=username)
-                if "+998" in serializer.data['username']:
-                    password_reset_verification_code_by_phone_number(serializer.data['username'])
+                if "998" in serializer.data['username']:
+                    send_password_as_sms(serializer.data['username'])
                 elif "@" in serializer.data['username']:
-                    password_reset_verification_code_by_email(serializer.data['username'])
+                    send_otp_to_email(serializer.data['username'])
                 status_code = status.HTTP_201_CREATED
             except User.DoesNotExist:
                 return Response('User does not exits') 
