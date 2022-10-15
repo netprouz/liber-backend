@@ -225,7 +225,7 @@ class PasswordResetSerializer(serializers.Serializer):
         self._errors = {}
         username = attrs.get('username')
      
-        if ("@" not in username) and ("+998" not in username):
+        if ("@" not in username) and ("998" not in username):
             self._errors[
                 'Invalid format'
             ] = 'Enter correct format'
