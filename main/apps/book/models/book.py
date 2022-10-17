@@ -1,5 +1,6 @@
 from email.policy import default
 import os
+from random import choices
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -13,6 +14,8 @@ from ..managers.book import BookManager
 from autoslug import AutoSlugField
 from main.apps.book.models.review import Review
 from main.apps.book.models.rate import Rate
+
+from django.db.models import Avg
 
 
 def upload_book_cover(instance, filename):
@@ -41,10 +44,13 @@ AUDIO = settings.AUDIO
 PAPER = settings.PAPER
 
 
-from django.db.models import Avg
-
-
 class Book(BaseModel):
+
+    HARDCOVER = (
+        ("Yumshoq", "Yumshoq"),
+        ("Qattiq", "Qattiq")
+    )
+
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', null=True)
     author = models.CharField(max_length=255, blank=True)
@@ -53,7 +59,8 @@ class Book(BaseModel):
         "category.Category", on_delete=models.CASCADE, related_name="books"
     )
     language = models.CharField(max_length=255, blank=True)
-    hardcover = models.PositiveIntegerField()
+    number_of_page = models.PositiveIntegerField(null=True)
+    hardcover = models.CharField(max_length=30, choices=HARDCOVER, null=True)
     isbn = models.CharField(max_length=100, null=True, blank=True)
     publisher = models.CharField(max_length=100, null=True, blank=True)
     short_description = models.TextField(blank=True)
@@ -67,7 +74,6 @@ class Book(BaseModel):
     )
     objects = BookManager()
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    # is_purchased = models.BooleanField(default=False, null=True)
 
 
     def get_review(self, *args, **kwargs):
@@ -100,7 +106,6 @@ class Book(BaseModel):
             }
 
             return data
-
 
         else:
             point_one_percent = (point_one/total)*100

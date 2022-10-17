@@ -263,6 +263,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     #         raise serializers.ValidationError('bad')
 
 class PasswordResetCodeCheckSerializer(serializers.Serializer):
+    username = serializers.CharField()
     confirm_code = serializers.CharField()
 
 

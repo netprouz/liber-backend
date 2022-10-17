@@ -13,7 +13,7 @@ from ..serializers import user as user_serializer_
 # from ..utils import generate_random_password, send_password_as_sms
 
 from ...account.sendotp import (
-    send_sms_code, 
+    # send_sms_code, 
     send_password_as_sms,
     password_reset_verification_code_by_phone_number, 
     send_otp_to_email,
@@ -159,6 +159,7 @@ user_registration_api_view = AuthUserRegistrationView.as_view()
 
 
 
+
 class ResendOtpToPhoneNumberAPIView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserRegistrationSerializer
     permission_classes = (AllowAny,)
@@ -259,9 +260,9 @@ class PasswordResetAPIView(generics.GenericAPIView):
             try:
                 user = User.objects.get(username=username)
                 if "998" in serializer.data['username']:
-                    send_password_as_sms(serializer.data['username'])
+                    password_reset_verification_code_by_phone_number(serializer.data['username'])
                 elif "@" in serializer.data['username']:
-                    send_otp_to_email(serializer.data['username'])
+                    password_reset_verification_code_by_email(serializer.data['username'])
                 status_code = status.HTTP_201_CREATED
             except User.DoesNotExist:
                 return Response('User does not exits') 
@@ -284,8 +285,16 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)                                                     
         valid = serializer.is_valid(raise_exception=False)
         if valid:
-            # user = User.objects.get(activating_code=serializer.data['confirm_code'])
-            return Response({'data': serializer.data}, status=status.HTTP_200_OK)
+            username = serializer.data['username']
+            confirm_code = serializer.data['confirm_code']
+            user = User.objects.get(username=username)
+            if user.activating_code != confirm_code:
+                return Response({
+                    'status': 400,
+                    'message': 'Something went worng',
+                    'data': 'Wrong confirm code'
+                })
+            return Response({'data': f"Your confirm code is {confirm_code}"}, status=status.HTTP_200_OK)
 
 password_reset_check_view = PasswordResetCodeCheckView.as_view()
 
