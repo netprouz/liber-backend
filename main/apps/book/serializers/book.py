@@ -22,7 +22,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         slug_field="guid", queryset=Category.objects.all()
     )
-    types = BookTypeSerializer(many=True, write_only=True)
+    types = BookTypeSerializer(many=True)
     class Meta:
         model = Book
         fields = (
@@ -34,6 +34,7 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "category",
             "language",
             "hardcover",
+            "number_of_page",
             "publisher",
             "isbn",
             "short_description",
@@ -115,6 +116,8 @@ class BookListSerializer(serializers.ModelSerializer):
             'category_uz',
             'category_ru',
             'language',
+            "number_of_page",
+            "hardcover",
             "publisher",
             "isbn",
             'short_description',
@@ -222,17 +225,3 @@ class BookPublishedDateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['published_date']
-
-
-# class AudiouploadSerializer( serializers.Serializer ):
-#     audio_upload = serializers.ListField(
-#                        child=serializers.FileField( max_length=100000,
-#                                          allow_empty_file=False,
-#                                          use_url=False )
-#                                 )
-#     def create(self, validated_data):
-#         # blogs=Blogs.objects.latest('created_at')
-#         audio_upload=validated_data.pop('audio_upload')
-#         for audio in audio_upload:
-#             aud=Book.objects.create(audio_upload=audio, **validated_data)
-#         return aud

@@ -13,7 +13,7 @@ from ..serializers import user as user_serializer_
 # from ..utils import generate_random_password, send_password_as_sms
 
 from ...account.sendotp import (
-    send_sms_code, 
+    # send_sms_code, 
     send_password_as_sms,
     password_reset_verification_code_by_phone_number, 
     send_otp_to_email,
@@ -168,8 +168,12 @@ class ResendOtpToPhoneNumberAPIView(generics.GenericAPIView):
         username = data['username']
         try:
             user = User.objects.get(username=username)
-            if "+998" in data['username']:
-                send_sms_code(data['username'])
+            # if "998" in data['username']:
+            #     send_sms_code(data['username'])
+            # elif "@" in data['username']:
+            #     send_otp_to_email(data['username'])
+            if "998" in data['username']:
+                send_password_as_sms(data['username'])
             elif "@" in data['username']:
                 send_otp_to_email(data['username'])
         except User.DoesNotExist:
@@ -270,7 +274,7 @@ class PasswordResetAPIView(generics.GenericAPIView):
             serializer.save()
             try:
                 user = User.objects.get(username=username)
-                if "+998" in serializer.data['username']:
+                if "998" in serializer.data['username']:
                     password_reset_verification_code_by_phone_number(serializer.data['username'])
                 elif "@" in serializer.data['username']:
                     password_reset_verification_code_by_email(serializer.data['username'])

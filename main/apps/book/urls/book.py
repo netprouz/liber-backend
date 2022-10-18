@@ -32,7 +32,6 @@ urlpatterns = [
         view=book.book_filter_api_view, 
         name="book_filter"
         ),
-
     path(
         "create/",
         view=book.book_create_api_view,
@@ -59,7 +58,6 @@ urlpatterns = [
         book.book_published_date_list,
         name="book_published_date_list",
     ),
-
     path(
         "old-books/",
         book.old_books_api_view,

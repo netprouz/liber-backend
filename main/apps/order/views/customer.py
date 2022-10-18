@@ -26,15 +26,15 @@ order_create_api_view = OrderCreateAPIView.as_view()
 
 
 class OrderListAPIView(generics.ListAPIView):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by('-id')
     serializer_class = OrderListSerializer
     filterset_class = OrderFilterSet
 
-    # def get_queryset(self):
-    #     return self.queryset.filter(owner=self.request.user)
+    def get_queryset(self):
+        return self.queryset.filter(owner=self.request.user)
 
 
-oder_list_api_view = OrderListAPIView.as_view()
+order_list_api_view = OrderListAPIView.as_view()
 
 
 class OrderCompleteAPIView(generics.UpdateAPIView):

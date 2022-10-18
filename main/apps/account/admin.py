@@ -41,6 +41,7 @@ class UserAdmin(BaseUserAdmin):
                     'expiration_time_register',
                     'expiration_time_reset',
                     # "first_name",
+                    "first_name",
                     # "last_name",
                     # "email",
                     "date_of_birth",

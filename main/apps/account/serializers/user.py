@@ -16,10 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "guid",
-            # "phone_number",
-            # "email",
+            "username",
             "first_name",
-            # "last_name",
             "profile_picture",
         )
 
@@ -171,6 +169,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         data['id'] = self.user.id
         data['username'] = self.user.username
+        data['first_name'] = self.user.first_name
         data['guid'] = self.user.guid
         data['is_virified'] = self.user.is_virified
         data['user_generate_id'] = self.user.user_generate_id
@@ -227,7 +226,7 @@ class PasswordResetSerializer(serializers.Serializer):
         self._errors = {}
         username = attrs.get('username')
      
-        if ("@" not in username) and ("+998" not in username):
+        if ("@" not in username) and ("998" not in username):
             self._errors[
                 'Invalid format'
             ] = 'Enter correct format'
@@ -265,6 +264,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
     #         raise serializers.ValidationError('bad')
 
 class PasswordResetCodeCheckSerializer(serializers.Serializer):
+    username = serializers.CharField()
     confirm_code = serializers.CharField()
 
 
