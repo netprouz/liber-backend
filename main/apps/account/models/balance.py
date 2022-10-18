@@ -5,6 +5,7 @@ from ...common.models import BaseModel
 from ..managers.balance import BalanceManager
 
 
+
 class Balance(BaseModel):
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     owner = models.ForeignKey(

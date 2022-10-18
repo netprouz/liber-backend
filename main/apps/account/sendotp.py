@@ -111,6 +111,8 @@ def password_reset_verification_code_by_phone_number(username):
     username = User.objects.get(username=username).username
     verification_code = random.randint(100000, 999999)
     user_code = User.objects.get(username=username)
+    time = datetime.now() + timedelta(minutes=1)
+    user_code.expiration_time_reset = time.strftime('%H:%M:%S')
     user_code.activating_code = verification_code
     user_code.save()
     client.messages.create(
@@ -121,10 +123,15 @@ def password_reset_verification_code_by_phone_number(username):
     return Response(status=200)
 
 
+from datetime import datetime, timedelta
+
+
+
 def send_otp_to_email(username):
     user_email = User.objects.get(username=username).username
     otp = random.randint(100000, 999999)
     user_otp = User.objects.get(username=username)
+    # user_otp.expiration_date + timedelta(minutes=1)
     user_otp.otp = otp
     user_otp.save()
 
@@ -143,6 +150,8 @@ def password_reset_verification_code_by_email(username):
     user_email = User.objects.get(username=username).username
     verification_code = random.randint(100000, 999999)
     user_otp = User.objects.get(username=username)
+    time = datetime.now() + timedelta(minutes=1)
+    user_otp.expiration_time_reset = time.strftime('%H:%M:%S')
     user_otp.activating_code = verification_code
     user_otp.save()
 

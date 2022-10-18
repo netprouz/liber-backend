@@ -154,6 +154,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             'username',
             'password',
             'user_generate_id',
+            "expiration_date"
         )    
 
     def create(self, validated_data):

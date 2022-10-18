@@ -5,6 +5,7 @@ import string
 import requests
 from django.conf import settings as s
 
+from datetime import datetime, timedelta
 
 def create_user_book_instance(user, category):
     from ..book.models.book import Book
@@ -69,3 +70,9 @@ def generate_random_password_user():
 #     }
 
 #     requests.post(url, data=json.dumps(data), timeout=5)
+
+
+def user_expire_time():
+    time = datetime.now() + timedelta(minutes=1)
+    return time.strftime('%H:%M:%S')
+

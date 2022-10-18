@@ -11,10 +11,11 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-from ..utils import generate_random_password_user
+from ..utils import generate_random_password_user, user_expire_time
 
 from ...common.models import BaseModel
 from ..managers.user import UserManager
+
 
 
 def upload_profile_images(instance, filename):
@@ -22,7 +23,6 @@ def upload_profile_images(instance, filename):
     timestamp = timezone.now().strftime("%Y-%m-%d.%H-%M-%S")
     filename = f"{slugify(filename_without_extension)}.{timestamp}{extension}"
     return f"profile/{filename}"
-
 
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     class GenderChoices(models.TextChoices):
@@ -63,7 +63,12 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     )
     date_of_birth = models.DateField(null=True, blank=True)
     date_joined = models.DateTimeField(_("date joined"), auto_now_add=True)
+    expiration_time_register = models.CharField(max_length=100,null=True, blank=True, default=user_expire_time)
+    expiration_time_reset = models.CharField(max_length=100,null=True, blank=True)
     objects = UserManager()
+
+
+
 
     # EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
@@ -83,6 +88,8 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
         Return the first_name plus the last_name, with a space in between.
         """
         return f"{self.first_name}"
+    
+
 
     def get_short_name(self):
         """Return the short name for the user."""
