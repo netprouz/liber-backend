@@ -11,11 +11,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='user',
-            old_name='expiration_date',
-            new_name='expiration_time_register',
-        ),
         migrations.AddField(
             model_name='user',
             name='expiration_time_reset',
