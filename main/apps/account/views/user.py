@@ -1,4 +1,3 @@
-from genericpath import exists
 from django.contrib.auth import get_user_model
 from rest_framework import generics, renderers, status
 from rest_framework.authtoken.models import Token
@@ -6,6 +5,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from datetime import datetime, timedelta
 from django.contrib.auth.hashers import make_password
 
 from ...common import permissions
@@ -131,6 +131,7 @@ user_update_api_view = UserUpdateAPIView.as_view()
 
 class AuthUserRegistrationView(generics.GenericAPIView):
     serializer_class = user_serializer_.UserRegistrationSerializer
+    queryset = User.objects.all()
     permission_classes = (AllowAny,)
 
     def post(self, request):
@@ -141,18 +142,16 @@ class AuthUserRegistrationView(generics.GenericAPIView):
             serializer.save()
             if "998" in serializer.data['username']:
                 send_password_as_sms(serializer.data['username'])
-                # send_sms_code(serializer.data['username'])
             elif "@" in serializer.data['username']:
-                # send_password_as_sms(serializer.data['username'])
                 send_otp_to_email(serializer.data['username'])
-            status_code = status.HTTP_201_CREATED
-
+            status_code = status.HTTP_201_CREATED 
             response = {
                 'success': True,
                 'statusCode': status_code,
                 'message': 'User succesfully registered',
                 'user': serializer.data
             }
+            
             return Response(response, status=status_code)
 
 user_registration_api_view = AuthUserRegistrationView.as_view()
@@ -219,28 +218,44 @@ class VerifyPhoneOTP(generics.GenericAPIView):
         if serializer.is_valid():
             username = serializer.data['username']
             otp = serializer.data['otp']
-            user = User.objects.get(username=username)
-            if user.otp != otp:
-                return Response({
-                    'status': 400,
-                    'message': 'Something went worng',
-                    'data': 'Wrong otp'
-                })
-            
-            user.is_virified = True
-            user.save()
+            users = User.objects.filter(username=username)
+            for user in users:
+                if user.otp != otp:
+                    return Response({
+                        'status': 400,
+                        'message': 'Something went worng',
+                        'data': 'Wrong otp'
+                    })
+                dates = str(datetime.now().strftime('%H:%M:%S'))
+                users_date = str(user.expiration_time_register)
+                print('expire date', users_date)
+                print('dates', dates)
+                if users_date < dates:
+                    return Response({
+                        'status': 400,
+                        'message': "Code vaqti tugagan, qayta code jo'nating!",
+                    })
+                else:
+                    user.is_virified = True
+                    user.save()
 
+                    return Response({
+                        'status': 200,
+                        'message': 'Account virified'
+                    })
             return Response({
-                    'status': 200,
-                    'message': 'Account virified'
-                })
-        return Response({
-                    'status': 400,
-                    'message': 'Something went worng',
-                    'data': serializer.errors
-                })
+                'status': 400,
+                'message': 'Bunday account mavjud emas!'
+            })
+        else:
+            return Response({
+                'status': 400,
+                'message': 'Bunday account mavjud emas!'
+            })
+
 
 user_otp_verify_api_view = VerifyPhoneOTP.as_view()
+
 
 
 
@@ -282,19 +297,22 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
+        dates = str(datetime.now().strftime('%H:%M:%S'))
         serializer = self.get_serializer(data=request.data)                                                     
         valid = serializer.is_valid(raise_exception=False)
         if valid:
-            username = serializer.data['username']
-            confirm_code = serializer.data['confirm_code']
-            user = User.objects.get(username=username)
-            if user.activating_code != confirm_code:
-                return Response({
-                    'status': 400,
-                    'message': 'Something went worng',
-                    'data': 'Wrong confirm code'
-                })
-            return Response({'data': f"Your confirm code is {confirm_code}"}, status=status.HTTP_200_OK)
+            try:
+                user = User.objects.get(activating_code=serializer.data['confirm_code'])
+                if user.expiration_time_reset < dates:
+                    return Response({
+                        'status': 400,
+                        'message': "Code vaqti tugagan, qayta code jo'nating!",
+                    })
+                else:
+                    return Response({'status':'success','message':"Code tastiqlandi!"}, status=status.HTTP_200_OK)
+            except:
+                return Response({'status':'error','message':"Sizga xozir jo'natilgan code ni kiriting!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 password_reset_check_view = PasswordResetCodeCheckView.as_view()
 
