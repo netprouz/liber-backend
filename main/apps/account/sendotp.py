@@ -167,9 +167,10 @@ def password_reset_verification_code_by_email(username):
     user_otp.save()
 
     email = EmailMessage(
-                        "Your verification code for Liber is " + str(verification_code),
-                        settings.EMAIL_HOST_USER,
-                        to=[user_email]
+        'LiberUz',
+        f'LiberUz uchun tasdiqlash kodi: {verification_code}',
+        settings.EMAIL_HOST_USER,
+        [user_email]
     )
     email.send()
     
