@@ -280,7 +280,7 @@ class PasswordResetAPIView(generics.GenericAPIView):
                     password_reset_verification_code_by_email(serializer.data['username'])
                 status_code = status.HTTP_201_CREATED
             except User.DoesNotExist:
-                return Response('User does not exits') 
+                return Response({'status':'error','message':'User does not exits'}, status=status.HTTP_400_BAD_REQUEST) 
             response = {
                 'success': True,
                 'statusCode': status_code,
@@ -312,6 +312,8 @@ class PasswordResetCodeCheckView(generics.GenericAPIView):
                     return Response({'status':'success','message':"Code tastiqlandi!"}, status=status.HTTP_200_OK)
             except:
                 return Response({'status':'error','message':"Sizga xozir jo'natilgan code ni kiriting!"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'status':'error','message':"Serializer not valid!!"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 password_reset_check_view = PasswordResetCodeCheckView.as_view()

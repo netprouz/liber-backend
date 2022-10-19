@@ -15,7 +15,7 @@ from pprint import pprint
 from eskiz.client import SMSClient
 
 
-
+from datetime import datetime, timedelta
 
 
 
@@ -121,6 +121,8 @@ def password_reset_verification_code_by_phone_number(username):
     resetting_code = random.randint(100000, 999999)
     code_sending_time = User.objects.get(username=username).created_at
     user_activating_code = User.objects.get(username=username)
+    time = datetime.now() + timedelta(minutes=1)
+    user_activating_code.expiration_time_reset = time.strftime('%H:%M:%S')
     user_activating_code.activating_code = resetting_code
     user_activating_code.save()
 
@@ -133,7 +135,7 @@ def password_reset_verification_code_by_phone_number(username):
         phone_number=str(user_phone_number),
         message=f"Your confrim code is {resetting_code}" 
     )
-    pprint(resp)
+    print(resp)
     return Response(status=200)
 
 
@@ -159,6 +161,8 @@ def password_reset_verification_code_by_email(username):
     user_email = User.objects.get(username=username).username
     verification_code = random.randint(100000, 999999)
     user_otp = User.objects.get(username=username)
+    time = datetime.now() + timedelta(minutes=1)
+    user_otp.expiration_time_reset = time.strftime('%H:%M:%S')
     user_otp.activating_code = verification_code
     user_otp.save()
 
