@@ -18,6 +18,7 @@ class BookTypeHelperSerializer(serializers.ModelSerializer):
 
 
 class OrderListSerializer(serializers.ModelSerializer):
+    book_guid = serializers.ReadOnlyField(source="book.guid")
     book_title = serializers.ReadOnlyField(source="book.title")
     book_image = serializers.ImageField(source="book.thumbnail", read_only=True)
     category_title = serializers.ReadOnlyField(source="book.category.title")
@@ -35,6 +36,7 @@ class OrderListSerializer(serializers.ModelSerializer):
         model = Order
         fields = (
             "guid",
+            "book_guid",
             "book_title",
             "book_image",
             "category_title",
