@@ -34,7 +34,7 @@ class CategoryUpdateAPIView(generics.UpdateAPIView):
     queryset = Category.objects.all()
     authentication_classes = [authentication.JWTAuthentication]
     serializer_class = CategoryUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated, UpdateDeletePermission]
+    permission_classes = [UpdateDeletePermission]
     lookup_field = "guid"
 
     # def perform_create(self, serializer):
