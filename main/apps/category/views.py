@@ -37,8 +37,8 @@ class CategoryUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [permissions.IsAuthenticated, UpdateDeletePermission]
     lookup_field = "guid"
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 category_update_api_view = CategoryUpdateAPIView.as_view()
 
