@@ -32,10 +32,14 @@ category_create_api_view = CategoryCreateAPIView.as_view()
 
 class CategoryUpdateAPIView(generics.UpdateAPIView):
     queryset = Category.objects.all()
-    authentication_classes = [authentication.JWTAuthentication]
+    # authentication_classes = [authentication.JWTAuthentication]
     serializer_class = CategoryUpdateSerializer
     permission_classes = [UpdateDeletePermission]
     lookup_field = "guid"
+
+    def perform_update(self, serializer):
+        serializer.instance.update_category(serializer.validated_data)
+
 
     # def perform_create(self, serializer):
     #     serializer.save(owner=self.request.user)
