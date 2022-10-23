@@ -52,7 +52,7 @@ class CategoryUpdateSerializer(serializers.ModelSerializer):
         instance.save()
 
         for type_data in types_data:
-            type = types.pop()
+            type = types.pop(0)
             type.days = type_data.get('days', type.days)
             type.price = type_data.get('price', type.price)
             type.save()

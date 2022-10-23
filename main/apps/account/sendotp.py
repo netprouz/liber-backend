@@ -120,7 +120,7 @@ def password_reset_verification_code_by_phone_number(username):
     user_phone_number = User.objects.get(username=username).username
     resetting_code = random.randint(100000, 999999)
     user_activating_code = User.objects.get(username=username)
-    time = datetime.now() + timedelta(minutes=1)
+    time = datetime.now() + timedelta(minutes=3)
     user_activating_code.expiration_time_reset = time.strftime('%H:%M:%S')
     user_activating_code.activating_code = resetting_code
     user_activating_code.save()
@@ -160,7 +160,7 @@ def password_reset_verification_code_by_email(username):
     user_email = User.objects.get(username=username).username
     verification_code = random.randint(100000, 999999)
     user_otp = User.objects.get(username=username)
-    time = datetime.now() + timedelta(minutes=1)
+    time = datetime.now() + timedelta(minutes=3)
     user_otp.expiration_time_reset = time.strftime('%H:%M:%S')
     user_otp.activating_code = verification_code
     user_otp.save()
