@@ -3,7 +3,8 @@ from rest_framework import permissions
 
 class UpdateDeletePermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if obj.owner == request.user and request.user.is_moderator:
+        if obj.owner == request.user.is_moderator:
+        # if obj.owner == request.user and request.user.is_moderator:
             return True
         return False
 
