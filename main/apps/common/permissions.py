@@ -18,11 +18,11 @@ class CreatePermission(permissions.BasePermission):
 
 
 class DeletePersonalObjectPermission(permissions.BasePermission):
-    pass
- #    def has_object_permission(self, request, view, obj):
- #        if obj.owner == request.user:
- #            return True
- #        return False
+    # pass
+    def has_object_permission(self, request, view, obj):
+        if obj.owner == request.user:
+            return True
+        return False
 
 
 class PersonalObjectPermission(permissions.BasePermission):
@@ -33,8 +33,8 @@ class PersonalObjectPermission(permissions.BasePermission):
 
 
 class UpdatePermission(permissions.BasePermission):
-    pass
- #    def has_object_permission(self, request, view, obj):
- #        if obj.id == request.user.id:
- #            return True
- #        return False
+    # pass
+    def has_object_permission(self, request, view, obj):
+        if obj.id == request.user.id:
+            return True
+        return False

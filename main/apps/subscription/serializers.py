@@ -15,6 +15,8 @@ class SubscriptionListSerializer(serializers.Serializer):
     begin_date = serializers.DateField()
     end_date = serializers.DateField()
     price = serializers.CharField()
+
+    
     def to_representation(self, instance):
         self.fields["category"] = CategoryHelperSerializer()
         return super(SubscriptionListSerializer, self).to_representation(

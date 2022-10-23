@@ -8,6 +8,9 @@ from ..serializers.favourite import (
     FavouriteListSerializer,
 )
 
+from rest_framework_simplejwt import authentication
+from rest_framework import permissions
+
 class FavouriteCreateAPIView(generics.CreateAPIView):
     model = Favourite
     serializer_class = FavouriteCreateSerializer
@@ -25,6 +28,8 @@ favourite_create_api_view = FavouriteCreateAPIView.as_view()
 class FavouriteListAPIView(generics.ListAPIView):
     queryset = Favourite.objects.filter_favourites()
     serializer_class = FavouriteListSerializer
+    authentication_classes = [authentication.JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     filterset_class = FavouriteFilterSet
     search_fields = ["book__title", "book__author"]
 
@@ -36,6 +41,7 @@ favourite_list_api_view = FavouriteListAPIView.as_view()
 class FavouriteDeleteAPIView(generics.DestroyAPIView):
     queryset = Favourite.objects.all()
     serializer_class = FavouriteListSerializer
+    authentication_classes = [authentication.JWTAuthentication]
     permission_classes = [DeletePersonalObjectPermission]
     lookup_field = "guid"
 

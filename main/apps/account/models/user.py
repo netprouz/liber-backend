@@ -67,7 +67,6 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     expiration_time_reset = models.CharField(max_length=100,null=True, blank=True)
     objects = UserManager()
 
-    # EMAIL_FIELD = "email"
     USERNAME_FIELD = "username"
 
     class Meta:

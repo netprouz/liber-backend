@@ -228,8 +228,6 @@ class VerifyPhoneOTP(generics.GenericAPIView):
                     })
                 dates = str(datetime.now().strftime('%H:%M:%S'))
                 users_date = str(user.expiration_time_register)
-                print('expire date', users_date)
-                print('dates', dates)
                 if users_date < dates:
                     return Response({
                         'status': 400,

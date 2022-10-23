@@ -6,6 +6,7 @@ from .serializers import CategoryModelSerializer, CategoryListSerializer, Catego
 from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 
+
 class CategoryListAPIView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategoryListSerializer
