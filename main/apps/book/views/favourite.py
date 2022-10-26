@@ -14,6 +14,8 @@ from rest_framework import permissions
 class FavouriteCreateAPIView(generics.CreateAPIView):
     model = Favourite
     serializer_class = FavouriteCreateSerializer
+    authentication_classes = [authentication.JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         return self.model.objects.create_favourite_instance(
