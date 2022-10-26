@@ -12,28 +12,40 @@ from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 
 class FavouriteCreateAPIView(generics.CreateAPIView):
-    model = Favourite
-    serializer_class = FavouriteCreateSerializer
+    queryset = Favourite.objects.all()
+    
     authentication_classes = [authentication.JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def perform_create(self, serializer):
-        return self.model.objects.create_favourite_instance(
-            self.request.user,
-            serializer.validated_data,
-        )
+    
+    serializer_class = FavouriteCreateSerializer
+
+    # def perform_create(self, serializer):
+    #     return self.model.objects.create_favourite_instance(
+    #         self.request.user,
+    #         serializer.validated_data,
+    #     )
 
 
 favourite_create_api_view = FavouriteCreateAPIView.as_view()
 
+from ...common.permissions import PersonalObjectPermission
 
 class FavouriteListAPIView(generics.ListAPIView):
     queryset = Favourite.objects.filter_favourites()
     serializer_class = FavouriteListSerializer
     authentication_classes = [authentication.JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [PersonalObjectPermission]
     filterset_class = FavouriteFilterSet
     search_fields = ["book__title", "book__author"]
+
+    def get_queryset(self):
+        return self.queryset.filter(owner=self.request.user)
+
+    # def get_queryset(self):
+    #     favourites = Favourite.objects.filter(owner__guid=self.kwargs['guid'])
+    #     # print(favourites)
+    #     return favourites
 
 
 favourite_list_api_view = FavouriteListAPIView.as_view()
