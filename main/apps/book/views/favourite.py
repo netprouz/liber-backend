@@ -12,7 +12,7 @@ from rest_framework_simplejwt import authentication
 from rest_framework import permissions
 
 class FavouriteCreateAPIView(generics.CreateAPIView):
-    queryset = Favourite.objects.all()
+    model = Favourite
     authentication_classes = [authentication.JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]    
     serializer_class = FavouriteCreateSerializer
