@@ -13,18 +13,15 @@ from rest_framework import permissions
 
 class FavouriteCreateAPIView(generics.CreateAPIView):
     queryset = Favourite.objects.all()
-    
     authentication_classes = [authentication.JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-
-    
+    permission_classes = [permissions.IsAuthenticated]    
     serializer_class = FavouriteCreateSerializer
 
-    # def perform_create(self, serializer):
-    #     return self.model.objects.create_favourite_instance(
-    #         self.request.user,
-    #         serializer.validated_data,
-    #     )
+    def perform_create(self, serializer):
+        return self.model.objects.create_favourite_instance(
+            self.request.user,
+            serializer.validated_data,
+        )
 
 
 favourite_create_api_view = FavouriteCreateAPIView.as_view()
@@ -41,11 +38,6 @@ class FavouriteListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.filter(owner=self.request.user)
-
-    # def get_queryset(self):
-    #     favourites = Favourite.objects.filter(owner__guid=self.kwargs['guid'])
-    #     # print(favourites)
-    #     return favourites
 
 
 favourite_list_api_view = FavouriteListAPIView.as_view()
