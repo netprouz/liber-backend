@@ -37,7 +37,7 @@ class MyObtainTokenPairView(TokenObtainPairView):
 
 class UserListAPIView(generics.ListAPIView):
     serializer_class = user_serializer_.UserSerializer
-    queryset = User.objects.all().exclude(is_staff=True, is_superuser=True)
+    queryset = User.objects.filter(is_virified=True).exclude(is_staff=True, is_superuser=True)
 
 
 user_list_view = UserListAPIView.as_view()
