@@ -22,7 +22,7 @@ def upload_category_images(instance, filename):
 import json
 
 class Category(BaseModel):
-    thumbnail = models.ImageField(upload_to=upload_category_images)
+    thumbnail = models.ImageField(upload_to=upload_category_images, blank=True)
     title = models.CharField(max_length=255)
     owner = models.ForeignKey(
         User,
