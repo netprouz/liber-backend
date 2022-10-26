@@ -50,7 +50,7 @@ book_create_api_view = BookCreateAPIView.as_view()
 class BookListAPIView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookListSerializer
-    filterset_fields = ["title", "author", "category__id"]
+    filterset_fields = ["title", "author", "category__guid"]
     search_fields = ["title", "author", "category__title"]
 
 book_list_api_view = BookListAPIView.as_view()
