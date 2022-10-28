@@ -122,7 +122,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "first_name",
             "username",
             "profile_picture",
-            # "phone_number",
+            'user_generate_id',
             "balance",
             "orders",
             "transactions",

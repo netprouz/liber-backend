@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     profile_picture = models.ImageField(
         upload_to=upload_profile_images,
         blank=True,
+        null=True
     )
     user_generate_id = models.CharField(max_length=6, default=generate_random_password_user)
     username = models.CharField(max_length=100, unique=True, null=True)
