@@ -36,11 +36,15 @@ class OrderListAPIView(generics.ListAPIView):
 
 order_list_api_view = OrderListAPIView.as_view()
 
+from ...common.permissions import CreatePermission
+
 
 class AllOrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.all().order_by('-id')
     serializer_class = OrderListSerializer
     filterset_class = OrderFilterSet
+    authentication_classes = [authentication.JWTAuthentication]
+    permission_classes = [CreatePermission]
 
 all_order_api_view = AllOrderListAPIView.as_view()
 
