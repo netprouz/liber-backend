@@ -44,7 +44,7 @@ class AllOrderListAPIView(generics.ListAPIView):
     serializer_class = OrderListSerializer
     filterset_class = OrderFilterSet
     authentication_classes = [authentication.JWTAuthentication]
-    permission_classes = [CreatePermission]
+    permission_classes = [permissions.IsAuthenticated, CreatePermission]
 
 all_order_api_view = AllOrderListAPIView.as_view()
 
