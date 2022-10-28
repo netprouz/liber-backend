@@ -127,8 +127,8 @@ def password_reset_verification_code_by_phone_number(username):
 
     client = SMSClient(
         api_url = "https://notify.eskiz.uz/api/",
-        email = "test@eskiz.uz",
-        password = "j6DWtQjjpLDNjWEk74Sx"
+        email = "liber.info.uz@gmail.com",
+        password = "fs7Ue6OFmzSJ7K6ML309lWizYdM6tB51k6Sl2BfB"
     )
     resp = client._send_sms(
         phone_number=str(user_phone_number),
