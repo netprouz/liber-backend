@@ -37,6 +37,14 @@ class OrderListAPIView(generics.ListAPIView):
 order_list_api_view = OrderListAPIView.as_view()
 
 
+class AllOrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.all().order_by('-id')
+    serializer_class = OrderListSerializer
+    filterset_class = OrderFilterSet
+
+all_order_api_view = AllOrderListAPIView.as_view()
+
+
 class OrderCompleteAPIView(generics.UpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = CompleteOrderSerializer
