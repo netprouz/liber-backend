@@ -85,6 +85,7 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
             'category',
             'language',
             "hardcover",
+            "number_of_page",
             "publisher",
             "isbn",
             'short_description',
@@ -146,6 +147,7 @@ class BookDetailSerializer(serializers.ModelSerializer):
             "category",
             "language",
             "hardcover",
+            "number_of_page",
             "publisher",
             "isbn",
             "short_description",
@@ -188,6 +190,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
             "category",
             "language",
             "hardcover",
+            "number_of_page",
             "publisher",
             "isbn",
             "short_description",
@@ -212,6 +215,7 @@ class BookUpdateSerializer(serializers.ModelSerializer):
         instance.isbn = validated_data.get('isbn', instance.isbn)
         instance.publisher = validated_data.get('publisher', instance.publisher)
         instance.hardcover = validated_data.get('hardcover', instance.hardcover)
+        instance.number_of_page = validated_data.get('number_of_page', instance.number_of_page)
         instance.save()
 
         for type_data in types_data:
