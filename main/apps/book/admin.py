@@ -33,12 +33,12 @@ class BookAdmin(admin.ModelAdmin):
         "author",
         "category",
         "language",
-        "hard_cover",
+        
     )
     list_display_links = ("guid",)
-    list_filter = ("author", "category", "language", "hard_cover")
-    search_fields = ["author", "category", "language", "hard_cover"]
-    list_editable = ("author", "category", "language", "hard_cover")
+    list_filter = ("author", "category", "language", )
+    search_fields = ["author", "category", "language", ]
+    list_editable = ("author", "category", "language", )
     inlines = [
         BookTypeTabularAdmin,
         ContentTabularAdmin,

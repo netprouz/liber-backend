@@ -3,6 +3,6 @@ from modeltranslation.translator import TranslationOptions, translator
 
 
 class BookTranslationOptions(TranslationOptions):
-    fields = ('short_description', 'hard_cover')
+    fields = ('short_description', )
 
 translator.register(Book, BookTranslationOptions)
