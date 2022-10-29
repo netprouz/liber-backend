@@ -46,10 +46,10 @@ PAPER = settings.PAPER
 
 class Book(BaseModel):
 
-    HARDCOVER = (
-        ("Yumshoq", "Yumshoq"),
-        ("Qattiq", "Qattiq")
-    )
+    # HARDCOVER = (
+    #     ("Yumshoq", "Yumshoq"),
+    #     ("Qattiq", "Qattiq")
+    # )
 
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title', null=True)
@@ -60,7 +60,7 @@ class Book(BaseModel):
     )
     language = models.CharField(max_length=255, blank=True)
     number_of_page = models.PositiveIntegerField(null=True)
-    hardcover = models.CharField(max_length=30, choices=HARDCOVER, null=True)
+    hardcover = models.CharField(max_length=50, null=True)
     isbn = models.CharField(max_length=100, null=True, blank=True)
     publisher = models.CharField(max_length=100, null=True, blank=True)
     short_description = models.TextField(blank=True)

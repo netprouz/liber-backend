@@ -33,7 +33,10 @@ class BookCreateSerializer(serializers.ModelSerializer):
             "thumbnail",
             "category",
             "language",
+            "number_of_page",
             "hardcover",
+            "hardcover_uz",
+            "hardcover_ru",
             "number_of_page",
             "publisher",
             "isbn",
@@ -84,6 +87,10 @@ class BookListForBookTypeSerializer(serializers.ModelSerializer):
             'rating',
             'category',
             'language',
+            "number_of_page",
+            "hardcover",
+            "hardcover_uz",
+            "hardcover_ru",
             "publisher",
             "isbn",
             'short_description',
@@ -118,6 +125,8 @@ class BookListSerializer(serializers.ModelSerializer):
             'language',
             "number_of_page",
             "hardcover",
+            "hardcover_uz",
+            "hardcover_ru",
             "publisher",
             "isbn",
             'short_description',
@@ -144,7 +153,10 @@ class BookDetailSerializer(serializers.ModelSerializer):
             'get_review',
             "category",
             "language",
+            "number_of_page",
             "hardcover",
+            "hardcover_uz",
+            "hardcover_ru",
             "publisher",
             "isbn",
             "short_description",
@@ -186,7 +198,10 @@ class BookUpdateSerializer(serializers.ModelSerializer):
             "thumbnail",
             "category",
             "language",
+            "number_of_page",
             "hardcover",
+            "hardcover_uz",
+            "hardcover_ru",
             "publisher",
             "isbn",
             "short_description",
@@ -211,6 +226,8 @@ class BookUpdateSerializer(serializers.ModelSerializer):
         instance.isbn = validated_data.get('isbn', instance.isbn)
         instance.publisher = validated_data.get('publisher', instance.publisher)
         instance.hardcover = validated_data.get('hardcover', instance.hardcover)
+        instance.hardcover_uz = validated_data.get('hardcover_uz', instance.hardcover_uz)
+        instance.hardcover_ru = validated_data.get('hardcover_ru', instance.hardcover_ru)
         instance.save()
 
         for type_data in types_data:
