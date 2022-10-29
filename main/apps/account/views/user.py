@@ -38,6 +38,7 @@ class MyObtainTokenPairView(TokenObtainPairView):
 class UserListAPIView(generics.ListAPIView):
     serializer_class = user_serializer_.UserSerializer
     queryset = User.objects.filter(is_virified=True).exclude(is_staff=True, is_superuser=True)
+    search_fields = ["username", "user_generate_id"]
 
 
 user_list_view = UserListAPIView.as_view()
