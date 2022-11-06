@@ -161,15 +161,19 @@ class OrderCreateSerializer(serializers.Serializer):
         return attrs
 
 
-class CompleteOrderSerializer(serializers.Serializer):
-    is_paid = serializers.BooleanField(default=False)
-    is_completed = serializers.BooleanField(default=False)
+class CompleteOrderSerializer(serializers.ModelSerializer):
 
-    def update(self, instance, validated_data):
-        instance.is_paid = validated_data.get("is_paid", instance.is_paid)
-        instance.is_completed = validated_data.get(
-            "is_completed",
-            instance.is_completed,
-        )
-        instance.save()
-        return validated_data
+    class Meta:
+        model = Order
+        fields = ('is_paid', 'is_completed', 'status')
+    # is_paid = serializers.BooleanField(default=False)
+    # is_completed = serializers.BooleanField(default=False)
+
+    # def update(self, instance, validated_data):
+    #     instance.is_paid = validated_data.get("is_paid", instance.is_paid)
+    #     instance.is_completed = validated_data.get(
+    #         "is_completed",
+    #         instance.is_completed,
+    #     )
+    #     instance.save()
+    #     return validated_data
