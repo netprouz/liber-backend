@@ -1,17 +1,6 @@
-![image](https://github.com/netprouz/liber-backend/assets/89244992/098497c6-9752-4129-8800-977968ec6ed9)
+![Django project](https://gitlab.com/Bobur/book.git)
 
-
-![image](https://github.com/netprouz/liber-backend/assets/89244992/cf2d5e04-8a50-4c35-9e02-f0d1ee2f9e3e)
-
-
-![image](https://github.com/netprouz/liber-backend/assets/89244992/234a9df7-f2de-4da4-8091-797e881db891)
-
-
-![image](https://github.com/netprouz/liber-backend/assets/89244992/c64d7a5f-237a-4baf-a79e-1bc92f2fc17c)
-
-
-
-Backend test project for RochWin
+Online book retailer application backend
 ============================
 
 
